@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryAccent">#FFEDD2</color>
+    <color name="colorPrimary">#FFCC66</color>
+    <color name="colorPrimaryDark">#FFCC66</color>
+    <color name="colorSecondary">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="cornerColor">#B4B4B4</color>
+    <color name="feedBackgroundColor">#E5E5E5</color>
+    <color name="accept_title">#34404E</color>
+    <color name="feedButtonTextColor">#FFCC66</color>
+    <color name="secondaryBackgroundColor">#E4D2B6</color>
+    <color name="secondaryTableColor">#DFDFDF</color>
+    <color name="edit_text_color">#FFFFFF</color>
+    <color name="swipe_recycler_color">#E53935</color>
+</resources>

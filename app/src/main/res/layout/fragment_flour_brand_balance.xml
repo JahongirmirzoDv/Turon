@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryTableColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feed.history.BrandBalanceFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbarDefault"
+            layout="@layout/toolbar_default_order"
+            android:fitsSystemWindows="true"
+            android:visibility="visible" />
+        <include
+            android:id="@+id/toolbarSearch"
+            layout="@layout/toolbar_search"
+            android:fitsSystemWindows="true"
+            android:visibility="gone" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryBackgroundColor"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.10"
+            android:gravity="center"
+            android:text="№"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.28"
+            android:gravity="center"
+            android:text="Mahsulot "
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:text="Qop soni"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.17"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Tegirmon"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSendDetails"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabsLayout"
+        tools:listitem="@layout/item_send_details" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

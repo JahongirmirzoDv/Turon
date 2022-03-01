@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_tarozi"
+    app:startDestination="@id/productAcceptanceFragment">
+    <fragment
+        android:id="@+id/productAcceptanceFragment"
+        android:name="com.example.turon.scales.ui.product_acceptance.ProductAcceptanceFragment"
+        android:label="fragment_product_acceptance"
+        tools:layout="@layout/fragment_product_acceptance" >
+        <action
+            android:id="@+id/action_productAcceptanceFragment_to_acceptanceDetailsFragment2"
+            app:destination="@id/acceptanceDetailsFragment2" />
+        <action
+            android:id="@+id/action_productAcceptanceFragment_to_scalesHistoryDetailsFragment"
+            app:destination="@id/scalesHistoryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scalesHistoryFragment"
+        android:name="com.example.turon.scales.ui.histroy.ScalesHistoryFragment"
+        android:label="fragment_scales_history"
+        tools:layout="@layout/fragment_scales_history" >
+        <action
+            android:id="@+id/action_scalesHistoryFragment_to_scalesHistoryDetailsFragment"
+            app:destination="@id/scalesHistoryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptanceDetailsFragment2"
+        android:name="com.example.turon.scales.ui.product_acceptance.AcceptanceDetailsFragment"
+        android:label="fragment_acceptance_details2"
+        tools:layout="@layout/fragment_acceptance_details2" />
+    <fragment
+        android:id="@+id/scalesHistoryDetailsFragment"
+        android:name="com.example.turon.scales.ui.histroy.ScalesHistoryDetailsFragment"
+        android:label="fragment_scales_history_details"
+        tools:layout="@layout/fragment_scales_history_details" />
+</navigation>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Turon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="faol_buyurtmalar">Faol Buyurtmalar</string>
+    <string name="tavar_qoldigi">Tavar qoldig`i</string>
+    <string name="tovar_qabuli">Tovar qabuli</string>
+    <string name="tarix">Tarix</string>
+    <string name="tovar_qoldiq">Tovar qoldiq</string>
+    <string name="saqlash">Saqlash</string>
+    <string name="qabul_tarixi">Qabul tarixi</string>
+    <string name="from">Dan</string>
+    <string name="until">Gacha</string>
+    <string name="chiqish">Chiqish</string>
+    <string name="yuborish">Yuborish</string>
+    <string name="tovar_qaytishi">Tovar qaytishi</string>
+    <string name="shtrix_kod_kiriting">shtrix kod kiriting</string>
+    <string name="barcha">Barcha</string>
+    <string name="qaytarilgan_maxsulotlar_tarixi">Qaytarilgan maxsulotlar tarixi</string>
+    <string name="qaytarilgan_tovarlar">Qaytarilgan tovarlar</string>
+    <string name="ishlab_chiqarishga_qaytarish">Ishlab chiqarishga qaytarish</string>
+</resources>

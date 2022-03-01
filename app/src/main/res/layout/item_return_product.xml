@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryTableColor"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.10"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:maxLength="7"
+            android:text="11199112"
+            android:textColor="@color/black"
+            tools:ignore="SmallSp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.22"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:text="Mahsulot "
+            android:textColor="@color/black"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.22"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Qop soni"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.22"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:text="Sana"
+            android:textColor="@color/black"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

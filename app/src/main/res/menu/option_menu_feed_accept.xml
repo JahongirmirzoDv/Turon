@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/newAccept"
+        android:title="Yangi qabul" />
+    <item
+        android:id="@+id/history"
+        android:title="Qabul tarixi" />
+    <item
+        android:id="@+id/logout"
+        android:title="Tizimdan chiqish" />
+
+</menu>

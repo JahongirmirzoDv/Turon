@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".scales.ui.histroy.ScalesHistoryFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/appBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/tarix"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/logout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_more_vert"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        tools:layout_editor_absoluteX="-31dp">
+
+        <LinearLayout
+            android:id="@+id/fromLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:dropDownWidth="wrap_content"
+            android:gravity="center" >
+            <TextView
+                android:id="@+id/txtFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:textColor="@color/black"
+                android:text="@string/from"
+                android:background="@drawable/corner_layout_radius"
+                android:gravity="center"
+                app:drawableEndCompat="@drawable/ic_calendar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/untilLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:dropDownWidth="wrap_content"
+            android:gravity="center" >
+            <TextView
+                android:id="@+id/txtUntil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/until"
+                android:textColor="@color/black"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:background="@drawable/corner_layout_radius"
+                android:gravity="center"
+                app:drawableEndCompat="@drawable/ic_calendar" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4"
+        tools:listitem="@layout/item_history" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

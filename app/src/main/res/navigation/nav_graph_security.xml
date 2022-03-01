@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_security"
+    app:startDestination="@id/turnAcceptFragment">
+
+    <fragment
+        android:id="@+id/turnAcceptFragment"
+        android:name="com.example.turon.security.ui.TurnAcceptFragment"
+        android:label="turn_accept_fragment"
+        tools:layout="@layout/turn_accept_fragment" >
+        <action
+            android:id="@+id/action_turnAcceptFragment_to_turnAcceptDetailsFragment"
+            app:destination="@id/turnAcceptDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/turnHistoryFragment"
+        android:name="com.example.turon.security.ui.TurnHistoryFragment"
+        android:label="turn_history_fragment"
+        tools:layout="@layout/turn_history_fragment" />
+    <fragment
+        android:id="@+id/turnAcceptDetailsFragment"
+        android:name="com.example.turon.security.ui.TurnAcceptDetailsFragment"
+        android:label="fragment_turn_accept_details"
+        tools:layout="@layout/fragment_turn_accept_details" />
+    <fragment
+        android:id="@+id/activeTurnFragment"
+        android:name="com.example.turon.security.ui.ActiveTurnFragment"
+        android:label="fragment_active_turn"
+        tools:layout="@layout/fragment_active_turn" />
+    <fragment
+        android:id="@+id/bagExpenseFragment"
+        android:name="com.example.turon.security.ui.BagExpenseFragment"
+        android:label="fragment_bag_expense"
+        tools:layout="@layout/fragment_bag_expense" />
+    <fragment
+        android:id="@+id/bagIncomeFragment"
+        android:name="com.example.turon.security.ui.BagIncomeFragment"
+        android:label="fragment_bag_income"
+        tools:layout="@layout/fragment_bag_income" />
+    <fragment
+        android:id="@+id/activeLoadingFragment"
+        android:name="com.example.turon.security.ui.ActiveLoadingFragment"
+        android:label="fragment_active_loading"
+        tools:layout="@layout/fragment_active_loading" />
+    <fragment
+        android:id="@+id/bagInComeHistoryFragment"
+        android:name="com.example.turon.security.ui.BagInComeHistoryFragment"
+        android:label="fragment_bag_in_come_history"
+        tools:layout="@layout/fragment_bag_in_come_history" />
+    <fragment
+        android:id="@+id/returnedSecurityFragment"
+        android:name="com.example.turon.security.ui.ReturnedSecurityFragment"
+        android:label="fragment_returned_security"
+        tools:layout="@layout/fragment_returned_security" />
+    <fragment
+        android:id="@+id/succesHistoryFragment"
+        android:name="com.example.turon.security.ui.SuccesHistoryFragment"
+        android:label="fragment_succes_history"
+        tools:layout="@layout/fragment_succes_history" />
+    <fragment
+        android:id="@+id/qoldiqFragment"
+        android:name="com.example.turon.security.ui.QoldiqFragment"
+        android:label="fragment_qoldiq"
+        tools:layout="@layout/fragment_qoldiq" />
+</navigation>

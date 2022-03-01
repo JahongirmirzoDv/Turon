@@ -1,0 +1,92 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Turon" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <!-- Customize your theme here. -->
+        <!-- Status bar color. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="checkboxStyle">@style/CheckBoxPrimary</item>
+        <item name="android:fontFamily">@font/segoe_norm</item>
+    </style>
+
+
+    <style name="TabTextDesign" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="MyTablayout" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="windowActionBar">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="PrimaryAppbar" parent="Widget.Design.AppBarLayout">
+        <item name="background">@color/colorPrimary</item>
+    </style>
+
+    <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/active_button</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="fontFamily">monospace</item>
+        <item name="android:paddingStart">28dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_radius</item>
+    </style>
+
+
+    <!--TEXT INPUT LAYOUT'S styles-->
+
+    <style name="basic_text_input_layout"
+        parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHighlight">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="errorTextColor">#FA4056</item>
+        <item name="boxStrokeColor">@color/input_color</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="passwordToggleTint">@color/white</item>
+        <item name="background">@drawable/spinner_drop</item>
+    </style>
+
+    <style name="basic_edit_text" >
+        <item name="android:textCursorDrawable">@color/white</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/edit_text_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorHint">@color/edit_text_color</item>
+        <item name="android:textColorHighlight">@color/edit_text_color</item>
+    </style>
+
+    <style name="CheckBoxPrimary" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/radio_button_bg</item>
+    </style>
+
+</resources>

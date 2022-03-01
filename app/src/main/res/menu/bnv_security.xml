@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/turnAcceptFragment"
+        android:icon="@drawable/ic__tavarq"
+        android:title="@string/tovar_qabuli" />
+
+    <item
+        android:id="@+id/bagIncomeFragment"
+        android:icon="@drawable/ic_bag"
+        android:title="Qoplar kirimi" />
+</menu>

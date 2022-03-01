@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/acceptanceProFragment"
+        android:icon="@drawable/ic__tavarq"
+        android:title="@string/tovar_qabuli" />
+
+    <item
+        android:id="@+id/acceptHistoryProFragment"
+        android:icon="@drawable/ic_send_feed"
+        android:title="@string/qabul_tarixi" />
+</menu>

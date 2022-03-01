@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/inCome"
+        android:title="Qoplar kirimi" />
+    <item
+        android:id="@+id/qoldiq"
+        android:title="Qoplar qoldig'i" />
+    <item
+        android:id="@+id/expense"
+        android:title="Qoplar chiqimi" />
+    <item
+        android:id="@+id/history"
+        android:title="Qabul tarixi" />
+</menu>

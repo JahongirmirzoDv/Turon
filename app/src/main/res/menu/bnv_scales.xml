@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/productAcceptanceFragment"
+        android:title="@string/tovar_qabuli"
+        android:icon="@drawable/ic__tavarq"/>
+
+    <item android:id="@+id/scalesHistoryFragment"
+        android:title="@string/tarix"
+        android:icon="@drawable/ic__history"/>
+
+</menu>

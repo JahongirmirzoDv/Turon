@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/out"
+        android:title="@string/chiqish"
+        />
+    <item android:id="@+id/from_abroad"
+        android:title="Chetdan kelgan"
+        />
+
+</menu>

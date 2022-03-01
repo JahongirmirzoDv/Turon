@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/secondaryTableColor"
+    tools:context=".feed.returnedgoods.ReturnedProductionFragment">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_back_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Spinner
+                android:id="@+id/inputScan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="12dp"
+                android:visibility="visible"
+                android:background="@drawable/spinner_pro"
+                android:hint="@string/shtrix_kod_kiriting"
+                app:layout_constraintEnd_toStartOf="@+id/scanL"
+                app:layout_constraintStart_toEndOf="@+id/imgBack"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="RtlSymmetry">
+
+            </Spinner>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/scanL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_menu"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/scanIcon"
+                    app:layout_constraintEnd_toStartOf="@+id/scanIcon"
+                    app:layout_constraintTop_toTopOf="@+id/scanIcon" />
+
+                <ImageView
+                    android:id="@+id/scanIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_scanner"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/counter"
+                    app:layout_constraintEnd_toStartOf="@+id/counter"
+                    app:layout_constraintTop_toTopOf="@+id/counter" />
+
+                <ImageView
+                    android:id="@+id/scanRemove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryBackgroundColor"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.15"
+            android:gravity="center"
+            android:text="№"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:gravity="center"
+            android:text="Mahsulot nomi"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_gravity="center"
+            android:layout_weight="0.35"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text="Shtrix"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+        <LinearLayout
+            android:id="@+id/checkBoxLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hamma"
+                android:textSize="12sp"
+
+                />
+
+            <CheckBox
+                android:id="@+id/allCheck"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAcceptancePro"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"
+        app:layout_constraintTop_toBottomOf="@id/tabsLayout"
+        tools:listitem="@layout/item_scanner_layout" />
+
+    <EditText
+        android:id="@+id/etScanTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0.01"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="80dp"
+        />
+
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textAllCaps="false"
+        android:text="Ishlab chiqarishga qaytarish"
+        android:backgroundTint="@color/black"
+        android:paddingTop="15dp"
+        android:textColor="@color/colorPrimary"
+        android:paddingBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

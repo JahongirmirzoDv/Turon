@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryTableColor"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:textSize="10sp"
+            android:layout_weight="0.08"
+            android:gravity="center"
+            android:text="№"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.15"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:text="Qop turi"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="0dp"
+            android:layout_height="40.0dip"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:layout_weight="0.12"
+            android:gravity="center"
+            android:text="Soni"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:layout_weight="0.16"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Taminotchi"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.18"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:text="Sana"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text7"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.18"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:lines="1"
+            android:text="Izohsdfdsfdddddfffffffff"
+
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

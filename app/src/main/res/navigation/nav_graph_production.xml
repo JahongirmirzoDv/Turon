@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_production"
+    app:startDestination="@id/acceptanceProFragment">
+
+    <fragment
+        android:id="@+id/acceptanceProFragment"
+        android:name="com.example.turon.production.ui.AcceptanceProFragment"
+        android:label="fragment_acceptance_pro"
+        tools:layout="@layout/fragment_acceptance_pro" />
+    <fragment
+        android:id="@+id/acceptHistoryProFragment"
+        android:name="com.example.turon.production.ui.AcceptHistoryProFragment"
+        android:label="fragment_accept_history_pro"
+        tools:layout="@layout/fragment_accept_history_pro" />
+</navigation>

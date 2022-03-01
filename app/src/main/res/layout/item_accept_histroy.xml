@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryTableColor"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="Kepak"
+            android:textSize="10sp"
+             />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:text="12.02.2021"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:text="Turon kichik"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:text="125036"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:text="100"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
