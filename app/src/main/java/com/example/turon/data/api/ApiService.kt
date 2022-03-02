@@ -266,6 +266,13 @@ interface ApiService {
         @Query("date_end") date_end: String
     ): HistoryProResponse
 
+    @GET("store/productionhistory/")
+     fun getQopChiqim(
+        @Query("user_id") user_id: Int,
+        @Query("date_start") date_start: String,
+        @Query("date_end") date_end: String
+    ): FeedQopChiqimHistory
+
     ///
 
     @GET("get_product/")

@@ -262,10 +262,7 @@ class QoldiqFragment : Fragment() {
 
                     else -> Unit
                 }
-
             }
-
         }
     }
-
 }

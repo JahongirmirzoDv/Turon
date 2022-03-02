@@ -1,6 +1,8 @@
 package com.example.turon.security.ui
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,19 +11,28 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
 import com.example.turon.adapter.BagInComeAdapter
+import com.example.turon.adapter.ChiqimAdapter
+import com.example.turon.adapter.ProductHistoryFilterAdapter
 import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.BagExpenseHistory
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.BagRoom
 import com.example.turon.data.model.Providers
+import com.example.turon.data.model.QopChiqim
 import com.example.turon.data.model.factory.BagExpenseViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
@@ -32,6 +43,10 @@ import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.fragment_bag_expense.*
 import kotlinx.coroutines.flow.collect
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 class BagExpenseFragment : Fragment() {
     private var _binding: FragmentBagExpenseBinding? = null
@@ -40,16 +55,27 @@ class BagExpenseFragment : Fragment() {
     private lateinit var bagHistoryAdapter: BagInComeAdapter
     private var bagTypeId: Int? = null
     private var bagCount: String = ""
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private var comment: String = ""
+    private var dateStart: String = ""
+    private var providerId: Int? = null
+    private var dateEnd: String = ""
+    var cal: Calendar = Calendar.getInstance()
+    private lateinit var dateSetListenerFrom: DatePickerDialog.OnDateSetListener
+    private lateinit var dateSetListenerUntil: DatePickerDialog.OnDateSetListener
     private lateinit var providersList: ArrayList<Providers>
-    private lateinit var bagHistoryList: ArrayList<BagExpenseHistory>
+    private lateinit var bagHistoryList: ArrayList<QopChiqim>
     private lateinit var bagTypeList: ArrayList<BagRoom>
     private val userId by lazy { SharedPref(requireContext()).getUserId() }
+    lateinit var apiService: ApiService
     private lateinit var typeOfTinList: ArrayList<TegirmonData>
     private val viewModel: BagExpenseViewModel by viewModels {
         BagExpenseViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
         )
+    }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(ApiHelper2(ApiClient2.createService(ApiService2::class.java,requireContext())))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,11 +88,27 @@ class BagExpenseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBagExpenseBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dateSetListenerFrom =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInViewFrom()
+            }
+        dateSetListenerUntil =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInViewUntil()
+            }
         providersList = ArrayList()
         bagTypeList = ArrayList()
         bagHistoryList = ArrayList()
@@ -75,40 +117,83 @@ class BagExpenseFragment : Fragment() {
 
     }
 
+    private fun updateDateInViewFrom() {
+        val myFormat = "yyyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        binding.txtFrom.text = sdf.format(cal.time)
+        dateStart = binding.txtFrom.text.toString()
+        if (dateEnd != "") {
+            getHistoryProductFilter(dateStart, dateEnd)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Qaysi sanagacha ekanligini kiriting",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        Toast.makeText(
+            requireContext(),
+            binding.txtFrom.text.toString() + "\n" + dateEnd,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun updateDateInViewUntil() {
+        val myFormat = "yyyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        binding.txtUntil.text = sdf.format(cal.time)
+        dateEnd = binding.txtUntil.text.toString()
+        if (dateStart != "") {
+            getHistoryProductFilter(dateStart, dateEnd)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Qaysi sanadan ekanligini kiriting",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        Toast.makeText(requireContext(), dateStart + "\n" + dateEnd, Toast.LENGTH_SHORT).show()
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupUI() {
+        val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val date1 = df.format(Calendar.getInstance().time)
+        var c = LocalDate.now()
+        val minusMonths = c.minusMonths(1)
+        val mont = String.format("%02d", minusMonths.monthValue)
+        val day = String.format("%02d", minusMonths.dayOfMonth)
+        var start_date = "${minusMonths.year}-$mont-$day"
         progressDialog = SpotsDialog.Builder()
             .setContext(requireContext())
             .setMessage("Yuklanmoqda")
             .setCancelable(false)
             .build()
         binding.expenseHistoryRecycler.setHasFixedSize(true)
-        getBagHistory()
+        getHistoryProductFilter(start_date,date1)
         initAction()
 
 
     }
 
-    private fun getBagHistory() {
+    private fun getHistoryProductFilter(dateStart: String, dateEnd: String) {
         progressDialog.show()
+        var dd = ChiqimAdapter()
         lifecycleScope.launchWhenStarted {
-            viewModel.getBagHistory(userId)
-            viewModel.bagHistoryState.collect {
-                when (it) {
-                    is UIState.Success -> {
+            model.getQop(sharedPref.getUserId(), dateStart, dateEnd)
+                .observe(viewLifecycleOwner) {
+                    if (it.isNotEmpty()) {
                         bagHistoryList.clear()
-                        bagHistoryList.addAll(it.data)
-                        bagHistoryAdapter = BagInComeAdapter(bagHistoryList)
-                        expenseHistoryRecycler.adapter = bagHistoryAdapter
+                        bagHistoryList.addAll(it)
+                        dd.list = bagHistoryList
+                        binding.expenseHistoryRecycler.adapter = dd
                         getBagRoom()
+                    } else {
+                        dd.list = emptyList()
+                        progressDialog.dismiss()
                     }
-                    is UIState.Error -> {
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> Unit
                 }
-            }
-
         }
     }
 
@@ -121,7 +206,9 @@ class BagExpenseFragment : Fragment() {
                         progressDialog.dismiss()
                         bagTypeList.clear()
                         bagTypeList.addAll(it.data)
+
                     }
+
                 }
             }
 
@@ -162,18 +249,12 @@ class BagExpenseFragment : Fragment() {
                         findNavController().navigate(R.id.bagIncomeFragment)
                         true
                     }
-                    R.id.expense -> {
+                    R.id.expense->{
                         findNavController().navigate(R.id.bagExpenseFragment)
-
                         true
                     }
                     R.id.qoldiq->{
                         findNavController().navigate(R.id.qoldiqFragment)
-                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
-                        true
-                    }
-                    R.id.history -> {
-                        findNavController().navigate(R.id.bagInComeHistoryFragment)
                         Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
                         true
                     }
@@ -194,6 +275,25 @@ class BagExpenseFragment : Fragment() {
                 popupMenu.show()
             }
         }
+        binding.txtUntil.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                dateSetListenerUntil,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+        binding.txtFrom.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                dateSetListenerFrom,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
 
     }
 
@@ -204,7 +304,6 @@ class BagExpenseFragment : Fragment() {
         dialog.setView(bind.root)
         val builder = dialog.create()
         bind.dialogTitle.text = "Qop chiqimi"
-        Log.e("chiqim_spinnr", "showDialog: ${typeOfTinList.toString()}")
         val adapterProduct = SpinnerCargoManAdapter(requireContext(), typeOfTinList)
         bind.text0.adapter = adapterProduct
         bind.text0.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -214,7 +313,9 @@ class BagExpenseFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                bagTypeId = typeOfTinList[position].id
+                bagTypeId = bagTypeList[position].id
+
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -261,15 +362,13 @@ class BagExpenseFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.addBagExpense(map)
             viewModel.addExpenseState.collect {
-                when (it) {
-                    is UIState.Success -> {
+                when(it){
+                    is UIState.Success->{
                         Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
                         progressDialog.dismiss()
-                        getBagHistory()
                     }
-                    is UIState.Error -> {
+                    is UIState.Error->{
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                        progressDialog.dismiss()
                     }
 
                     else -> Unit
@@ -279,6 +378,5 @@ class BagExpenseFragment : Fragment() {
 
         }
     }
-
 
 }

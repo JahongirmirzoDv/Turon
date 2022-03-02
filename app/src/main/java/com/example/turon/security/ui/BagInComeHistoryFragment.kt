@@ -3,14 +3,18 @@ package com.example.turon.security.ui
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.turon.R
 import com.example.turon.adapter.BagExpenseAdapter
 import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
@@ -22,6 +26,7 @@ import com.example.turon.data.model.factory.BagInComeViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.ProductAcceptData
 import com.example.turon.data.model.response.TegirmonData
+import com.example.turon.databinding.ExpenseDialogBinding
 import com.example.turon.databinding.FragmentBagInComeHistoryBinding
 import com.example.turon.security.viewmodels.BagInComeViewModel
 import com.example.turon.utils.SharedPref
@@ -29,7 +34,6 @@ import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class BagInComeHistoryFragment : Fragment() {
@@ -42,6 +46,7 @@ class BagInComeHistoryFragment : Fragment() {
     private lateinit var dateSetListenerUntil: DatePickerDialog.OnDateSetListener
     private lateinit var list: ArrayList<ProductAcceptData>
     private var dateStart: String = ""
+    private var providerId: Int? = null
     private var dateEnd: String = ""
     var cal: Calendar = Calendar.getInstance()
     private val userId by lazy { SharedPref(requireContext()).getUserId() }
@@ -85,6 +90,7 @@ class BagInComeHistoryFragment : Fragment() {
                 updateDateInViewUntil()
             }
         bagHistoryList = ArrayList()
+        providersList = ArrayList()
         typeOfTinList = ArrayList()
         setupUI()
 
@@ -100,107 +106,47 @@ class BagInComeHistoryFragment : Fragment() {
 
         initAction()
         binding.inComeHistoryRecycler.setHasFixedSize(true)
-        getTypeTin()
+        getBagHistory()
+
     }
 
-    private fun initAction() {
-        binding.txtFrom.text = "Gacha"
-        binding.txtUntil.text = "Dan"
-        binding.txtUntil.setOnClickListener {
-            DatePickerDialog(
+
+    private fun updateDateInViewFrom() {
+        val myFormat = "yyyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        binding.txtFrom.text = sdf.format(cal.time)
+        dateStart = binding.txtFrom.text.toString()
+        if (dateEnd != "") {
+//            getHistoryProductFilter(dateStart, dateEnd)
+        } else {
+            Toast.makeText(
                 requireContext(),
-                dateSetListenerUntil,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
+                "Qaysi sanagacha ekanligini kiriting",
+                Toast.LENGTH_SHORT
             ).show()
         }
-        binding.txtFrom.setOnClickListener {
-            DatePickerDialog(
+        Toast.makeText(
+            requireContext(),
+            binding.txtFrom.text.toString() + "\n" + dateEnd,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun updateDateInViewUntil() {
+        val myFormat = "yyyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        binding.txtUntil.text = sdf.format(cal.time)
+        dateEnd = binding.txtUntil.text.toString()
+        if (dateStart != "") {
+//            getHistoryProductFilter(dateStart, dateEnd)
+        } else {
+            Toast.makeText(
                 requireContext(),
-                dateSetListenerFrom,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
+                "Qaysi sanadan ekanligini kiriting",
+                Toast.LENGTH_SHORT
             ).show()
         }
-
-        binding.oy.setOnClickListener {
-            binding.txtFrom.text = "Gacha"
-            binding.txtUntil.text = "Dan"
-            dateEnd=""
-            dateStart=""
-            getFilterMethod("", "", "", "oy", "", "")
-        }
-
-        binding.kun.setOnClickListener {
-            binding.txtFrom.text = "Gacha"
-            binding.txtUntil.text = "Dan"
-            dateEnd=""
-            dateStart=""
-            getFilterMethod("", "kun", "", "", "", "")
-        }
-
-        binding.hafta.setOnClickListener {
-            binding.txtFrom.text = "Gacha"
-            binding.txtUntil.text = "Dan"
-            dateEnd=""
-            dateStart=""
-            getFilterMethod("", "", "hafta", "", "", "")
-        }
-        binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
-    }
-
-    private fun getTypeTin() {
-        progressDialog.show()
-        lifecycleScope.launchWhenStarted {
-            viewModel.getTypeTin(userId)
-            viewModel.typeTinState.collect {
-                when (it) {
-                    is UIState.Success -> {
-                        typeOfTinList.clear()
-                        typeOfTinList.addAll(it.data)
-                        setupSpinner()
-                        progressDialog.dismiss()
-
-                    }
-                    is UIState.Error -> {
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> Unit
-                }
-            }
-
-        }
-    }
-
-    private fun setupSpinner() {
-        val adapter = SpinnerCargoManAdapter(requireContext(), typeOfTinList)
-        binding.spinnerTin.adapter = adapter
-        binding.spinnerTin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                Toast.makeText(requireContext(), "ttt", Toast.LENGTH_SHORT).show()
-                getFilterMethod(typeOfTinList[position].id.toString(), "", "", "", "", "")
-                binding.txtFrom.text = "Gacha"
-                binding.txtUntil.text = "Dan"
-                dateEnd=""
-                dateStart=""
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-        }
-
+        Toast.makeText(requireContext(), dateStart + "\n" + dateEnd, Toast.LENGTH_SHORT).show()
     }
 
     private fun getFilterMethod(
@@ -246,39 +192,215 @@ class BagInComeHistoryFragment : Fragment() {
 
     }
 
+    private fun initAction() {
+        binding.addBag.setOnClickListener {
+            getTypeTin()
+        }
 
-    private fun updateDateInViewFrom() {
-        val myFormat = "yyyy-MM-dd" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.txtFrom.text = sdf.format(cal.time)
-        dateStart = binding.txtFrom.text.toString()
-        if (dateEnd != "") {
-            getFilterMethod("", "", "", "", dateStart, dateEnd)
-            //getHistoryAktFilter(dateStart, dateEnd)
-        } else {
-            Toast.makeText(
+        binding.logout.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), it)
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.inCome -> {
+                        findNavController().navigate(R.id.bagIncomeFragment)
+                        true
+                    }
+                    R.id.expense -> {
+                        findNavController().navigate(R.id.bagExpenseFragment)
+
+                        true
+                    }
+                    R.id.history -> {
+                        findNavController().navigate(R.id.bagInComeHistoryFragment)
+                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.inflate(R.menu.option_menu_expense)
+            try {
+                val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+                fieldMPopup.isAccessible = true
+                val mPopup = fieldMPopup.get(popupMenu)
+                mPopup.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mPopup, true)
+            } catch (e: java.lang.Exception) {
+                Log.d("TAG", "Error show menu icon")
+            } finally {
+                popupMenu.show()
+            }
+        }
+        binding.txtUntil.setOnClickListener {
+            DatePickerDialog(
                 requireContext(),
-                "Qaysi sanagacha ekanligini kiriting",
-                Toast.LENGTH_SHORT
+                dateSetListenerUntil,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-        //Toast.makeText(requireContext(), binding.txtFrom.text.toString()+"\n"+dateEnd, Toast.LENGTH_SHORT).show()
+        binding.txtFrom.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                dateSetListenerFrom,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
     }
 
-    private fun updateDateInViewUntil() {
-        val myFormat = "yyyy-MM-dd" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.txtUntil.text = sdf.format(cal.time)
-        dateEnd = binding.txtUntil.text.toString()
-        if (dateStart != "") {
-            getFilterMethod("", "", "", "", dateStart, dateEnd)
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Qaysi sanadan ekanligini kiriting",
-                Toast.LENGTH_SHORT
-            ).show()
+    private fun getProviders() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.getProvider(userId)
+            viewModel.providerState.collect {
+                when (it) {
+                    is UIState.Success -> {
+                        providersList.clear()
+                        providersList.addAll(it.data)
+                        progressDialog.dismiss()
+                    }
+                    is UIState.Error -> {
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+
         }
-        Toast.makeText(requireContext(), dateStart + "\n" + dateEnd, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getTypeTin() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.getTypeTin(userId)
+            viewModel.typeTinState.collect {
+                when (it) {
+                    is UIState.Success -> {
+                        typeOfTinList.clear()
+                        typeOfTinList.addAll(it.data)
+                        progressDialog.dismiss()
+                        showDialog()
+                    }
+                    is UIState.Error -> {
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+
+        }
+    }
+
+    private fun getBagHistory() {
+        progressDialog.show()
+        lifecycleScope.launchWhenStarted {
+            viewModel.getBagHistory(userId)
+            viewModel.bagHistoryState.collect {
+                when (it) {
+                    is UIState.Success -> {
+                        bagHistoryList.clear()
+                        bagHistoryList.addAll(it.data)
+                        bagHistoryAdapter = BagExpenseAdapter(bagHistoryList)
+                        binding.inComeHistoryRecycler.adapter = bagHistoryAdapter
+                        getProviders()
+                    }
+                    is UIState.Error -> {
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+
+        }
+    }
+
+
+    private fun showDialog() {
+        val bind: ExpenseDialogBinding = ExpenseDialogBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+        dialog.setCancelable(true)
+        dialog.setView(bind.root)
+        val builder = dialog.create()
+        bind.dialogTitle.text = "Qop kirimi"
+        bind.comp.text = "Taminotchi"
+        val adapterProduct = SpinnerCargoManAdapter(requireContext(), typeOfTinList)
+        bind.text0.adapter = adapterProduct
+        val adapterProvider = SpinnerCargoManAdapter(requireContext(), providersList)
+        bind.text1.adapter = adapterProvider
+        bind.text0.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                bagTypeId = typeOfTinList[position].id
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
+
+        bind.text1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                providerId = providersList[position].id
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
+
+        bind.textView35.setOnClickListener {
+            val count = bind.text3.text.toString()
+            val comment = bind.text4.text.toString()
+            addOfTin(bagTypeId, providerId, count, comment)
+            builder.dismiss()
+        }
+        builder.show()
+
+    }
+
+    private fun addOfTin(bagTypeId: Int?, providerId: Int?, count: String, comment: String) {
+        progressDialog.show()
+        lifecycleScope.launchWhenStarted {
+            val map: HashMap<String, Any> = HashMap()
+            map["user_id"] = userId
+            map["taminotchi"] = providerId!!
+            map["type"] = bagTypeId!!
+            map["soni"] = count
+            map["izoh"] = comment
+            viewModel.addBagInCome(map)
+            viewModel.addBagInComeState.collect {
+                when (it) {
+                    is UIState.Success -> {
+                        Toast.makeText(requireContext(), "Bajarildi", Toast.LENGTH_SHORT).show()
+                        progressDialog.dismiss()
+                        getBagHistory()
+                    }
+                    is UIState.Error -> {
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+
+        }
     }
 }

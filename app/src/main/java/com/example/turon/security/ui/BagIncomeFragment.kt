@@ -95,7 +95,8 @@ class BagIncomeFragment : Fragment() {
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.inCome -> {
-                        findNavController().navigate(R.id.bagIncomeFragment)
+                        findNavController().navigate(R.id.bagInComeHistoryFragment)
+                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
                         true
                     }
                     R.id.expense -> {
@@ -105,11 +106,6 @@ class BagIncomeFragment : Fragment() {
                     }
                     R.id.qoldiq -> {
                         findNavController().navigate(R.id.qoldiqFragment)
-                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
-                        true
-                    }
-                    R.id.history -> {
-                        findNavController().navigate(R.id.bagInComeHistoryFragment)
                         Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
                         true
                     }

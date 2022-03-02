@@ -144,7 +144,6 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
 
                 }
             }
-
         }
     }
 

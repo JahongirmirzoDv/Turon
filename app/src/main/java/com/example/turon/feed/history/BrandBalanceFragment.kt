@@ -34,12 +34,12 @@ import kotlinx.coroutines.flow.collect
 import java.lang.Exception
 
 
-class BrandBalanceFragment : Fragment() ,OrderDetailsAdapter.OnOrderClickListener{
+class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListener {
     private var _binding: FragmentFlourBrandBalanceBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
     private val productList by lazy { ArrayList<Balance>() }
-    private lateinit var adapter:OrderDetailsAdapter
+    private lateinit var adapter: OrderDetailsAdapter
     private val viewModel: FeedAcceptHistoryViewModel by viewModels {
         FeedAcceptanceHistoryViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
@@ -78,7 +78,7 @@ class BrandBalanceFragment : Fragment() ,OrderDetailsAdapter.OnOrderClickListene
 
     private fun hideShowSearch() {
         with(binding) {
-            toolbarDefault.appBarTitle.text="Tovar qoldiq"
+            toolbarDefault.appBarTitle.text = "Tovar qoldiq"
             toolbarDefault.search.setOnClickListener {
                 val toolbarD: View = toolbarDefault.root
                 val toolbarS: View = toolbarSearch.root
@@ -96,7 +96,7 @@ class BrandBalanceFragment : Fragment() ,OrderDetailsAdapter.OnOrderClickListene
             toolbarSearch.ivClear.setOnClickListener {
                 toolbarSearch.etSearch.setText("")
             }
-            toolbarSearch.etSearch.addTextChangedListener(object: TextWatcher {
+            toolbarSearch.etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -129,12 +129,9 @@ class BrandBalanceFragment : Fragment() ,OrderDetailsAdapter.OnOrderClickListene
                 override fun afterTextChanged(s: Editable?) {
 
                 }
-
             })
-
         }
     }
-
 
 
     private fun getBrandBalance() {
@@ -161,13 +158,10 @@ class BrandBalanceFragment : Fragment() ,OrderDetailsAdapter.OnOrderClickListene
 
                 }
             }
-
         }
     }
 
     override fun onItemClickOrderDetails(data: Balance) {
 
     }
-
-
 }

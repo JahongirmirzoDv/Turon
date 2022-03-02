@@ -32,7 +32,7 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/addBag"
                 app:layout_constraintStart_toEndOf="@+id/btnBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +47,27 @@
                 android:src="@drawable/ic_back_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_menu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/addBag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:padding="2dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/ic_bag_plus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/logout"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -68,13 +89,6 @@
             android:scrollbars="horizontal"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-
-            <Spinner
-                android:id="@+id/spinnerTin"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/sp_no_drop" />
 
             <TextView
                 android:id="@+id/kun"
@@ -107,6 +121,7 @@
                 android:text="Oy" />
 
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/txtUntil"
                 android:layout_width="85dp"
                 android:layout_height="35dp"
@@ -117,6 +132,7 @@
                 android:text="...dan" />
 
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/txtFrom"
                 android:layout_width="85dp"
                 android:layout_height="35dp"

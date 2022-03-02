@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_bag_expense" />
     <fragment
         android:id="@+id/bagIncomeFragment"
-        android:name="com.example.turon.security.ui.BagIncomeFragment"
+        android:name="com.example.turon.security.ui.BagInComeHistoryFragment"
         android:label="fragment_bag_income"
         tools:layout="@layout/fragment_bag_income" />
     <fragment
