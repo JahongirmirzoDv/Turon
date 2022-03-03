@@ -2,6 +2,7 @@ package com.example.turon.security.ui
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +22,11 @@ import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.InComeRequest
 import com.example.turon.data.model.QopHistory
 import com.example.turon.data.model.factory.BagInComeViewModelFactory
@@ -33,6 +40,7 @@ import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 
@@ -59,6 +67,16 @@ class BagInComeHistoryFragment : Fragment() {
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
         )
     }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +91,7 @@ class BagInComeHistoryFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dateSetListenerFrom =
@@ -97,7 +116,15 @@ class BagInComeHistoryFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupUI() {
+        val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val date1 = df.format(Calendar.getInstance().time)
+        var c = LocalDate.now()
+        val minusMonths = c.minusMonths(1)
+        val mont = String.format("%02d", minusMonths.monthValue)
+        val day = String.format("%02d", minusMonths.dayOfMonth)
+        var start_date = "${minusMonths.year}-$mont-$day"
         progressDialog = SpotsDialog.Builder()
             .setContext(requireContext())
             .setMessage("Yuklanmoqda")
@@ -106,7 +133,7 @@ class BagInComeHistoryFragment : Fragment() {
 
         initAction()
         binding.inComeHistoryRecycler.setHasFixedSize(true)
-        getBagHistory()
+        getHistoryProductFilter(start_date, date1)
 
     }
 
@@ -192,6 +219,7 @@ class BagInComeHistoryFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initAction() {
         binding.addBag.setOnClickListener {
             getTypeTin()
@@ -250,6 +278,26 @@ class BagInComeHistoryFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+        binding.kun.setOnClickListener {
+            val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            val date1 = df.format(Calendar.getInstance().time)
+            var c = LocalDate.now()
+            val minusMonths = c.minusDays(1)
+            val mont = String.format("%02d", minusMonths.monthValue)
+            val day = String.format("%02d", minusMonths.dayOfMonth)
+            var start_date = "${minusMonths.year}-$mont-$day"
+            getHistoryProductFilter(start_date, date1)
+        }
+        binding.hafta.setOnClickListener {
+            val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            val date1 = df.format(Calendar.getInstance().time)
+            var c = LocalDate.now()
+            val minusMonths = c.minusWeeks(1)
+            val mont = String.format("%02d", minusMonths.monthValue)
+            val day = String.format("%02d", minusMonths.dayOfMonth)
+            var start_date = "${minusMonths.year}-$mont-$day"
+            getHistoryProductFilter(start_date, date1)
+        }
     }
 
     private fun getProviders() {
@@ -295,28 +343,22 @@ class BagInComeHistoryFragment : Fragment() {
         }
     }
 
-    private fun getBagHistory() {
+    private fun getHistoryProductFilter(dateStart: String, dateEnd: String) {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.getBagHistory(userId)
-            viewModel.bagHistoryState.collect {
-                when (it) {
-                    is UIState.Success -> {
-                        bagHistoryList.clear()
-                        bagHistoryList.addAll(it.data)
-                        bagHistoryAdapter = BagExpenseAdapter(bagHistoryList)
-                        binding.inComeHistoryRecycler.adapter = bagHistoryAdapter
-                        getProviders()
-                    }
-                    is UIState.Error -> {
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> Unit
+            model.getBagHistory(userId).observe(viewLifecycleOwner) {
+                if (it.success) {
+                    bagHistoryList.clear()
+                    bagHistoryList.addAll(it.qop_history)
+                    bagHistoryAdapter = BagExpenseAdapter(bagHistoryList)
+                    binding.inComeHistoryRecycler.adapter = bagHistoryAdapter
+                    getProviders()
+                } else {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
+
     }
 
 
@@ -346,7 +388,6 @@ class BagInComeHistoryFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
 
         bind.text1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -363,7 +404,6 @@ class BagInComeHistoryFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
 
         bind.textView35.setOnClickListener {
@@ -391,7 +431,7 @@ class BagInComeHistoryFragment : Fragment() {
                     is UIState.Success -> {
                         Toast.makeText(requireContext(), "Bajarildi", Toast.LENGTH_SHORT).show()
                         progressDialog.dismiss()
-                        getBagHistory()
+
                     }
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()

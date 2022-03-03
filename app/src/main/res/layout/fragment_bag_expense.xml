@@ -88,15 +88,6 @@
             android:gravity="center"
             android:text="Hafta" />
 
-        <TextView
-            android:id="@+id/oy"
-            android:layout_width="50dp"
-            android:layout_height="35dp"
-            android:layout_margin="2dp"
-            android:textColor="@color/black"
-            android:background="@drawable/widget_bg"
-            android:gravity="center"
-            android:text="Oy" />
 
         <TextView
             android:layout_weight="1"

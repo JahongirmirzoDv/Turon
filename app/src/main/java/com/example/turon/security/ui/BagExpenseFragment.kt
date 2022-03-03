@@ -206,9 +206,7 @@ class BagExpenseFragment : Fragment() {
                         progressDialog.dismiss()
                         bagTypeList.clear()
                         bagTypeList.addAll(it.data)
-
                     }
-
                 }
             }
 
@@ -237,6 +235,7 @@ class BagExpenseFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initAction() {
         binding.addBag.setOnClickListener {
             getTypeTin()
@@ -293,8 +292,26 @@ class BagExpenseFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
-
+        binding.kun.setOnClickListener {
+            val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            val date1 = df.format(Calendar.getInstance().time)
+            var c = LocalDate.now()
+            val minusMonths = c.minusDays(1)
+            val mont = String.format("%02d", minusMonths.monthValue)
+            val day = String.format("%02d", minusMonths.dayOfMonth)
+            var start_date = "${minusMonths.year}-$mont-$day"
+            getHistoryProductFilter(start_date,date1)
+        }
+        binding.hafta.setOnClickListener {
+            val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            val date1 = df.format(Calendar.getInstance().time)
+            var c = LocalDate.now()
+            val minusMonths = c.minusWeeks(1)
+            val mont = String.format("%02d", minusMonths.monthValue)
+            val day = String.format("%02d", minusMonths.dayOfMonth)
+            var start_date = "${minusMonths.year}-$mont-$day"
+            getHistoryProductFilter(start_date,date1)
+        }
     }
 
     private fun showDialog() {
