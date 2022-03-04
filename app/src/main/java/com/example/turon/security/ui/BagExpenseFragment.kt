@@ -1,5 +1,6 @@
 package com.example.turon.security.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Build
@@ -14,13 +15,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
 import com.example.turon.adapter.BagInComeAdapter
 import com.example.turon.adapter.ChiqimAdapter
-import com.example.turon.adapter.ProductHistoryFilterAdapter
 import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
@@ -36,14 +35,13 @@ import com.example.turon.data.model.QopChiqim
 import com.example.turon.data.model.factory.BagExpenseViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
+import com.example.turon.databinding.BagExpenceSecurityBinding
 import com.example.turon.databinding.Expense2DialogBinding
 import com.example.turon.databinding.FragmentBagExpenseBinding
 import com.example.turon.security.viewmodels.BagExpenseViewModel
 import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
-import kotlinx.android.synthetic.main.fragment_bag_expense.*
 import kotlinx.coroutines.flow.collect
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
@@ -64,6 +62,7 @@ class BagExpenseFragment : Fragment() {
     private lateinit var dateSetListenerFrom: DatePickerDialog.OnDateSetListener
     private lateinit var dateSetListenerUntil: DatePickerDialog.OnDateSetListener
     private lateinit var providersList: ArrayList<Providers>
+    private lateinit var dd: ChiqimAdapter
     private lateinit var bagHistoryList: ArrayList<QopChiqim>
     private lateinit var bagTypeList: ArrayList<BagRoom>
     private val userId by lazy { SharedPref(requireContext()).getUserId() }
@@ -75,7 +74,14 @@ class BagExpenseFragment : Fragment() {
         )
     }
     private val model: ControlViewModel by viewModels {
-        ViewModelFactory(ApiHelper2(ApiClient2.createService(ApiService2::class.java,requireContext())))
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +94,7 @@ class BagExpenseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBagExpenseBinding.inflate(inflater, container, false)
-
+        dd = ChiqimAdapter()
         return binding.root
     }
 
@@ -114,7 +120,16 @@ class BagExpenseFragment : Fragment() {
         bagHistoryList = ArrayList()
         typeOfTinList = ArrayList()
         setupUI()
+        recyclerClick()
 
+    }
+
+    private fun recyclerClick() {
+        dd.onpress = object : ChiqimAdapter.onPress {
+            override fun onclick(qopChiqim: QopChiqim, position: Int) {
+                showDialog2(data = qopChiqim)
+            }
+        }
     }
 
     private fun updateDateInViewFrom() {
@@ -123,7 +138,7 @@ class BagExpenseFragment : Fragment() {
         binding.txtFrom.text = sdf.format(cal.time)
         dateStart = binding.txtFrom.text.toString()
         if (dateEnd != "") {
-            getHistoryProductFilter(dateStart, dateEnd)
+            getHistoryProductFilter(dateEnd, dateStart)
         } else {
             Toast.makeText(
                 requireContext(),
@@ -144,7 +159,7 @@ class BagExpenseFragment : Fragment() {
         binding.txtUntil.text = sdf.format(cal.time)
         dateEnd = binding.txtUntil.text.toString()
         if (dateStart != "") {
-            getHistoryProductFilter(dateStart, dateEnd)
+            getHistoryProductFilter(dateEnd, dateStart)
         } else {
             Toast.makeText(
                 requireContext(),
@@ -171,15 +186,13 @@ class BagExpenseFragment : Fragment() {
             .setCancelable(false)
             .build()
         binding.expenseHistoryRecycler.setHasFixedSize(true)
-        getHistoryProductFilter(start_date,date1)
+        getHistoryProductFilter(start_date, date1)
         initAction()
-
-
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getHistoryProductFilter(dateStart: String, dateEnd: String) {
         progressDialog.show()
-        var dd = ChiqimAdapter()
         lifecycleScope.launchWhenStarted {
             model.getQop(sharedPref.getUserId(), dateStart, dateEnd)
                 .observe(viewLifecycleOwner) {
@@ -191,6 +204,7 @@ class BagExpenseFragment : Fragment() {
                         getBagRoom()
                     } else {
                         dd.list = emptyList()
+                        dd.notifyDataSetChanged()
                         progressDialog.dismiss()
                     }
                 }
@@ -227,11 +241,9 @@ class BagExpenseFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -248,13 +260,12 @@ class BagExpenseFragment : Fragment() {
                         findNavController().navigate(R.id.bagIncomeFragment)
                         true
                     }
-                    R.id.expense->{
+                    R.id.expense -> {
                         findNavController().navigate(R.id.bagExpenseFragment)
                         true
                     }
-                    R.id.qoldiq->{
+                    R.id.qoldiq -> {
                         findNavController().navigate(R.id.qoldiqFragment)
-                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
                         true
                     }
                     else -> false
@@ -300,7 +311,7 @@ class BagExpenseFragment : Fragment() {
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
             var start_date = "${minusMonths.year}-$mont-$day"
-            getHistoryProductFilter(start_date,date1)
+            getHistoryProductFilter(start_date, date1)
         }
         binding.hafta.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
@@ -310,7 +321,7 @@ class BagExpenseFragment : Fragment() {
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
             var start_date = "${minusMonths.year}-$mont-$day"
-            getHistoryProductFilter(start_date,date1)
+            getHistoryProductFilter(start_date, date1)
         }
     }
 
@@ -369,30 +380,87 @@ class BagExpenseFragment : Fragment() {
 
     }
 
+    private fun showDialog2(data: QopChiqim) {
+        val bind: BagExpenceSecurityBinding = BagExpenceSecurityBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+        dialog.setCancelable(true)
+        dialog.setView(bind.root)
+        val builder = dialog.create()
+        bind.dialogTitle.text = "Qop qaytarish"
+        bind.text0.text = data.type.name
+        bind.textView35.setOnClickListener {
+            bagCount = bind.text3.text.toString()
+            comment = bind.text4.text.toString()
+            when {
+                bagCount.isEmpty() -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Qop Sonini kiriting",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                comment.isEmpty() -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Izoh yozing",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    Log.e("quantity", "showDialog2: $bagCount - ${data.quantity}")
+                    if (bagCount.toInt() <= data.quantity) {
+                        Log.e("quantity", "showDialog2: true")
+                        builder.dismiss()
+                        addExpense(data.type.id, bagCount, comment)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Noto'gri miqdor kiritdingiz",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+        }
+        builder.show()
+
+    }
+
     private fun addExpense(bagTypeId: Int?, bagCount: String, comment: String) {
         val map: HashMap<String, Any> = HashMap()
         map["user_id"] = userId
-        map["qop_id"] = bagTypeId.toString()
+        map["expance_qop_id"] = bagTypeId!!
         map["soni"] = bagCount
         map["izoh"] = comment
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.addBagExpense(map)
-            viewModel.addExpenseState.collect {
-                when(it){
-                    is UIState.Success->{
-                        Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
-                        progressDialog.dismiss()
-                    }
-                    is UIState.Error->{
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> Unit
+            model.returnBag(map).observe(viewLifecycleOwner) {
+                if (it.success) {
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
                 }
-
             }
 
+
+//            viewModel.addBagExpense(map)
+//            viewModel.addExpenseState.collect {
+//                when (it) {
+//                    is UIState.Success -> {
+//                        Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
+//                        progressDialog.dismiss()
+//                    }
+//                    is UIState.Error -> {
+//                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+//                        progressDialog.dismiss()
+//                    }
+//
+//                    else -> Unit
+//                }
+//            }
         }
     }
 

@@ -3,20 +3,16 @@ package com.example.turon.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.turon.data.model.BagExpenseHistory
-import com.example.turon.data.model.HistoryProData
 import com.example.turon.data.model.QopChiqim
-import com.example.turon.data.model.QopHistory
-import com.example.turon.databinding.ItemBagExpenseBinding
-import com.example.turon.databinding.ItemBagIncomeBinding
-import com.example.turon.databinding.ItemSendProductBinding
 import com.example.turon.databinding.QopChiqimBinding
 
-class ChiqimAdapter():RecyclerView.Adapter<ChiqimAdapter.VH>() {
+class ChiqimAdapter() : RecyclerView.Adapter<ChiqimAdapter.VH>() {
     var list: List<QopChiqim> = emptyList()
+    lateinit var onpress: onPress
 
-    constructor(lists: List<QopChiqim>) : this() {
+    constructor(lists: List<QopChiqim>, onpress: onPress) : this() {
         this.list = lists
+        this.onpress = onpress
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -34,12 +30,13 @@ class ChiqimAdapter():RecyclerView.Adapter<ChiqimAdapter.VH>() {
 
     override fun getItemCount(): Int = list.size
 
-    class VH(binding: QopChiqimBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(binding: QopChiqimBinding) : RecyclerView.ViewHolder(binding.root) {
         private var numeric = binding.text1
         private var bagType = binding.text3
         private var count = binding.text4
         private var providers = binding.text6
         private var date = binding.text5
+        private var layout = binding.tabsLayout
         fun bind(
             data: QopChiqim,
             position: Int
@@ -49,7 +46,14 @@ class ChiqimAdapter():RecyclerView.Adapter<ChiqimAdapter.VH>() {
             count.text = data.quantity.toString()
             providers.text = data.date
             date.text = data.izoh
+            layout.setOnClickListener {
+                onpress.onclick(data, position)
+            }
         }
+    }
+
+    interface onPress {
+        fun onclick(qopChiqim: QopChiqim, position: Int)
     }
 
 }

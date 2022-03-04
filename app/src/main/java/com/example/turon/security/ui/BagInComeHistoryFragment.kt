@@ -235,12 +235,10 @@ class BagInComeHistoryFragment : Fragment() {
                     }
                     R.id.expense -> {
                         findNavController().navigate(R.id.bagExpenseFragment)
-
                         true
                     }
-                    R.id.history -> {
-                        findNavController().navigate(R.id.bagInComeHistoryFragment)
-                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
+                    R.id.qoldiq -> {
+                        findNavController().navigate(R.id.qoldiqFragment)
                         true
                     }
                     else -> false
@@ -321,6 +319,7 @@ class BagInComeHistoryFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getTypeTin() {
         lifecycleScope.launchWhenStarted {
             viewModel.getTypeTin(userId)
@@ -362,6 +361,7 @@ class BagInComeHistoryFragment : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialog() {
         val bind: ExpenseDialogBinding = ExpenseDialogBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
@@ -416,8 +416,16 @@ class BagInComeHistoryFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun addOfTin(bagTypeId: Int?, providerId: Int?, count: String, comment: String) {
         progressDialog.show()
+        val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val date1 = df.format(Calendar.getInstance().time)
+        var c = LocalDate.now()
+        val minusMonths = c.minusMonths(1)
+        val mont = String.format("%02d", minusMonths.monthValue)
+        val day = String.format("%02d", minusMonths.dayOfMonth)
+        var start_date = "${minusMonths.year}-$mont-$day"
         lifecycleScope.launchWhenStarted {
             val map: HashMap<String, Any> = HashMap()
             map["user_id"] = userId
@@ -431,7 +439,7 @@ class BagInComeHistoryFragment : Fragment() {
                     is UIState.Success -> {
                         Toast.makeText(requireContext(), "Bajarildi", Toast.LENGTH_SHORT).show()
                         progressDialog.dismiss()
-
+                        getHistoryProductFilter(start_date, date1)
                     }
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()

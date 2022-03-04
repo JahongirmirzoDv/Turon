@@ -150,19 +150,12 @@ class QoldiqFragment : Fragment() {
                         findNavController().navigate(R.id.bagIncomeFragment)
                         true
                     }
-                    R.id.expense -> {
+                    R.id.expense->{
                         findNavController().navigate(R.id.bagExpenseFragment)
-
                         true
                     }
                     R.id.qoldiq->{
-                        findNavController().navigate(R.id.bagInComeHistoryFragment)
-                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
-                        true
-                    }
-                    R.id.history -> {
-                        findNavController().navigate(R.id.bagInComeHistoryFragment)
-                        Toast.makeText(requireContext(), "turns", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.qoldiqFragment)
                         true
                     }
                     else -> false
