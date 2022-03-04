@@ -436,7 +436,7 @@ class BagExpenseFragment : Fragment() {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
             model.returnBag(map).observe(viewLifecycleOwner) {
-                if (it.success) {
+                if (it.success == true) {
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
                 } else {

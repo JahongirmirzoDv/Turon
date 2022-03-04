@@ -3,7 +3,6 @@ package com.example.turon.data.api2
 import com.example.turon.data.model.FeedQopChiqimHistory
 import com.example.turon.data.model.ResponseData
 import com.example.turon.data.model.response.QopHistoryResponse
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -25,5 +24,12 @@ interface ApiService2 {
     @POST("return_qop/")
     suspend fun returnBag(
         @Body body: HashMap<String, Any>?
-    ):ResponseData
+    ): ResponseData
+
+    @POST("edit_store_product/")
+    suspend fun Edit(
+        @Body body: HashMap<String, Any>?
+    ): ResponseData
+
+
 }

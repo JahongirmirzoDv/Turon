@@ -22,7 +22,7 @@ class ApiHelper(private val apiService: ApiService) {
     ///Feed and Flour for active order
     suspend fun getOrder(user_id: Int) = apiService.getOrder(user_id)
 
-    suspend fun getTurnAccept() = apiService.getTurnAccept()
+    suspend fun getTurnAccept(user_id: Int) = apiService.getTurnAccept(user_id)
     suspend fun getTurnHistory() = apiService.getTurnHistory()
 
     suspend fun getActiveTurn() = apiService.getActiveTurn()

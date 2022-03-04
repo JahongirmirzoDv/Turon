@@ -201,6 +201,4 @@ class SendOrderFinalFragment : Fragment() {
 
         }
     }
-
-
 }

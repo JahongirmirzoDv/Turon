@@ -20,6 +20,11 @@
             layout="@layout/toolbar_default"
             android:fitsSystemWindows="true"
             android:visibility="visible" />
+        <include
+            android:id="@+id/toolbarSearch"
+            layout="@layout/toolbar_search"
+            android:fitsSystemWindows="true"
+            android:visibility="gone" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -35,9 +40,9 @@
             android:id="@+id/text1"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="1"
+            android:layout_weight="0.10"
             android:gravity="center"
-            android:text="Nomi"
+            android:text="№"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -50,9 +55,9 @@
             android:id="@+id/text3"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="1"
+            android:layout_weight="0.22"
             android:gravity="center"
-            android:text="sana"
+            android:text="Mijoz "
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -65,10 +70,10 @@
             android:id="@+id/text4"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="1"
+            android:layout_weight="0.22"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Miqdori"
+            android:text="Mashina nomeri"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -81,9 +86,9 @@
             android:id="@+id/text6"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="1"
+            android:layout_weight="0.22"
             android:gravity="center"
-            android:text="Tegirmon"
+            android:text="Tel nomeri"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -96,9 +101,9 @@
             android:id="@+id/text5"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="1"
+            android:layout_weight="0.22"
             android:gravity="center"
-            android:text="Izox"
+            android:text="Sana"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

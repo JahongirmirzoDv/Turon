@@ -97,7 +97,9 @@ interface ApiService {
 
     ///active order
     @GET("get_order_to_give_turn/")
-    suspend fun getTurnAccept(): Response<TurnResponse>
+    suspend fun getTurnAccept(
+        @Query("user_id") user_id: Int
+    ): Response<TurnResponse>
 
 
     @GET("get_active_turn/")
@@ -228,7 +230,7 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("user_id") user_id: Int,
         @Query("item") item: String
-    ): OrderHistoryResponse
+    ): OrderHistoryRespone2
 
 
     @GET("get_store_product/")

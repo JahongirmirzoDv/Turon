@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.data.model.OrderHistory
 import com.example.turon.databinding.ItemReturnProductBinding
-import com.example.turon.databinding.ItemSendProductBinding
 
 class ReturnedHistoryAdapter :
     PagingDataAdapter<OrderHistory, ReturnedHistoryAdapter.ViewHolder>(FDiffUtilCallback()) {

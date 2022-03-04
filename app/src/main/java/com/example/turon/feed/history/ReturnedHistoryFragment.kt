@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,16 +15,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.turon.R
-import com.example.turon.adapter.AcceptanceHistoryAdapter
 import com.example.turon.adapter.AdvertLoadStateAdapter
 import com.example.turon.adapter.ReturnedHistoryAdapter
-import com.example.turon.adapter.SendOrderHistoryAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.HistoryProData
 import com.example.turon.data.model.OrderHistory
 import com.example.turon.data.model.factory.AllHistoryViewModelFactory
-import com.example.turon.databinding.FragmentFeedSendHistoryBinding
 import com.example.turon.databinding.FragmentReturnedHistoryBinding
 import com.example.turon.production.viewmodels.AllHistoryViewModel
 import dmax.dialog.SpotsDialog

@@ -1,48 +1,65 @@
 package com.example.turon.feed.history
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.turon.R
-import com.example.turon.adapter.OrderAdapter
 import com.example.turon.adapter.OrderDetailsAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.Balance
-import com.example.turon.data.model.Company
-import com.example.turon.data.model.ProductPro
 import com.example.turon.data.model.factory.FeedAcceptanceHistoryViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
-import com.example.turon.data.model.response.OrderData
-import com.example.turon.databinding.*
+import com.example.turon.databinding.EditBinding
+import com.example.turon.databinding.FragmentFlourBrandBalanceBinding
 import dmax.dialog.SpotsDialog
+import kotlinx.android.synthetic.main.toolbar_default_order.view.*
 import kotlinx.coroutines.flow.collect
 import java.lang.Exception
+import java.util.HashMap
 
 
 class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListener {
     private var _binding: FragmentFlourBrandBalanceBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
+    private var bagCount: String = ""
+    private var comment: String = ""
     private val productList by lazy { ArrayList<Balance>() }
     private lateinit var adapter: OrderDetailsAdapter
     private val viewModel: FeedAcceptHistoryViewModel by viewModels {
         FeedAcceptanceHistoryViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
+        )
+    }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
         )
     }
 
@@ -74,6 +91,42 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
             .build()
         getBrandBalance()
         hideShowSearch()
+        initAction()
+    }
+
+    private fun initAction() {
+        binding.appBarLayout.menu.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), it)
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.sendHistory -> {
+                        findNavController().navigate(R.id.feedSendHistoryFragment)
+                        Toast.makeText(requireContext(), "Yuborish tarixi", Toast.LENGTH_SHORT)
+                            .show()
+                        true
+                    }
+                    R.id.brandBalance -> {
+                        findNavController().navigate(R.id.brandBalanceFragment)
+                        Toast.makeText(requireContext(), "Tovar qoldiq", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.inflate(R.menu.option_menu_balance)
+            try {
+                val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+                fieldMPopup.isAccessible = true
+                val mPopup = fieldMPopup.get(popupMenu)
+                mPopup.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mPopup, true)
+            } catch (e: Exception) {
+                Log.d("TAG", "Error show menu icon")
+            } finally {
+                popupMenu.show()
+            }
+        }
     }
 
     private fun hideShowSearch() {
@@ -162,6 +215,54 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     }
 
     override fun onItemClickOrderDetails(data: Balance) {
+        showDialog(data)
+    }
 
+    private fun showDialog(data: Balance) {
+        val bind: EditBinding = EditBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+        dialog.setCancelable(true)
+        dialog.setView(bind.root)
+        val builder = dialog.create()
+        bind.dialogTitle.text = "O'zgartirish"
+        bind.text0.text = data.productName
+        bind.text3.setText("${data.bagCount}")
+        bind.textView35.setOnClickListener {
+            bagCount = bind.text3.text.toString()
+            when {
+                bagCount.isEmpty() -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Qop Sonini kiriting",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    builder.dismiss()
+                    addExpense(data.id, bagCount.toInt())
+                }
+            }
+        }
+        builder.show()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun addExpense(bagTypeId: Int, bagCount: Int) {
+        progressDialog.show()
+        val map: HashMap<String, Any> = HashMap()
+        map["un_id"] = bagTypeId
+        map["soni"] = bagCount
+        lifecycleScope.launchWhenStarted {
+            model.edit(map).observe(viewLifecycleOwner) {
+                if (it.success == true) {
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "O'zgartirildi", Toast.LENGTH_SHORT).show()
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+                }
+            }
+        }
     }
 }

@@ -10,9 +10,9 @@ import com.example.turon.data.model.response.*
 
 class TurnAcceptRepository(private val apiHelper: ApiHelper) {
 
-    suspend fun getTurnAccept(): UIState<List<Turn>> {
+    suspend fun getTurnAccept(user_id:Int): UIState<List<Turn>> {
         try {
-            val response = apiHelper.getTurnAccept()
+            val response = apiHelper.getTurnAccept(user_id)
             if (response.isSuccessful) {
                 val response = response.body()!!
                 return if (response.success) {

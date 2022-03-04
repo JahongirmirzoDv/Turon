@@ -37,6 +37,7 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
     private lateinit var orderAdapter: TurnAdapter
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private lateinit var orderList: ArrayList<Turn>
     private val viewModel: TurnAcceptViewModel by viewModels {
         TurnAcceptViewModelFactory(
@@ -150,7 +151,7 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
     private fun addProductObserves() {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.getTurnAccept()
+            viewModel.getTurnAccept(sharedPref.getUserId())
             viewModel.turnState.collect {
                 when (it) {
                     is UIState.Success -> {

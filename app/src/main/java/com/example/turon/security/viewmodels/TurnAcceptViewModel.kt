@@ -17,8 +17,8 @@ class TurnAcceptViewModel(private val repository: TurnAcceptRepository) : ViewMo
 
     private val _turnState = MutableStateFlow<UIState<List<Turn>>>(UIState.Loading)
     val turnState: StateFlow<UIState<List<Turn>>> = _turnState
-    suspend fun getTurnAccept() {
-        _turnState.value = repository.getTurnAccept()
+    suspend fun getTurnAccept(user_id:Int) {
+        _turnState.value = repository.getTurnAccept(user_id)
     }
 
     private val _turnHistoryState = MutableStateFlow<UIState<TurnHistoryActInAct>>(UIState.Loading)

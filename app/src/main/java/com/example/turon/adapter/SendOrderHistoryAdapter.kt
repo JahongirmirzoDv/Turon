@@ -7,14 +7,16 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.data.model.OrderHistory
-import com.example.turon.databinding.ItemSendProductBinding
+import com.example.turon.databinding.YuborishTarixItemBinding
 
-class SendOrderHistoryAdapter  : PagingDataAdapter<OrderHistory, SendOrderHistoryAdapter.ViewHolder>(CDiffUtilCallback()) {
+class SendOrderHistoryAdapter :
+    PagingDataAdapter<OrderHistory, SendOrderHistoryAdapter.ViewHolder>(CDiffUtilCallback()) {
     private lateinit var onParcelClickListener: OnParcelClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
-        val listBinding = ItemSendProductBinding.inflate(v, parent, false)
+        val listBinding =
+            YuborishTarixItemBinding.inflate(v, parent, false)
         return ViewHolder(listBinding)
     }
 
@@ -23,16 +25,17 @@ class SendOrderHistoryAdapter  : PagingDataAdapter<OrderHistory, SendOrderHistor
     }
 
 
-    inner class ViewHolder(val binding: ItemSendProductBinding) :
+    inner class ViewHolder(val binding: YuborishTarixItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(d: OrderHistory) {
-            with (binding) {
-                text1.text=(layoutPosition+1).toString()
-                text3.text=d.customer.name
-                text4.text=d.car_number
-                text6.text=d.driver_phone
-                text5.text=d.date
+            with(binding) {
+                text1.text = (layoutPosition + 1).toString()
+                text3.text = d.customer.name
+                text4.text = d.car_number
+                text6.text = d.driver_phone
+                text5.text = d.date
+                chiqish.text = d.left_date.toString()
                 root.setOnClickListener {
                     onParcelClickListener.clickListener(d)
                 }

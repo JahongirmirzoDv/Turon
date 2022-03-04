@@ -9,5 +9,7 @@ class ApiHelper2(var apiService2: ApiService2) {
 
     suspend fun getBagHistory(user_id: Int): QopHistoryResponse = apiService2.getBagHistory(user_id)
 
-    suspend fun returnBag(map: HashMap<String, Any>):ResponseData = apiService2.returnBag(map)
+    suspend fun returnBag(map: HashMap<String, Any>): ResponseData = apiService2.returnBag(map)
+
+    suspend fun Edit( map: HashMap<String, Any>?): ResponseData = apiService2.Edit(map)
 }

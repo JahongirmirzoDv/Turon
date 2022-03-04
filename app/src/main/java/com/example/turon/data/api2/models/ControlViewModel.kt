@@ -30,10 +30,18 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         return bagHistory
     }
 
-    fun returnBag(map: HashMap<String, Any>?):MutableLiveData<ResponseData> {
+    fun returnBag(map: HashMap<String, Any>?): MutableLiveData<ResponseData> {
         var isTrue = MutableLiveData<ResponseData>()
         viewModelScope.launch {
             map?.let { isTrue.value = apiHelper2.returnBag(it) }
+        }
+        return isTrue
+    }
+
+    fun edit(map: HashMap<String, Any>?): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.Edit(map)
         }
         return isTrue
     }

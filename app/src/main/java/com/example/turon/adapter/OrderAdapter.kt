@@ -48,7 +48,6 @@ class OrderAdapter(
             date.text = data.date
             carNum.text = data.carNum
             phoneNum.text = data.phone ?: ""
-
             rootLayout.setOnClickListener {
                 onOrderClickListener.onItemClickOrder(data)
             }
