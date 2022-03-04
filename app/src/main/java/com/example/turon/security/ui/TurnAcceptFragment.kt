@@ -214,7 +214,7 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
                     if (it.success == true) {
                         Toast.makeText(requireContext(), "O'chirildi", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
-                        orderAdapter.notifyDataSetChanged()
+                        addProductObserves()
                     } else {
                         Toast.makeText(requireContext(), "${it.error}", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
