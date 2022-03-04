@@ -19,4 +19,7 @@
     <string name="qaytarilgan_maxsulotlar_tarixi">Qaytarilgan maxsulotlar tarixi</string>
     <string name="qaytarilgan_tovarlar">Qaytarilgan tovarlar</string>
     <string name="ishlab_chiqarishga_qaytarish">Ishlab chiqarishga qaytarish</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="reject">O\'chirish</string>
+    <string name="ok">Ok</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.turon.security.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -22,12 +23,18 @@ import com.example.turon.auth.AuthActivity
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.Turn
 import com.example.turon.data.model.factory.TurnAcceptViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.databinding.TurnAcceptFragmentBinding
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
 import com.example.turon.utils.SharedPref
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
 
@@ -42,6 +49,16 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
     private val viewModel: TurnAcceptViewModel by viewModels {
         TurnAcceptViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
+        )
+    }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
         )
     }
 
@@ -183,6 +200,28 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
             bundle
         )
 
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onReject(data: Turn) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(resources.getString(R.string.reject))
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                dialog.cancel()
+            }
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+                model.reject(data.id).observe(viewLifecycleOwner) {
+                    if (it.success == true) {
+                        Toast.makeText(requireContext(), "O'chirildi", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                        orderAdapter.notifyDataSetChanged()
+                    } else {
+                        Toast.makeText(requireContext(), "${it.error}", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }
+                }
+            }
+            .show()
     }
 
 }

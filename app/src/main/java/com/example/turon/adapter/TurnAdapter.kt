@@ -45,6 +45,10 @@ class TurnAdapter(
             rootLayout.setOnClickListener {
                 onOrderClickListener.onItemClickOrder(data)
             }
+            rootLayout.setOnLongClickListener {
+                onOrderClickListener.onReject(data)
+                true
+            }
 
         }
     }
@@ -52,6 +56,8 @@ class TurnAdapter(
 
     interface OnOrderClickListener {
         fun onItemClickOrder(data: Turn)
+
+        fun onReject(data: Turn)
 
     }
 

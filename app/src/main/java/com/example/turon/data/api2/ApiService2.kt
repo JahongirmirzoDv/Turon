@@ -31,5 +31,10 @@ interface ApiService2 {
         @Body body: HashMap<String, Any>?
     ): ResponseData
 
+    @GET("reject_order/")
+    suspend fun reject(
+        @Query("order_id") order_id: Int
+    ): ResponseData
+
 
 }

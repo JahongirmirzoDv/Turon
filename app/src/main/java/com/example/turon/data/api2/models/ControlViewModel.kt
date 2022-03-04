@@ -45,4 +45,12 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         }
         return isTrue
     }
+
+    fun reject(order_id: Int): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.reject(order_id)
+        }
+        return isTrue
+    }
 }

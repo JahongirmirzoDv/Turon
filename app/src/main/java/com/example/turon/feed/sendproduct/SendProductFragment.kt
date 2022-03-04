@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,39 +12,40 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.R
 import com.example.turon.adapter.OrderAdapter
-import com.example.turon.adapter.TurnAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
 import com.example.turon.data.model.SharedViewModel
-import com.example.turon.data.model.Turn
 import com.example.turon.data.model.factory.FeedSendViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.OrderData
 import com.example.turon.databinding.SendProductFragmentBinding
 import com.example.turon.utils.SharedPref
-import com.example.turon.utils.textChanges
+import com.example.turon.utils.SharedPref2
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import java.lang.Exception
+
 
 class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
     private var _binding: SendProductFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
     private lateinit var orderAdapter: OrderAdapter
+    lateinit var layoutManager: LinearLayoutManager
+    var lastposition: Int? = null
     private lateinit var orderList: ArrayList<OrderData>
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val sharedPref by lazy { SharedPref(requireContext()) }
+
     private val viewModel: SendProductViewModel by viewModels {
         FeedSendViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
@@ -57,6 +57,8 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = SendProductFragmentBinding.inflate(inflater, container, false)
+        layoutManager = LinearLayoutManager(requireContext())
+        SharedPref2.getInstanceDis(requireContext())
         return binding.root
     }
 
@@ -82,7 +84,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     private fun hideShowSearch() {
         with(binding) {
-            toolbarDefault.appBarTitle.text="Buyurtmalar"
+            toolbarDefault.appBarTitle.text = "Buyurtmalar"
             toolbarDefault.search.setOnClickListener {
                 val toolbarD: View = toolbarDefault.root
                 val toolbarS: View = toolbarSearch.root
@@ -101,7 +103,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                 toolbarSearch.etSearch.setText("")
             }
 
-            toolbarSearch.etSearch.addTextChangedListener(object: TextWatcher {
+            toolbarSearch.etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -116,6 +118,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                     var queryList: ArrayList<OrderData> = ArrayList()
                     if (s == "") {
                         orderAdapter = OrderAdapter(orderList, this@SendProductFragment)
+                        binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     } else {
                         queryList = ArrayList()
@@ -127,6 +130,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                             }
                         }
                         orderAdapter = OrderAdapter(queryList, this@SendProductFragment)
+                        binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     }
                 }
@@ -152,6 +156,19 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         orderList.clear()
                         orderList.addAll(it.data)
                         orderAdapter = OrderAdapter(orderList, this@SendProductFragment)
+                        binding.recyclerOrder.layoutManager = layoutManager
+                        val user = SharedPref2.user
+                        binding.recyclerOrder.scrollToPosition(user!!)
+                        binding.recyclerOrder.addOnScrollListener(object :
+                            RecyclerView.OnScrollListener() {
+                            override fun onScrollStateChanged(
+                                recyclerView: RecyclerView,
+                                newState: Int
+                            ) {
+                                super.onScrollStateChanged(recyclerView, newState)
+                                lastposition = layoutManager.findFirstVisibleItemPosition()
+                            }
+                        })
                         binding.recyclerOrder.adapter = orderAdapter
                     }
                     is UIState.Error -> {
@@ -209,6 +226,16 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         )
         //Toast.makeText(requireContext(), sharedPref.getClientData().carNum, Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_sendProductFragment_to_sendDetailsFragment, bundle)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        SharedPref2.user = lastposition
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SharedPref2.user = lastposition
     }
 
 }
