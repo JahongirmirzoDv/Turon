@@ -106,6 +106,21 @@
             android:text="Sana"
             android:textColor="@color/black"
             android:textStyle="bold" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/chiqish"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.22"
+            android:gravity="center"
+            android:text="Chiqish sana"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -118,6 +133,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabsLayout"
-        tools:listitem="@layout/item_send_product" />
+        tools:listitem="@layout/yuborish_tarix_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

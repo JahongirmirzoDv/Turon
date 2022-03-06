@@ -4,29 +4,30 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.turon.R
 import com.example.turon.adapter.ActivTurnAdapter
-import com.example.turon.adapter.TurnAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.Turn
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.factory.TurnAcceptViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.Activetashkent
-import com.example.turon.data.model.response.Activeviloyat
 import com.example.turon.databinding.FragmentActiveLoadingBinding
 import com.example.turon.databinding.ItemTurnDialog2Binding
-import com.example.turon.databinding.TurnAcceptFragmentBinding
-import com.example.turon.databinding.TurnNumDialogBinding
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
 
@@ -45,6 +46,17 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
     private val viewModel: TurnAcceptViewModel by viewModels {
         TurnAcceptViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
+        )
+    }
+
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
         )
     }
 
@@ -165,6 +177,30 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
         showDialogFixed(position)
     }
 
+    override fun onLongClick(activetashkent: Activetashkent) {
+        val map: java.util.HashMap<String, Any> = java.util.HashMap()
+        map["status"] = activetashkent.status
+        map["turn_id"] = activetashkent.id
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(resources.getString(R.string.reject))
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                dialog.cancel()
+            }
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+                model.reject_turn(map).observe(viewLifecycleOwner) {
+                    if (it.success == true) {
+                        Toast.makeText(requireContext(), "O'chirildi", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+
+                    } else {
+                        Toast.makeText(requireContext(), "${it.error}", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }
+                }
+            }
+            .show()
+    }
+
 
     @SuppressLint("SetTextI18n")
     private fun showDialogFixed(position: Activetashkent) {
@@ -177,12 +213,12 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
         bind.dialogTitle2.text = "№ ${position.turn} navbati keldi"
         bind.textView35.setOnClickListener {
             builder.dismiss()
-            turnInsert(position.id,position.status)
+            turnInsert(position.id, position.status)
         }
         builder.show()
     }
 
-    private fun turnInsert(turnNum: Int,st:Int) {
+    private fun turnInsert(turnNum: Int, st: Int) {
         val map = HashMap<String, Any>()
         map["turn_id"] = turnNum
         map["status"] = st

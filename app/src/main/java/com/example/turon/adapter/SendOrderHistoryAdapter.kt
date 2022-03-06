@@ -35,7 +35,7 @@ class SendOrderHistoryAdapter :
                 text4.text = d.car_number
                 text6.text = d.driver_phone
                 text5.text = d.date
-                chiqish.text = d.left_date.toString()
+                chiqish.text = d.left_date.toString().substring(0, 19)
                 root.setOnClickListener {
                     onParcelClickListener.clickListener(d)
                 }

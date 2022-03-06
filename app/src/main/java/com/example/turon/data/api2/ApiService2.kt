@@ -31,6 +31,11 @@ interface ApiService2 {
         @Body body: HashMap<String, Any>?
     ): ResponseData
 
+    @POST("reject_turned_order/")
+    suspend fun reject_turn(
+        @Body body: HashMap<String, Any>?
+    ): ResponseData
+
     @GET("reject_order/")
     suspend fun reject(
         @Query("order_id") order_id: Int

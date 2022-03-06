@@ -4,13 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.turon.data.model.ActiveTurn
 import com.example.turon.data.model.response.Activetashkent
 import com.example.turon.databinding.ItemSendProductBinding
 
-class ActivTurnAdapter (
+class ActivTurnAdapter(
     private var list: ArrayList<Activetashkent>,
-    private var onOrderClickListener: OnHistoryClickListener
+    private var onOrderClickListener: OnHistoryClickListener,
 ) :
     RecyclerView.Adapter<ActivTurnAdapter.VH>() {
 
@@ -30,7 +29,7 @@ class ActivTurnAdapter (
 
     override fun getItemCount(): Int = list.size
 
-    fun deleteItem(position: Int){
+    fun deleteItem(position: Int) {
         try {
             list.removeAt(position)
             notifyItemRemoved(position)
@@ -42,7 +41,6 @@ class ActivTurnAdapter (
     }
 
 
-
     class VH(binding: ItemSendProductBinding) : RecyclerView.ViewHolder(binding.root) {
         private var numeric = binding.text1
         private var client = binding.text3
@@ -50,7 +48,8 @@ class ActivTurnAdapter (
         private var phoneNum = binding.text6
         private var date = binding.text5
         var rootLayout = binding.rootLayout
-        fun bind(data: Activetashkent, onOrderClickListener: OnHistoryClickListener, position: Int
+        fun bind(
+            data: Activetashkent, onOrderClickListener: OnHistoryClickListener, position: Int
         ) {
             numeric.text = (position + 1).toString()
             client.text = data.mijoz
@@ -60,6 +59,10 @@ class ActivTurnAdapter (
 
             rootLayout.setOnClickListener {
                 onOrderClickListener.onItemClickOrder(data)
+            }
+            rootLayout.setOnLongClickListener {
+                onOrderClickListener.onLongClick(data)
+                true
             }
 
 
@@ -72,6 +75,7 @@ class ActivTurnAdapter (
     interface OnHistoryClickListener {
         fun onItemClickOrder(position: Activetashkent)
 
+        fun onLongClick(activetashkent: Activetashkent)
     }
 
 }

@@ -14,4 +14,6 @@ class ApiHelper2(var apiService2: ApiService2) {
     suspend fun Edit(map: HashMap<String, Any>?): ResponseData = apiService2.Edit(map)
 
     suspend fun reject(order_id: Int): ResponseData = apiService2.reject(order_id)
+
+    suspend fun reject_turn(map: HashMap<String, Any>?) = apiService2.reject_turn(map)
 }

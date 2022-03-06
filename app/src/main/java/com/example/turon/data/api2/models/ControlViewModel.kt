@@ -53,4 +53,12 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         }
         return isTrue
     }
+
+    fun reject_turn(map: HashMap<String, Any>?): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.reject_turn(map)
+        }
+        return isTrue
+    }
 }
