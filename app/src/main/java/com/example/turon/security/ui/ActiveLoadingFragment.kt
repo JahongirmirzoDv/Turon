@@ -230,8 +230,6 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
                     is UIState.Success -> {
                         progressDialog.dismiss()
                         getHistory()
-//                        Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
-//
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
@@ -241,9 +239,6 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
 
                 }
             }
-
         }
     }
-
-
 }
