@@ -4,11 +4,11 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -96,7 +96,7 @@ class FeedSendHistoryFragment : Fragment() {
             toolbarSearch.ivClear.setOnClickListener {
                 toolbarSearch.etSearch.setText("")
             }
-            toolbarSearch.etSearch.addTextChangedListener(object: TextWatcher{
+            toolbarSearch.etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -158,7 +158,8 @@ class FeedSendHistoryFragment : Fragment() {
             }
         }
 
-        orderHistoryAdapter.setOnClickListener(object :SendOrderHistoryAdapter.OnParcelClickListener{
+        orderHistoryAdapter.setOnClickListener(object :
+            SendOrderHistoryAdapter.OnParcelClickListener {
             override fun clickListener(parcel: OrderHistory) {
 
             }
@@ -168,11 +169,15 @@ class FeedSendHistoryFragment : Fragment() {
     }
 
     private fun getAcceptHistory(text: String) {
-        val userId= SharedPref(requireContext()).getUserId()
+        val userId = SharedPref(requireContext()).getUserId()
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            val response = viewModel.getOrderPagination(text,userId)
+            val response = viewModel.getOrderPagination(text, userId)
             response.collect {
-                orderHistoryAdapter.submitData(it)
+                try {
+                    orderHistoryAdapter.submitData(it)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }

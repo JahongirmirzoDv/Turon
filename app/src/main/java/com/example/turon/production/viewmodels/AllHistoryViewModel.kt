@@ -42,7 +42,9 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
                 pageSize = 15,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { OrderHistoryDataSource(apiService, text, userId) }
+            pagingSourceFactory = {
+                OrderHistoryDataSource(apiService, text, userId)
+            }
         ).flow
     }
 
@@ -72,7 +74,7 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
         date_end: String
     ): MutableLiveData<HistoryProResponse> {
         viewModelScope.launch {
-            lv.value = apiService.getHistoryProFilter(user_id,date_start, date_end)
+            lv.value = apiService.getHistoryProFilter(user_id, date_start, date_end)
         }
         return lv
     }

@@ -21,7 +21,7 @@ class SendOrderHistoryAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        getItem(position)?.let { holder.bind(it) }
     }
 
 
@@ -29,17 +29,22 @@ class SendOrderHistoryAdapter :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(d: OrderHistory) {
-            with(binding) {
-                text1.text = (layoutPosition + 1).toString()
-                text3.text = d.customer.name
-                text4.text = d.car_number
-                text6.text = d.driver_phone
-                text5.text = d.date
-                chiqish.text = d.left_date.toString().substring(0, 19)
-                root.setOnClickListener {
-                    onParcelClickListener.clickListener(d)
-                }
-            }
+           try {
+               with(binding) {
+                   text1.text = (layoutPosition + 1).toString()
+                   text3.text = d.customer.name
+                   text4.text = d.car_number
+                   text6.text = d.driver_phone
+                   text5.text = d.date
+                   chiqish.text = if (d.left_date != "") d.left_date.toString()
+                       .substring(0, 19) else "malumot yo'q"
+                   root.setOnClickListener {
+                       onParcelClickListener.clickListener(d)
+                   }
+               }
+           }catch (e:Exception){
+               e.printStackTrace()
+           }
         }
     }
 
