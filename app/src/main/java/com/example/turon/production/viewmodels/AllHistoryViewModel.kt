@@ -9,7 +9,7 @@ import androidx.paging.PagingData
 import com.example.turon.data.api.ApiService
 import com.example.turon.data.data.*
 import com.example.turon.data.model.HistoryProData
-import com.example.turon.data.model.OrderHistory
+import com.example.turon.data.model.Result
 import com.example.turon.data.model.response.HistoryProResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
         ).flow
     }
 
-    fun getOrderPagination(text: String, userId: Int,date_start: String,date_end: String): Flow<PagingData<OrderHistory>> {
+    fun getOrderPagination(text: String, userId: Int,date_start: String,date_end: String): Flow<PagingData<Result>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,
@@ -48,7 +48,7 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
         ).flow
     }
 
-    fun getReturnedPagination(): Flow<PagingData<OrderHistory>> {
+    fun getReturnedPagination(): Flow<PagingData<Result>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,

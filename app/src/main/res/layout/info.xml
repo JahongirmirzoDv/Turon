@@ -57,59 +57,12 @@
             app:layout_constraintTop_toBottomOf="@id/location" />
 
 
-        <TextView
-            android:id="@+id/summa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Izoh"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/limit" />
-
-        <TextView
-            android:id="@+id/sotuvchi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Izoh"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/summa" />
-
-        <TextView
-            android:id="@+id/tegirmon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Izoh"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sotuvchi" />
-        <TextView
-            android:id="@+id/qop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Izoh"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tegirmon" />
-
         <ImageView
             android:id="@+id/img"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintTop_toBottomOf="@id/qop" />
+            android:layout_height="300dp"
+            app:layout_constraintTop_toBottomOf="@id/limit" />
 
 
         <TextView

@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.turon.data.model.OrderHistory
+import com.example.turon.data.model.Result
 import com.example.turon.databinding.YuborishTarixItemBinding
 
 class SendOrderHistoryAdapter :
-    PagingDataAdapter<OrderHistory, SendOrderHistoryAdapter.ViewHolder>(CDiffUtilCallback()) {
+    PagingDataAdapter<Result, SendOrderHistoryAdapter.ViewHolder>(CDiffUtilCallback()) {
     private lateinit var onParcelClickListener: OnParcelClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +28,7 @@ class SendOrderHistoryAdapter :
     inner class ViewHolder(val binding: YuborishTarixItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(d: OrderHistory) {
+        fun bind(d: Result) {
            try {
                with(binding) {
                    text1.text = (layoutPosition + 1).toString()
@@ -53,17 +53,17 @@ class SendOrderHistoryAdapter :
     }
 
     interface OnParcelClickListener {
-        fun clickListener(parcel: OrderHistory)
+        fun clickListener(parcel: Result)
     }
 
 }
 
-class CDiffUtilCallback : DiffUtil.ItemCallback<OrderHistory>() {
-    override fun areItemsTheSame(oldItem: OrderHistory, newItem: OrderHistory): Boolean {
+class CDiffUtilCallback : DiffUtil.ItemCallback<Result>() {
+    override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: OrderHistory, newItem: OrderHistory): Boolean {
+    override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
         return oldItem.id == newItem.id
     }
 }

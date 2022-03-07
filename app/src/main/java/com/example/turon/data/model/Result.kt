@@ -1,18 +1,18 @@
 package com.example.turon.data.model
 
-data class OrderHistory(
-    val baskets: List<Int>,
+data class Result(
+    val baskets: List<Basket>,
     val bonus: Int,
     val car_number: String,
     val customer: Customer,
     val date: String,
     val driver_phone: String,
-    val entered_date: Any,
+    val entered_date: String,
     val id: Int,
     val img: String,
-    val left_date: Any,
+    val left_date: String,
     val payment_date: String,
-    val seller: Int,
+    val seller: Seller,
     val status: String,
     val summa_total: String,
     val tegirmon: Int,

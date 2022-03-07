@@ -23,7 +23,7 @@ import com.example.turon.adapter.AdvertLoadStateAdapter
 import com.example.turon.adapter.SendOrderHistoryAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.OrderHistory
+import com.example.turon.data.model.Result
 import com.example.turon.data.model.factory.AllHistoryViewModelFactory
 import com.example.turon.databinding.FragmentFeedSendHistoryBinding
 import com.example.turon.production.viewmodels.AllHistoryViewModel
@@ -51,7 +51,7 @@ class FeedSendHistoryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
     private val orderHistoryAdapter by lazy { SendOrderHistoryAdapter() }
-    private val orderList by lazy { ArrayList<OrderHistory>() }
+    private val orderList by lazy { ArrayList<Result>() }
 
     private val viewModel: AllHistoryViewModel by viewModels {
         AllHistoryViewModelFactory(
@@ -281,20 +281,25 @@ class FeedSendHistoryFragment : Fragment() {
         orderHistoryAdapter.setOnClickListener(object :
             SendOrderHistoryAdapter.OnParcelClickListener {
             @SuppressLint("SetTextI18n")
-            override fun clickListener(parcel: OrderHistory) {
+            override fun clickListener(parcel: Result) {
                 val bind: com.example.turon.databinding.InfoBinding =
                     com.example.turon.databinding.InfoBinding.inflate(layoutInflater)
                 val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
                 dialog.setCancelable(true)
                 dialog.setView(bind.root)
                 val builder = dialog.create()
+                var list = ArrayList<String>()
+                parcel.baskets.forEach {
+                    list.add(
+                        "\n ${it.productN.productX.name} : ${
+                            it.hajmi.toString().substring(0, it.hajmi.toString().length - 2)
+                        }"
+                    )
+                }
                 bind.dialogTitle.text = parcel.customer.name
-                bind.location.text = "Joylashuv : ${parcel.customer.location}"
-                bind.limit.text = "Limit : ${parcel.customer.limit}"
-                bind.summa.text = "Umumiy summa : ${parcel.summa_total}"
-                bind.sotuvchi.text = "Sotuvchi : ${parcel.seller}"
-                bind.tegirmon.text = "Tegirmon : ${parcel.tegirmon}"
-                bind.qop.text = "Qoplar : ${parcel.baskets}"
+                bind.location.text =
+                    "Sotuvchi : ${parcel.seller.first_name} ${parcel.seller.last_name}"
+                bind.limit.text = "Qoplar : $list"
                 Picasso.get().load(parcel.img).error(R.drawable.no_photo)
                     .placeholder(R.drawable.no_photo).into(bind.img)
                 bind.textView35.setOnClickListener {

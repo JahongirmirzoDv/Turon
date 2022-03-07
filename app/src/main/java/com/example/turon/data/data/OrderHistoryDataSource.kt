@@ -4,15 +4,15 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.OrderHistory
+import com.example.turon.data.model.Result
 import retrofit2.HttpException
 
-class OrderHistoryDataSource (private var apiService: ApiService,private var text:String,private var userId:Int,var date_start:String,var date_end:String) : PagingSource<Int, OrderHistory>() {
-    override fun getRefreshKey(state: PagingState<Int, OrderHistory>): Int? {
+class OrderHistoryDataSource (private var apiService: ApiService,private var text:String,private var userId:Int,var date_start:String,var date_end:String) : PagingSource<Int, Result>() {
+    override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, OrderHistory> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Result> {
         val page = params.key ?: START_PAGE_INDEX
         try {
             val response = apiService.getOrderHistory(page,userId,text,date_start,date_end)
