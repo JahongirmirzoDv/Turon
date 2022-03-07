@@ -36,14 +36,14 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
         ).flow
     }
 
-    fun getOrderPagination(text: String, userId: Int): Flow<PagingData<OrderHistory>> {
+    fun getOrderPagination(text: String, userId: Int,date_start: String,date_end: String): Flow<PagingData<OrderHistory>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                OrderHistoryDataSource(apiService, text, userId)
+                OrderHistoryDataSource(apiService, text, userId,date_start,date_end)
             }
         ).flow
     }

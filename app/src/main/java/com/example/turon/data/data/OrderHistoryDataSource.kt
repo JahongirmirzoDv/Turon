@@ -7,7 +7,7 @@ import com.example.turon.data.api.ApiService
 import com.example.turon.data.model.OrderHistory
 import retrofit2.HttpException
 
-class OrderHistoryDataSource (private var apiService: ApiService,private var text:String,private var userId:Int) : PagingSource<Int, OrderHistory>() {
+class OrderHistoryDataSource (private var apiService: ApiService,private var text:String,private var userId:Int,var date_start:String,var date_end:String) : PagingSource<Int, OrderHistory>() {
     override fun getRefreshKey(state: PagingState<Int, OrderHistory>): Int? {
         return null
     }
@@ -15,7 +15,7 @@ class OrderHistoryDataSource (private var apiService: ApiService,private var tex
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, OrderHistory> {
         val page = params.key ?: START_PAGE_INDEX
         try {
-            val response = apiService.getOrderHistory(page,userId,text)
+            val response = apiService.getOrderHistory(page,userId,text,date_start,date_end)
             Log.e("test", "load: ${response.results.toString()}  ${response.results.size}", )
             val nextKey=if(response.next.isNullOrEmpty()){
                 null

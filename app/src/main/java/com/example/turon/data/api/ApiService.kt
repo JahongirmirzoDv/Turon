@@ -150,7 +150,6 @@ interface ApiService {
     ): Response<ActiveOrderResponse>
 
 
-
     @GET("get_active_akt/")
     suspend fun getActiveAkt(): Response<ProductAcceptResponse>
 
@@ -229,7 +228,9 @@ interface ApiService {
     suspend fun getOrderHistory(
         @Query("page") page: Int,
         @Query("user_id") user_id: Int,
-        @Query("item") item: String
+        @Query("item") item: String,
+        @Query("from_date") date_start: String,
+        @Query("to_date") date_end: String
     ): OrderHistoryRespone2
 
 
@@ -269,7 +270,7 @@ interface ApiService {
     ): HistoryProResponse
 
     @GET("store/productionhistory/")
-     fun getQopChiqim(
+    fun getQopChiqim(
         @Query("user_id") user_id: Int,
         @Query("date_start") date_start: String,
         @Query("date_end") date_end: String
