@@ -1,23 +1,17 @@
 package com.example.turon.feed.commodityacceptance
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
 import android.widget.PopupMenu
-import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
 import com.example.turon.adapter.ProductListAdapter
 import com.example.turon.data.model.AcceptProduct
 import com.example.turon.databinding.FragmentAcceptanceDetailsBinding
-import java.lang.Exception
 
 
 class AcceptanceDetailsFragment : Fragment() {
@@ -35,7 +29,7 @@ class AcceptanceDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAcceptanceDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -84,6 +78,4 @@ class AcceptanceDetailsFragment : Fragment() {
             }
         }
     }
-
-
 }

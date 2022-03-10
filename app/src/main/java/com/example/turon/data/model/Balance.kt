@@ -10,7 +10,7 @@ data class Balance(
     @SerializedName("zavod")
     val company: String,
     @SerializedName("qoplar soni")
-    val bagCount: Long
+    val bagCount: Double
 ) {
 
     fun balanceString(): String {

@@ -205,7 +205,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
 

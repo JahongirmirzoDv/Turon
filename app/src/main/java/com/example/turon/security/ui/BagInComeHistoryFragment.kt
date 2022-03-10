@@ -280,7 +280,7 @@ class BagInComeHistoryFragment : Fragment() {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
             var c = LocalDate.now()
-            val minusMonths = c.minusDays(1)
+            val minusMonths = c
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
             var start_date = "${minusMonths.year}-$mont-$day"

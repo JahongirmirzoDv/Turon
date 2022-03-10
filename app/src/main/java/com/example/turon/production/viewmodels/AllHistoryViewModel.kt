@@ -9,7 +9,7 @@ import androidx.paging.PagingData
 import com.example.turon.data.api.ApiService
 import com.example.turon.data.data.*
 import com.example.turon.data.model.HistoryProData
-import com.example.turon.data.model.Result
+import com.example.turon.data.model.ResultN
 import com.example.turon.data.model.response.HistoryProResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -26,29 +26,32 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
         ).flow
     }
 
-    fun getAcceptancePagination(userId: Int): Flow<PagingData<HistoryProData>> {
+    fun getAcceptancePagination(userId:Int): Flow<PagingData<HistoryProData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { AcceptanceDataSource(apiService, userId) }
+            pagingSourceFactory = { AcceptanceDataSource(apiService,userId) }
         ).flow
     }
 
-    fun getOrderPagination(text: String, userId: Int,date_start: String,date_end: String): Flow<PagingData<Result>> {
+    fun getOrderPagination(
+        text: String,
+        userId: Int,
+        from_date: String,
+        to_date: String
+    ): Flow<PagingData<ResultN>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = {
-                OrderHistoryDataSource(apiService, text, userId,date_start,date_end)
-            }
+            pagingSourceFactory = { OrderHistoryDataSource(apiService, text, userId,from_date,to_date) }
         ).flow
     }
 
-    fun getReturnedPagination(): Flow<PagingData<Result>> {
+    fun getReturnedPagination(): Flow<PagingData<ResultN>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,
@@ -67,6 +70,7 @@ class AllHistoryViewModel(private val apiService: ApiService) : ViewModel() {
             pagingSourceFactory = { ReturnedProDataSource(apiService) }
         ).flow
     }
+
 
     fun getHistoryProFilter(
         user_id: Int,

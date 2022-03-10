@@ -1,52 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/secondaryTableColor"
-    tools:context=".feed.sendproduct.SendProductFragment">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include
-            android:id="@+id/toolbarDefault"
-            layout="@layout/toolbar_default_order"
-            android:fitsSystemWindows="true"
-            android:visibility="visible" />
-
-        <include
-            android:id="@+id/toolbarSearch"
-            layout="@layout/toolbar_search"
-            android:fitsSystemWindows="true"
-            android:visibility="gone" />
-    </com.google.android.material.appbar.AppBarLayout>
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/tabsLayout"
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/secondaryBackgroundColor"
+        android:background="@color/secondaryTableColor"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintEnd_toStartOf="parent">
 
         <TextView
             android:id="@+id/text1"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.10"
             android:gravity="center"
-            android:text="№"
+            android:maxLength="7"
+            android:text="11199112"
             android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
 
         <View
             android:layout_width="1dp"
@@ -57,12 +35,12 @@
             android:id="@+id/text3"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
-            android:text="Mijoz "
+            android:text="Mahsulot "
             android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp" />
 
         <View
             android:layout_width="1dp"
@@ -72,14 +50,13 @@
         <TextView
             android:id="@+id/text4"
             android:layout_width="0dp"
-            android:layout_height="40.0dip"
+            android:layout_height="45.0dip"
             android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
-            android:text="Mashina raqami"
+            android:text="Tegirmon"
             android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp" />
 
         <View
             android:layout_width="1dp"
@@ -90,12 +67,12 @@
             android:id="@+id/text6"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
-            android:text="Tel nomeri"
+            android:text="Qop soni"
             android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp" />
 
         <View
             android:layout_width="1dp"
@@ -106,37 +83,39 @@
             android:id="@+id/text5"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
             android:text="Sana"
             android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
             android:background="@color/white" />
 
-        <TextView
-            android:id="@+id/status"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="45.0dip"
             android:layout_weight="0.11"
-            android:gravity="center"
-            android:text="Status"
-            android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerOrder"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabsLayout"
-        tools:listitem="@layout/with_status" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

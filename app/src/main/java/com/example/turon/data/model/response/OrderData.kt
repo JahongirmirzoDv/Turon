@@ -13,12 +13,14 @@ data class OrderData(
     @SerializedName("mashina nomeri")
     val carNum: String,
     @SerializedName("mijoz")
-    val client: String
+    val client: String,
+    @SerializedName("status")
+    val status: String
 
-){
+) {
 
-    fun orderString():String{
-        return "${id}$date${phone}${client}${carNum}"
+    fun orderString(): String {
+        return "${id}$date${phone}${client}${carNum}${status}"
     }
 
 }

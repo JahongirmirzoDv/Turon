@@ -1,6 +1,6 @@
 package com.example.turon.data.model
 
-data class Result(
+data class ResultN(
     val baskets: List<Basket>,
     val bonus: Int,
     val car_number: String,

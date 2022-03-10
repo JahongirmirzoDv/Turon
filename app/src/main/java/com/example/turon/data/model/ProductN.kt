@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ProductN(
     val id: Int,
-    val miqdori: Int,
+    val miqdori: Double,
     val price: Double,
     @SerializedName("product")
-    val productX: ProductX,
+    val product: ProductX,
     val tegirmon: Tegirmon
 )

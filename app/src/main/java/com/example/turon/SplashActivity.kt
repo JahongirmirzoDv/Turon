@@ -91,6 +91,10 @@ class SplashActivity : AppCompatActivity() {
                         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                         finishAffinity()
                     }
+                    "Main_Feed" -> {
+                        startActivity(Intent(this@SplashActivity, FeedActivity::class.java))
+                        finishAffinity()
+                    }
                     "Production" -> {
                         startActivity(Intent(this@SplashActivity, ProductionActivity::class.java))
                         finishAffinity()

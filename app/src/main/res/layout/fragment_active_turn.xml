@@ -111,6 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="45.0dip"
             android:layout_weight="0.10"
+            android:textSize="11sp"
             android:gravity="center"
             android:text="№"
             android:textColor="@color/black"
@@ -128,6 +129,7 @@
             android:layout_weight="0.22"
             android:gravity="center"
             android:text="Mijoz "
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -144,6 +146,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Mashina raqami"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -159,6 +162,7 @@
             android:layout_weight="0.22"
             android:gravity="center"
             android:text="Tel nomeri"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -172,6 +176,7 @@
             android:layout_height="45.0dip"
             android:layout_weight="0.22"
             android:gravity="center"
+            android:textSize="11sp"
             android:text="Sana"
             android:textColor="@color/black"
             android:textStyle="bold" />

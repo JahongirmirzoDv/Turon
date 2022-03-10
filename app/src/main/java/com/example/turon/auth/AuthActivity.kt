@@ -2,10 +2,10 @@ package com.example.turon.auth
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.turon.MainActivity
 import com.example.turon.data.api.ApiClient
@@ -44,7 +44,6 @@ class AuthActivity : AppCompatActivity() {
             loginRequest(binding.password.text.toString(), binding.phone.text.toString())
         }
         setupUI()
-
     }
 
     private fun setupUI() {
@@ -64,21 +63,31 @@ class AuthActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.login(map)
-            viewModel.loginState.collect {it->
+            viewModel.loginState.collect {
                 when (it) {
                     is UIState.Success -> {
                         progressDialog.dismiss()
                         sharedPref.setUserId(it.data.id)
                         sharedPref.setFirstEnter(false)
                         when (it.data.type) {
-                            15,16 -> {
+                            15, 16 -> {
                                 sharedPref.setUserType("WareHouse")
                                 startActivity(Intent(this@AuthActivity, FeedActivity::class.java))
                                 finishAffinity()
                             }
                             5 -> {
                                 sharedPref.setUserType("Security")
-                                startActivity(Intent(this@AuthActivity, SecurityActivity::class.java))
+                                startActivity(
+                                    Intent(
+                                        this@AuthActivity,
+                                        SecurityActivity::class.java
+                                    )
+                                )
+                                finishAffinity()
+                            }
+                            6 -> {
+                                sharedPref.setUserType("Main_Feed")
+                                startActivity(Intent(this@AuthActivity, FeedActivity::class.java))
                                 finishAffinity()
                             }
                             7 -> {
@@ -86,13 +95,17 @@ class AuthActivity : AppCompatActivity() {
                                 startActivity(Intent(this@AuthActivity, MainActivity::class.java))
                                 finishAffinity()
                             }
-                            13,14 -> {
+                            13, 14 -> {
                                 sharedPref.setUserType("Production")
-                                startActivity(Intent(this@AuthActivity, ProductionActivity::class.java))
+                                startActivity(
+                                    Intent(
+                                        this@AuthActivity,
+                                        ProductionActivity::class.java
+                                    )
+                                )
                                 finishAffinity()
                             }
                         }
-
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
@@ -101,14 +114,9 @@ class AuthActivity : AppCompatActivity() {
                     is UIState.Loading -> {
 
                     }
-
                     else -> Unit
                 }
             }
-
         }
-
     }
-
-
 }

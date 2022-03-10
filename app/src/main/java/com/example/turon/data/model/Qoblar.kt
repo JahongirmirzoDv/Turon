@@ -5,5 +5,5 @@ data class Qoblar(
     val price: Double,
     val quantity: Int,
     val tegirmon: Int,
-    val type: TypeX
+    val type: Type
 )

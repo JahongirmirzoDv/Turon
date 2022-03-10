@@ -1,5 +1,6 @@
 package com.example.turon.data.model.repository
 
+import android.util.Log
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.model.Balance
 import com.example.turon.data.model.HistoryProData
@@ -22,6 +23,7 @@ class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
                 }
             }
         } catch (e: Exception) {
+            Log.e("qoldiq", "getBrandBalanceFeed: ${e.message} : ${e.printStackTrace()}")
             return UIState.Error(e.localizedMessage ?: "Unknown error")
         }
         return UIState.Empty

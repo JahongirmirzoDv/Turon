@@ -19,7 +19,7 @@ import com.example.turon.adapter.AdvertLoadStateAdapter
 import com.example.turon.adapter.ReturnedHistoryAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.Result
+import com.example.turon.data.model.ResultN
 import com.example.turon.data.model.factory.AllHistoryViewModelFactory
 import com.example.turon.databinding.FragmentReturnedHistoryBinding
 import com.example.turon.production.viewmodels.AllHistoryViewModel
@@ -96,7 +96,7 @@ class ReturnedHistoryFragment : Fragment(){
 
         }
         historyAdapter.setOnClickListener(object : ReturnedHistoryAdapter.OnParcelClickListener{
-            override fun clickListener(parcel: Result) {
+            override fun clickListener(parcel: ResultN) {
                 val bundle= bundleOf(
                     "itemId" to parcel.id
                 )

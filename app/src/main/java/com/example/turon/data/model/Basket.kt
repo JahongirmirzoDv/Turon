@@ -11,5 +11,5 @@ data class Basket(
     val miqdori: Double,
     val price: Double,
     @SerializedName("product")
-    val productN: ProductN
+    val product: ProductN
 )

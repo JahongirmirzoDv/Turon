@@ -15,4 +15,7 @@
     <color name="secondaryTableColor">#DFDFDF</color>
     <color name="edit_text_color">#FFFFFF</color>
     <color name="swipe_recycler_color">#E53935</color>
+    <color name="yellow">#FFC107</color>
+    <color name="qizil">#E80000</color>
+    <color name="yashil">#208C24</color>
 </resources>

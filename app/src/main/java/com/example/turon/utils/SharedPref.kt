@@ -3,13 +3,12 @@ package com.example.turon.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.turon.data.model.ClientData
-import com.example.turon.data.model.OrderFinal
 import com.example.turon.data.model.response.OrderData
 
 class SharedPref(context: Context) {
 
-    var device_token: String set(value) = mySharedPref.edit().putString("device_token",value).apply()
+    var device_token: String
+        set(value) = mySharedPref.edit().putString("device_token", value).apply()
         get() = mySharedPref.getString("device_token", "")!!
 
     var deviceDate: String
@@ -41,11 +40,11 @@ class SharedPref(context: Context) {
     }
 
 
-    fun isFirstEnter():Boolean{
-        return mySharedPref.getBoolean("first_enter",true)
+    fun isFirstEnter(): Boolean {
+        return mySharedPref.getBoolean("first_enter", true)
     }
 
-    fun setFirstEnter(enter:Boolean?){
+    fun setFirstEnter(enter: Boolean?) {
         val editor = mySharedPref.edit()
         editor.putBoolean("first_enter", enter!!)
         editor.apply()
@@ -81,6 +80,7 @@ class SharedPref(context: Context) {
         editor.putString("phoneNum", data.phone)
         editor.putString("carNum", data.carNum)
         editor.putString("client", data.client)
+        editor.putString("status", data.status)
         editor.apply()
     }
 
@@ -91,6 +91,7 @@ class SharedPref(context: Context) {
             mySharedPref.getString("date", "")!!,
             mySharedPref.getString("carNum", "")!!,
             mySharedPref.getString("phoneNum", "")!!,
+            mySharedPref.getString("status", "")!!
         )
     }
 }

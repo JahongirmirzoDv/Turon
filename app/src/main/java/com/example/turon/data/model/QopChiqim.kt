@@ -6,5 +6,5 @@ data class QopChiqim(
     val izoh: String,
     val quantity: Int,
     val tegirmon: Any,
-    val type: TypeX
+    val type: Type
 )

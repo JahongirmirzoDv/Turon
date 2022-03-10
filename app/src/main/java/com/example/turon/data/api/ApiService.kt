@@ -231,7 +231,7 @@ interface ApiService {
         @Query("item") item: String,
         @Query("from_date") date_start: String,
         @Query("to_date") date_end: String
-    ): OrderHistoryRespone2
+    ): OrderHistoryResponse
 
 
     @GET("get_store_product/")

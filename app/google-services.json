@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "654331654639",
-    "project_id": "turon-24ce6",
-    "storage_bucket": "turon-24ce6.appspot.com"
+    "project_number": "704196997231",
+    "project_id": "turon-un",
+    "storage_bucket": "turon-un.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:654331654639:android:8fceb35d6140e6ba29061a",
+        "mobilesdk_app_id": "1:704196997231:android:ecb47b79c6051fe7fe9d9a",
         "android_client_info": {
           "package_name": "com.example.turon"
         }
       },
       "oauth_client": [
         {
-          "client_id": "654331654639-6alaa5e3mno1h7j4hrepf8vluv4kha62.apps.googleusercontent.com",
+          "client_id": "704196997231-jc4mar9nptoafee6pvvb893fa835k4v8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.turon",
-            "certificate_hash": "67c7c6441cb6a97cf2d5f9f179cedefb5920c2fb"
+            "certificate_hash": "67bf91b349a76c44d71c481d5a149464bf5f8e48"
           }
         },
         {
-          "client_id": "654331654639-6h50c34qn0h1rnhiu30amoqrslc0gh7u.apps.googleusercontent.com",
+          "client_id": "704196997231-0aeq612mvl28gc04eic39c84i70a6lcp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDWORy0TDCpXP1wbFFo3-UZoTr_uAnZ9s8"
+          "current_key": "AIzaSyBuVSzwOuNjZa903BhN1j-8qF24C786Uck"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "654331654639-6h50c34qn0h1rnhiu30amoqrslc0gh7u.apps.googleusercontent.com",
+              "client_id": "704196997231-0aeq612mvl28gc04eic39c84i70a6lcp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

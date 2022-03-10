@@ -5,12 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.data.model.Balance
-import com.example.turon.data.model.response.OrderData
-import com.example.turon.data.model.response.OrderDetailsData
 import com.example.turon.databinding.ItemSendDetailsBinding
-import com.example.turon.databinding.ItemSendProductBinding
 
-class OrderDetailsAdapter (
+class OrderDetailsAdapter(
     private var list: ArrayList<Balance>,
     private var onOrderClickListener: OnOrderClickListener
 ) :
@@ -37,21 +34,25 @@ class OrderDetailsAdapter (
         private var countBags = binding.text4
         private var company = binding.text6
         var rootLayout = binding.tabsLayout
+
         @SuppressLint("SetTextI18n")
         fun bind(
             data: Balance,
             onOrderClickListener: OnOrderClickListener,
             position: Int
         ) {
-            numeric.text=(position+1).toString()
-            productName.text = data.productName
-            countBags.text = data.bagCount.toString()
-            company.text = data.company
+            try {
+                numeric.text = (position + 1).toString()
+                productName.text = data.productName
+                countBags.text = data.bagCount.toString()
+                company.text = data.company
 
-            rootLayout.setOnClickListener {
-                onOrderClickListener.onItemClickOrderDetails(data)
+                rootLayout.setOnClickListener {
+                    onOrderClickListener.onItemClickOrderDetails(data)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-
         }
     }
 

@@ -74,6 +74,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="№"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -90,6 +91,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="Mahsulot "
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -106,6 +108,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Tegirmon"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -122,6 +125,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="Qop soni"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
         <View
@@ -138,6 +142,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="Sana"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

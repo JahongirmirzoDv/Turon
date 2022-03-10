@@ -1,8 +1,9 @@
 package com.example.turon.feed.history
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -18,19 +19,23 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.turon.R
 import com.example.turon.adapter.AdvertLoadStateAdapter
 import com.example.turon.adapter.SendOrderHistoryAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiService
-import com.example.turon.data.model.Result
+import com.example.turon.data.model.ResultN
 import com.example.turon.data.model.factory.AllHistoryViewModelFactory
 import com.example.turon.databinding.FragmentFeedSendHistoryBinding
 import com.example.turon.production.viewmodels.AllHistoryViewModel
 import com.example.turon.utils.SharedPref
 import com.example.turon.utils.textChanges
-import com.squareup.picasso.Picasso
 import dmax.dialog.SpotsDialog
+import kotlinx.android.synthetic.main.fragment_feed_send_history.view.*
 import kotlinx.android.synthetic.main.toolbar_default.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
@@ -49,9 +54,10 @@ class FeedSendHistoryFragment : Fragment() {
     private lateinit var dateSetListenerUntil: DatePickerDialog.OnDateSetListener
     private var _binding: FragmentFeedSendHistoryBinding? = null
     private val binding get() = _binding!!
+    private var state = true
     private lateinit var progressDialog: AlertDialog
     private val orderHistoryAdapter by lazy { SendOrderHistoryAdapter() }
-    private val orderList by lazy { ArrayList<Result>() }
+    private val orderList by lazy { ArrayList<ResultN>() }
 
     private val viewModel: AllHistoryViewModel by viewModels {
         AllHistoryViewModelFactory(
@@ -69,12 +75,6 @@ class FeedSendHistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFeedSendHistoryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         dateSetListenerFrom =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -89,13 +89,61 @@ class FeedSendHistoryFragment : Fragment() {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInViewUntil()
             }
+        return binding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         setupUI()
         initAction()
+    }
 
+    private fun updateDateInViewFrom() {
+        val myFormat = "yyyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        binding.txtFrom.text = sdf.format(cal.time)
+        dateStart = binding.txtFrom.text.toString()
+        if (dateEnd != "") {
+            getAcceptHistory("", dateEnd, dateStart)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Qaysi sanagacha ekanligini kiriting",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        Toast.makeText(
+            requireContext(),
+            binding.txtFrom.text.toString() + "\n" + dateEnd,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun updateDateInViewUntil() {
+        val myFormat = "yyyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        binding.txtUntil.text = sdf.format(cal.time)
+        dateEnd = binding.txtUntil.text.toString()
+        if (dateStart != "") {
+            getAcceptHistory("", dateEnd, dateStart)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Qaysi sanadan ekanligini kiriting",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        Toast.makeText(requireContext(), dateStart + "\n" + dateEnd, Toast.LENGTH_SHORT).show()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initAction() {
+
+        binding.appBarLayout.toolbarDefault.backBtn1.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         binding.txtUntil.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
@@ -118,11 +166,11 @@ class FeedSendHistoryFragment : Fragment() {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
             var c = LocalDate.now()
-            val minusMonths = c.minusDays(1)
+            val minusMonths = c
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
             var start_date = "${minusMonths.year}-$mont-$day"
-            getAcceptHistory(text = "", start_date, date1)
+            getAcceptHistory("", start_date, date1)
         }
         binding.hafta.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
@@ -132,46 +180,8 @@ class FeedSendHistoryFragment : Fragment() {
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
             var start_date = "${minusMonths.year}-$mont-$day"
-            getAcceptHistory(text = "", start_date, date1)
+            getAcceptHistory("", start_date, date1)
         }
-    }
-
-    private fun updateDateInViewFrom() {
-        val myFormat = "yyyy-MM-dd" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.txtFrom.text = sdf.format(cal.time)
-        dateStart = binding.txtFrom.text.toString()
-        if (dateEnd != "") {
-            getAcceptHistory(text = "", dateEnd, dateStart)
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Qaysi sanagacha ekanligini kiriting",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        Toast.makeText(
-            requireContext(),
-            binding.txtFrom.text.toString() + "\n" + dateEnd,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun updateDateInViewUntil() {
-        val myFormat = "yyyy-MM-dd" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.txtUntil.text = sdf.format(cal.time)
-        dateEnd = binding.txtUntil.text.toString()
-        if (dateStart != "") {
-            getAcceptHistory(text = "", dateEnd, dateStart)
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "Qaysi sanadan ekanligini kiriting",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        Toast.makeText(requireContext(), dateStart + "\n" + dateEnd, Toast.LENGTH_SHORT).show()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -233,7 +243,9 @@ class FeedSendHistoryFragment : Fragment() {
                 override fun afterTextChanged(s: Editable?) {
 
                 }
+
             })
+
         }
     }
 
@@ -245,14 +257,9 @@ class FeedSendHistoryFragment : Fragment() {
             .setCancelable(false)
             .build()
         binding.recyclerOrder.setHasFixedSize(true)
-        binding.appBarLayout.backBtn.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
         setRecycler()
         hideShowSearch()
         searchOrderHistory()
-
-
     }
 
     private fun setRecycler() {
@@ -280,8 +287,7 @@ class FeedSendHistoryFragment : Fragment() {
 
         orderHistoryAdapter.setOnClickListener(object :
             SendOrderHistoryAdapter.OnParcelClickListener {
-            @SuppressLint("SetTextI18n")
-            override fun clickListener(parcel: Result) {
+            override fun clickListener(parcel: ResultN) {
                 val bind: com.example.turon.databinding.InfoBinding =
                     com.example.turon.databinding.InfoBinding.inflate(layoutInflater)
                 val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
@@ -291,7 +297,7 @@ class FeedSendHistoryFragment : Fragment() {
                 var list = ArrayList<String>()
                 parcel.baskets.forEach {
                     list.add(
-                        "\n ${it.productN.productX.name} : ${
+                        "\n ${it.product.product.name} : ${
                             it.hajmi.toString().substring(0, it.hajmi.toString().length - 2)
                         }"
                     )
@@ -300,8 +306,32 @@ class FeedSendHistoryFragment : Fragment() {
                 bind.location.text =
                     "Sotuvchi : ${parcel.seller.first_name} ${parcel.seller.last_name}"
                 bind.limit.text = "Qoplar : $list"
-                Picasso.get().load(parcel.img).error(R.drawable.no_photo)
-                    .placeholder(R.drawable.no_photo).into(bind.img)
+                Glide.with(requireActivity())
+                    .load(parcel.img)
+                    .error(R.drawable.no_photo)
+                    .listener(object : RequestListener<Drawable?> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable?>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            bind.progress.visibility = View.GONE;
+                            return false;
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable?>?,
+                            dataSource: com.bumptech.glide.load.DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            bind.progress.visibility = View.GONE;
+                            return false;
+                        }
+                    })
+                    .into(bind.img)
                 bind.textView35.setOnClickListener {
                     builder.cancel()
                 }
@@ -310,16 +340,15 @@ class FeedSendHistoryFragment : Fragment() {
         })
     }
 
-    private fun getAcceptHistory(text: String, dateStart: String, dateEnd: String) {
+    private fun getAcceptHistory(text: String, from_date: String, to_date: String) {
+        progressDialog.show()
         val userId = SharedPref(requireContext()).getUserId()
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            val response = viewModel.getOrderPagination(text, userId, dateStart, dateEnd)
+            val response = viewModel.getOrderPagination(text, userId, from_date, to_date)
             response.collect {
-                try {
-                    orderHistoryAdapter.submitData(it)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                orderHistoryAdapter.submitData(it)
+                orderHistoryAdapter.setStatus(state)
+                progressDialog.dismiss()
             }
         }
     }

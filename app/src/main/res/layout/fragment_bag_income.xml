@@ -74,6 +74,7 @@
             android:layout_weight="0.08"
             android:gravity="center"
             android:text="№"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -89,6 +90,7 @@
             android:layout_weight="0.15"
             android:gravity="center"
             android:text="Qop turi"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -105,6 +107,7 @@
             android:layout_weight="0.12"
             android:gravity="center"
             android:text="Soni"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -121,6 +124,7 @@
             android:layout_weight="0.16"
             android:gravity="center"
             android:lines="1"
+            android:textSize="11sp"
             android:text="Taminotchi"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -137,6 +141,7 @@
             android:layout_weight="0.18"
             android:gravity="center"
             android:text="Sana"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -153,6 +158,7 @@
             android:gravity="center"
             android:lines="1"
             android:text="Izoh"
+            android:textSize="11sp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

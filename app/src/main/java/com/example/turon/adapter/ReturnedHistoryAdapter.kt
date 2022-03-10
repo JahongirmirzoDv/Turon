@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.turon.data.model.Result
+import com.example.turon.data.model.ResultN
 import com.example.turon.databinding.ItemReturnProductBinding
 
 class ReturnedHistoryAdapter :
-    PagingDataAdapter<Result, ReturnedHistoryAdapter.ViewHolder>(FDiffUtilCallback()) {
+    PagingDataAdapter<ResultN, ReturnedHistoryAdapter.ViewHolder>(FDiffUtilCallback()) {
     private lateinit var onParcelClickListener: OnParcelClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +27,7 @@ class ReturnedHistoryAdapter :
     inner class ViewHolder(val binding: ItemReturnProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(d: Result) {
+        fun bind(d: ResultN) {
             with(binding) {
                 text1.text = (layoutPosition + 1).toString()
                 text3.text = d.customer.name
@@ -45,17 +45,17 @@ class ReturnedHistoryAdapter :
     }
 
     interface OnParcelClickListener {
-        fun clickListener(parcel: Result)
+        fun clickListener(parcel: ResultN)
     }
 
 }
 
-class FDiffUtilCallback : DiffUtil.ItemCallback<Result>() {
-    override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+class FDiffUtilCallback : DiffUtil.ItemCallback<ResultN>() {
+    override fun areItemsTheSame(oldItem: ResultN, newItem: ResultN): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
+    override fun areContentsTheSame(oldItem: ResultN, newItem: ResultN): Boolean {
         return oldItem.id == newItem.id
     }
 }
