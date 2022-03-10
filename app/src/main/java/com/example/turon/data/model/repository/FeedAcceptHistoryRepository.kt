@@ -3,11 +3,10 @@ package com.example.turon.data.model.repository
 import android.util.Log
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.model.Balance
-import com.example.turon.data.model.HistoryProData
 import com.example.turon.data.model.ReturnedBasked
 import com.example.turon.data.model.ReturnedSec
 import com.example.turon.data.model.repository.state.UIState
-import com.example.turon.data.model.response.*
+import com.example.turon.data.model.response.AddBagExpenseResponse
 
 class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
 
@@ -29,10 +28,9 @@ class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
         return UIState.Empty
     }
 
-
-    suspend fun getReturnedBasked(qaytuv_id:Int,user_id:Int): UIState<List<ReturnedBasked>> {
+    suspend fun getReturnedBasked(qaytuv_id: Int, user_id: Int): UIState<List<ReturnedBasked>> {
         try {
-            val response = apiHelper.getReturnedBasked(qaytuv_id,user_id)
+            val response = apiHelper.getReturnedBasked(qaytuv_id, user_id)
             if (response.isSuccessful) {
                 val response = response.body()!!
                 return if (response.success) {
@@ -64,8 +62,6 @@ class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
         return UIState.Empty
     }
 
-
-
     suspend fun confirmReturned(body: HashMap<String, Any>?): UIState<AddBagExpenseResponse> {
         try {
             val response = apiHelper.confirmReturned(body)
@@ -82,6 +78,4 @@ class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
         }
         return UIState.Empty
     }
-
-
 }

@@ -40,6 +40,4 @@ interface ApiService2 {
     suspend fun reject(
         @Query("order_id") order_id: Int
     ): ResponseData
-
-
 }
