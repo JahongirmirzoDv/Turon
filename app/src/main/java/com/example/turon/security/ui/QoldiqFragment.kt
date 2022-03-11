@@ -68,11 +68,6 @@ class QoldiqFragment : Fragment() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -264,7 +259,7 @@ class QoldiqFragment : Fragment() {
         dialog.setView(bind.root)
         val builder = dialog.create()
         bind.dialogTitle.text = "Qop chiqimi"
-        Log.e("chiqim_spinnr", "showDialog: ${typeOfTinList.toString()}")
+        Log.e("chiqim_spinnr", "showDialog: $typeOfTinList")
         val adapterProduct = SpinnerCargoManAdapter(requireContext(), typeOfTinList)
         bind.text0.adapter = adapterProduct
         bind.text0.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

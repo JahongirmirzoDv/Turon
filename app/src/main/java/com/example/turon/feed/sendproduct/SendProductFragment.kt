@@ -69,6 +69,9 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         initAction()
         orderList = ArrayList()
         setupUI()
+        //this is adapter ui type change
+//        binding.status.visibility = View.GONE
+
     }
 
     private fun setupUI() {
@@ -135,6 +138,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         binding.recyclerOrder.adapter = orderAdapter
                     }
                 }
+
                 override fun afterTextChanged(s: Editable?) {
 
                 }
@@ -154,6 +158,8 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         orderList.clear()
                         orderList.addAll(it.data)
                         orderAdapter = OrderAdapter(orderList, this@SendProductFragment)
+                        //this is adapter ui type change
+//                        orderAdapter.setT(true)
                         binding.recyclerOrder.layoutManager = layoutManager
                         val user = SharedPref2.user
                         binding.recyclerOrder.scrollToPosition(user!!)

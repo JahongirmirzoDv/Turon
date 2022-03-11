@@ -20,8 +20,8 @@ class FeedAcceptHistoryViewModel(private val repository: FeedAcceptHistoryReposi
 
     private val _brandBalance = MutableStateFlow<UIState<List<Balance>>>(UIState.Loading)
     val brandBalance: StateFlow<UIState<List<Balance>>> = _brandBalance
-    suspend fun getBrandBalanceFeed() {
-        _brandBalance.value = repository.getBrandBalanceFeed()
+    suspend fun getBrandBalanceFeed(user_id: Int) {
+        _brandBalance.value = repository.getBrandBalanceFeed(user_id)
     }
 
     private val _confirmReturnedState = MutableStateFlow<UIState<AddBagExpenseResponse>>(UIState.Loading)

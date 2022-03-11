@@ -65,11 +65,6 @@ class FeedSendHistoryFragment : Fragment() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -316,8 +311,8 @@ class FeedSendHistoryFragment : Fragment() {
                             target: Target<Drawable?>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            bind.progress.visibility = View.GONE;
-                            return false;
+                            bind.progress.visibility = View.GONE
+                            return false
                         }
 
                         override fun onResourceReady(
@@ -327,8 +322,8 @@ class FeedSendHistoryFragment : Fragment() {
                             dataSource: com.bumptech.glide.load.DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            bind.progress.visibility = View.GONE;
-                            return false;
+                            bind.progress.visibility = View.GONE
+                            return false
                         }
                     })
                     .into(bind.img)

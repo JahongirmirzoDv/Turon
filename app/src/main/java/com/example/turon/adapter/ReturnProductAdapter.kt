@@ -42,7 +42,7 @@ class ReturnProductAdapter (
             numeric.text = (position + 1).toString()
             client.text = data.client
             date.text = data.date
-            phoneNum.text = data.phone ?: ""
+            phoneNum.text = data.phone
 
             rootLayout.setOnClickListener {
                 onOrderClickListener.onItemClickOrder(data)

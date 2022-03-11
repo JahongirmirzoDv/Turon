@@ -45,10 +45,6 @@ class ScalesHistoryFragment : Fragment(), HistoryAdapter.OnHistoryListener {
         )
     }
     private lateinit var adapter: HistoryAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

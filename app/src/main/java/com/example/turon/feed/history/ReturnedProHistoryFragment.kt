@@ -35,10 +35,6 @@ private var _binding:FragmentReturnedProHistoryBinding?=null
             ApiClient.createService(ApiService::class.java,requireContext())
         )
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

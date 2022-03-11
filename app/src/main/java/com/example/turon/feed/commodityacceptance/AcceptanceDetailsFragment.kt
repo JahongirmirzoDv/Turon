@@ -21,11 +21,6 @@ class AcceptanceDetailsFragment : Fragment() {
     private lateinit var list: ArrayList<AcceptProduct>
     private var count: Int = 1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -33,7 +33,7 @@ class TurnPagingAdapter : PagingDataAdapter<TurnHistory, TurnPagingAdapter.ViewH
                 text3.text= d.order?.customer?.name ?: ""
                 text4.text= d.order?.car_number ?: ""
                 text6.text= d.order?.driver_phone ?: ""
-                text5.text=d.date ?: ""
+                text5.text= d.date
             }
             onParcelClickListener.clickListener(d)
         }

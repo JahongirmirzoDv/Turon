@@ -58,7 +58,7 @@ class HistoryAdapter(
             clientName.text = productAcceptData.client.compony?:""
             aktName.text = productAcceptData.name?:""
             stansiya.text = productAcceptData.stansiya?:""
-            wagonCount.text = productAcceptData.vagonSoni.toString()?:""
+            wagonCount.text = productAcceptData.vagonSoni.toString()
             date.text = productAcceptData.dateStart?:""
             numericTxt.text= (position+1).toString()
             actionBtn.setOnClickListener {

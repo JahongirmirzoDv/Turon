@@ -85,7 +85,7 @@ class ApiHelper(private val apiService: ApiService) {
     suspend fun getReturnedSec() =
         apiService.getReturnedSec()
 
-    suspend fun getBrandBalanceFeed() = apiService.getBrandBalanceFeed()
+    suspend fun getBrandBalanceFeed(user_id: Int) = apiService.getBrandBalanceFeed(user_id)
 
     suspend fun postEditStore(body: HashMap<String, Any>?) = apiService.postEditStore(body)
     suspend fun getHistoryAkt() = apiService.getHistoryAkt()

@@ -62,11 +62,6 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -186,7 +181,8 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     private fun getBrandBalance() {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.getBrandBalanceFeed()
+            val userId = sharedPref.getUserId()
+            viewModel.getBrandBalanceFeed(userId)
             viewModel.brandBalance.collect {
                 when (it) {
                     is UIState.Success -> {

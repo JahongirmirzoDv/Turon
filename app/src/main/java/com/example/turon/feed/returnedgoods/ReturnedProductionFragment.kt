@@ -59,12 +59,6 @@ class ReturnedProductionFragment : Fragment(), OnOrderScanListenerF {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -87,7 +81,7 @@ class ReturnedProductionFragment : Fragment(), OnOrderScanListenerF {
     }
 
     private fun initAction() {
-        binding.etScanTest.showSoftInputOnFocus = false;
+        binding.etScanTest.showSoftInputOnFocus = false
         binding.etScanTest.requestFocus()
         binding.etScanTest.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

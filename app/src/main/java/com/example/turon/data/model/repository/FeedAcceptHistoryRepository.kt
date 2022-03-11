@@ -10,9 +10,9 @@ import com.example.turon.data.model.response.AddBagExpenseResponse
 
 class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
 
-    suspend fun getBrandBalanceFeed(): UIState<List<Balance>> {
+    suspend fun getBrandBalanceFeed(user_id: Int): UIState<List<Balance>> {
         try {
-            val response = apiHelper.getBrandBalanceFeed()
+            val response = apiHelper.getBrandBalanceFeed(user_id)
             if (response.isSuccessful) {
                 val response = response.body()!!
                 return if (response.success) {

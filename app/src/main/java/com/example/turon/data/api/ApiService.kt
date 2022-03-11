@@ -236,6 +236,7 @@ interface ApiService {
 
     @GET("get_store_product/")
     suspend fun getBrandBalanceFeed(
+        @Query("user_id") user_id: Int
     ): Response<BalanceResponse>
 
 
