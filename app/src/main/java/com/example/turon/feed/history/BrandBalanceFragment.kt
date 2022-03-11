@@ -36,8 +36,6 @@ import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.toolbar_default_order.view.*
 import kotlinx.coroutines.flow.collect
-import java.lang.Exception
-import java.util.HashMap
 
 
 class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListener {
@@ -45,7 +43,6 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
     private var bagCount: String = ""
-    private var comment: String = ""
     private val sharedPref by lazy { SharedPref(requireContext()) }
     private val productList by lazy { ArrayList<Balance>() }
     private lateinit var adapter: OrderDetailsAdapter
@@ -65,7 +62,6 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
         )
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,7 +78,6 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-
     }
 
     private fun setupUI() {
@@ -188,7 +183,6 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
         }
     }
 
-
     private fun getBrandBalance() {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
@@ -217,14 +211,14 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     }
 
     override fun onItemClickOrderDetails(data: Balance) {
-        if (sharedPref.getUserType() == "Main_Feed"){
+        if (sharedPref.getUserType() == "Main_Feed") {
             showDialog(data)
-        }else{
+        } else {
             Toast.makeText(requireContext(), "xato", Toast.LENGTH_SHORT).show()
         }
-
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showDialog(data: Balance) {
         val bind: EditBinding = EditBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
