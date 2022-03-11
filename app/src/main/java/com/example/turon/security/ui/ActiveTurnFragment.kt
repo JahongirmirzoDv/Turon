@@ -33,7 +33,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.flow.collect
 
 
-class ActiveTurnFragment : Fragment(), TurnHistoryAdapter.OnHistoryClickListener {
+class ActiveTurnFragment : Fragment(){
     private var _binding: FragmentActiveTurnBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
@@ -197,10 +197,10 @@ class ActiveTurnFragment : Fragment(), TurnHistoryAdapter.OnHistoryClickListener
                         orderListTo.addAll(it.data.data.loadingtashkent)
 
                         if (st){
-                            orderAdapter = TurnHistoryAdapter(orderListTo, this@ActiveTurnFragment)
+                            orderAdapter = TurnHistoryAdapter(orderListTo)
                             binding.recyclerTurn.adapter = orderAdapter
                         }else{
-                            orderAdapter = TurnHistoryAdapter(orderListVi, this@ActiveTurnFragment)
+                            orderAdapter = TurnHistoryAdapter(orderListVi)
                             binding.recyclerTurn.adapter = orderAdapter
                         }
                     }
@@ -214,10 +214,6 @@ class ActiveTurnFragment : Fragment(), TurnHistoryAdapter.OnHistoryClickListener
             }
 
         }
-    }
-
-    override fun onItemClickOrder(position: Activetashkent) {
-
     }
 
     private fun initAction() {
@@ -244,7 +240,7 @@ class ActiveTurnFragment : Fragment(), TurnHistoryAdapter.OnHistoryClickListener
                 var queryListTo: ArrayList<Activetashkent> =ArrayList()
                 if (state){
                     if (charSequence == "") {
-                        orderAdapter = TurnHistoryAdapter(orderListVi, this@ActiveTurnFragment)
+                        orderAdapter = TurnHistoryAdapter(orderListVi)
                         binding.recyclerTurn.adapter = orderAdapter
                     }
                     else {
@@ -256,13 +252,13 @@ class ActiveTurnFragment : Fragment(), TurnHistoryAdapter.OnHistoryClickListener
                                 queryListVi.add(model)
                             }
                         }
-                        orderAdapter = TurnHistoryAdapter(queryListVi, this@ActiveTurnFragment)
+                        orderAdapter = TurnHistoryAdapter(queryListVi)
                         binding.recyclerTurn.adapter = orderAdapter
                     }
                 }
                 else{
                     if (charSequence == "") {
-                        orderAdapter = TurnHistoryAdapter(orderListTo, this@ActiveTurnFragment)
+                        orderAdapter = TurnHistoryAdapter(orderListTo)
                         binding.recyclerTurn.adapter = orderAdapter
                     }
                     else {
@@ -274,7 +270,7 @@ class ActiveTurnFragment : Fragment(), TurnHistoryAdapter.OnHistoryClickListener
                                 queryListTo.add(model)
                             }
                         }
-                        orderAdapter = TurnHistoryAdapter(queryListTo, this@ActiveTurnFragment)
+                        orderAdapter = TurnHistoryAdapter(queryListTo)
                         binding.recyclerTurn.adapter = orderAdapter
                     }
                 }

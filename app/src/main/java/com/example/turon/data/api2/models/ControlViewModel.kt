@@ -61,4 +61,12 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         }
         return isTrue
     }
+
+    fun crrete_clinet_tin(map: HashMap<String, Any>?): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.crrete_clinet_tin(map)
+        }
+        return isTrue
+    }
 }

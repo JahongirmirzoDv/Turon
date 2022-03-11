@@ -33,6 +33,7 @@ import com.example.turon.data.model.factory.BagInComeViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.ProductAcceptData
 import com.example.turon.data.model.response.TegirmonData
+import com.example.turon.databinding.CreateTinBinding
 import com.example.turon.databinding.ExpenseDialogBinding
 import com.example.turon.databinding.FragmentBagInComeHistoryBinding
 import com.example.turon.security.viewmodels.BagInComeViewModel
@@ -241,6 +242,10 @@ class BagInComeHistoryFragment : Fragment() {
                         findNavController().navigate(R.id.qoldiqFragment)
                         true
                     }
+                    R.id.create_tin -> {
+                        createTin()
+                        true
+                    }
                     else -> false
                 }
             }
@@ -295,6 +300,65 @@ class BagInComeHistoryFragment : Fragment() {
             val day = String.format("%02d", minusMonths.dayOfMonth)
             var start_date = "${minusMonths.year}-$mont-$day"
             getHistoryProductFilter(start_date, date1)
+        }
+    }
+
+    private fun createTin() {
+        val bind: CreateTinBinding = CreateTinBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+        dialog.setCancelable(true)
+        dialog.setView(bind.root)
+        val builder = dialog.create()
+        bind.dialogTitle.text = "Taminotchi yaratish"
+        bind.textView35.setOnClickListener {
+            var company = bind.company.text.toString()
+            var name = bind.name.text.toString()
+            var address = bind.address.text.toString()
+            var number = bind.number.text.toString()
+            var comment = bind.comment.text.toString()
+            var debt = bind.debt.text.toString()
+            when {
+                comment.isEmpty() && company.isEmpty() && name.isEmpty() && address.isEmpty() && number.isEmpty() && debt.isEmpty() -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Izoh yozing",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    builder.dismiss()
+                    createTinData(company, name, address, number, comment, debt)
+                }
+            }
+
+        }
+        builder.show()
+
+    }
+
+    private fun createTinData(
+        company: String,
+        name: String,
+        address: String,
+        number: String,
+        comment: String,
+        debt: String
+    ) {
+        progressDialog.show()
+        val map: HashMap<String, Any> = HashMap()
+        map["compony"] = company
+        map["name"] = name
+        map["address"] = address
+        map["comment"] = comment
+        map["phone"] = number
+        map["debt"] = debt
+        model.crrete_clinet_tin(map).observe(viewLifecycleOwner) {
+            if (it.success == true) {
+                progressDialog.dismiss()
+                Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Xato", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -16,4 +16,6 @@ class ApiHelper2(var apiService2: ApiService2) {
     suspend fun reject(order_id: Int): ResponseData = apiService2.reject(order_id)
 
     suspend fun reject_turn(map: HashMap<String, Any>?) = apiService2.reject_turn(map)
+
+    suspend fun crrete_clinet_tin(map: HashMap<String, Any>?):ResponseData = apiService2.crrete_clinet_tin(map)
 }

@@ -40,4 +40,9 @@ interface ApiService2 {
     suspend fun reject(
         @Query("order_id") order_id: Int
     ): ResponseData
+
+    @POST("create_client_tin/")
+    suspend fun crrete_clinet_tin(
+        @Body body: HashMap<String, Any>?
+    ): ResponseData
 }

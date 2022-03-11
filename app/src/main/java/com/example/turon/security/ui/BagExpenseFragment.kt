@@ -18,7 +18,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
-import com.example.turon.adapter.BagInComeAdapter
 import com.example.turon.adapter.ChiqimAdapter
 import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
@@ -36,6 +35,7 @@ import com.example.turon.data.model.factory.BagExpenseViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
 import com.example.turon.databinding.BagExpenceSecurityBinding
+import com.example.turon.databinding.CreateTinBinding
 import com.example.turon.databinding.Expense2DialogBinding
 import com.example.turon.databinding.FragmentBagExpenseBinding
 import com.example.turon.security.viewmodels.BagExpenseViewModel
@@ -45,12 +45,12 @@ import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 
 class BagExpenseFragment : Fragment() {
     private var _binding: FragmentBagExpenseBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
-    private lateinit var bagHistoryAdapter: BagInComeAdapter
     private var bagTypeId: Int? = null
     private var bagCount: String = ""
     private val sharedPref by lazy { SharedPref(requireContext()) }
@@ -127,7 +127,7 @@ class BagExpenseFragment : Fragment() {
     private fun recyclerClick() {
         dd.onpress = object : ChiqimAdapter.onPress {
             override fun onclick(qopChiqim: QopChiqim, position: Int) {
-                showDialog2(data = qopChiqim)
+                showDialog2(data = qopChiqim, position)
             }
         }
     }
@@ -236,7 +236,12 @@ class BagExpenseFragment : Fragment() {
                         typeOfTinList.clear()
                         typeOfTinList.addAll(it.data)
                         progressDialog.dismiss()
-                        showDialog()
+                        if (typeOfTinList.isNotEmpty()) {
+                            showDialog(typeOfTinList)
+                        }else{
+                            Toast.makeText(requireContext(), "Qop list bosh", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
@@ -266,6 +271,10 @@ class BagExpenseFragment : Fragment() {
                     }
                     R.id.qoldiq -> {
                         findNavController().navigate(R.id.qoldiqFragment)
+                        true
+                    }
+                    R.id.create_tin -> {
+                        createTin()
                         true
                     }
                     else -> false
@@ -325,14 +334,73 @@ class BagExpenseFragment : Fragment() {
         }
     }
 
-    private fun showDialog() {
+    private fun createTin() {
+        val bind: CreateTinBinding = CreateTinBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+        dialog.setCancelable(true)
+        dialog.setView(bind.root)
+        val builder = dialog.create()
+        bind.dialogTitle.text = "Taminotchi yaratish"
+        bind.textView35.setOnClickListener {
+            var company = bind.company.text.toString()
+            var name = bind.name.text.toString()
+            var address = bind.address.text.toString()
+            var number = bind.number.text.toString()
+            var comment = bind.comment.text.toString()
+            var debt = bind.debt.text.toString()
+            when {
+                comment.isEmpty() && company.isEmpty() && name.isEmpty() && address.isEmpty() && number.isEmpty() && debt.isEmpty() -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Izoh yozing",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    builder.dismiss()
+                    createTinData(company, name, address, number, comment, debt)
+                }
+            }
+
+        }
+        builder.show()
+
+    }
+
+    private fun createTinData(
+        company: String,
+        name: String,
+        address: String,
+        number: String,
+        comment: String,
+        debt: String
+    ) {
+        progressDialog.show()
+        val map: HashMap<String, Any> = HashMap()
+        map["compony"] = company
+        map["name"] = name
+        map["address"] = address
+        map["comment"] = comment
+        map["phone"] = number
+        map["debt"] = debt
+        model.crrete_clinet_tin(map).observe(viewLifecycleOwner) {
+            if (it.success == true) {
+                progressDialog.dismiss()
+                Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Xato", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showDialog(typeoftinlist:ArrayList<TegirmonData>) {
         val bind: Expense2DialogBinding = Expense2DialogBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
         dialog.setCancelable(true)
         dialog.setView(bind.root)
         val builder = dialog.create()
         bind.dialogTitle.text = "Qop chiqimi"
-        val adapterProduct = SpinnerCargoManAdapter(requireContext(), typeOfTinList)
+        val adapterProduct = SpinnerCargoManAdapter(requireContext(), typeoftinlist)
         bind.text0.adapter = adapterProduct
         bind.text0.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -341,9 +409,7 @@ class BagExpenseFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                bagTypeId = bagTypeList[position].id
-
-
+                bagTypeId = typeoftinlist[position].id
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -377,10 +443,9 @@ class BagExpenseFragment : Fragment() {
 
         }
         builder.show()
-
     }
 
-    private fun showDialog2(data: QopChiqim) {
+    private fun showDialog2(data: QopChiqim, position: Int) {
         val bind: BagExpenceSecurityBinding = BagExpenceSecurityBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
         dialog.setCancelable(true)
@@ -411,7 +476,7 @@ class BagExpenseFragment : Fragment() {
                     if (bagCount.toInt() <= data.quantity) {
                         Log.e("quantity", "showDialog2: true")
                         builder.dismiss()
-                        addExpense(data.type.id, bagCount, comment)
+                        addExpense(data.id, bagCount, comment)
                     } else {
                         Toast.makeText(
                             requireContext(),

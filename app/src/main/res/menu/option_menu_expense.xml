@@ -9,6 +9,9 @@
     <item
         android:id="@+id/expense"
         android:title="Qoplar chiqimi" />
+    <item
+        android:id="@+id/create_tin"
+        android:title="Taminontchi yaratish" />
 <!--    <item-->
 <!--        android:id="@+id/history"-->
 <!--        android:title="Qabul tarixi" />-->

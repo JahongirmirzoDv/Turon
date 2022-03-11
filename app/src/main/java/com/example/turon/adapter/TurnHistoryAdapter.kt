@@ -13,8 +13,7 @@ import com.example.turon.databinding.ItemSendProductBinding
 import com.example.turon.utils.SharedPref
 
 class TurnHistoryAdapter(
-    private var list: ArrayList<Activetashkent>,
-    private var onOrderClickListener: OnHistoryClickListener
+    private var list: ArrayList<Activetashkent>
 ) :
     RecyclerView.Adapter<TurnHistoryAdapter.VH>() {
 
@@ -29,7 +28,7 @@ class TurnHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(list[position], onOrderClickListener, position)
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
@@ -54,17 +53,13 @@ class TurnHistoryAdapter(
         private var phoneNum = binding.text6
         private var date = binding.text5
         var rootLayout = binding.rootLayout
-        fun bind(data: Activetashkent, onOrderClickListener: OnHistoryClickListener, position: Int
-        ) {
+        fun bind(data: Activetashkent) {
             numeric.text = (position + 1).toString()
             client.text = data.mijoz
             date.text = data.date
             carNum.text = data.carNumber
             phoneNum.text = data.driverPhone
 
-            rootLayout.setOnClickListener {
-                onOrderClickListener.onItemClickOrder(data)
-            }
 
 
         }

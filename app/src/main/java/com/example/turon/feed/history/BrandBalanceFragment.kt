@@ -32,6 +32,7 @@ import com.example.turon.data.model.factory.FeedAcceptanceHistoryViewModelFactor
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.databinding.EditBinding
 import com.example.turon.databinding.FragmentFlourBrandBalanceBinding
+import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.toolbar_default_order.view.*
 import kotlinx.coroutines.flow.collect
@@ -45,6 +46,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     private lateinit var progressDialog: AlertDialog
     private var bagCount: String = ""
     private var comment: String = ""
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private val productList by lazy { ArrayList<Balance>() }
     private lateinit var adapter: OrderDetailsAdapter
     private val viewModel: FeedAcceptHistoryViewModel by viewModels {
@@ -215,7 +217,12 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     }
 
     override fun onItemClickOrderDetails(data: Balance) {
-        showDialog(data)
+        if (sharedPref.getUserType() == "Main_Feed"){
+            showDialog(data)
+        }else{
+            Toast.makeText(requireContext(), "xato", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun showDialog(data: Balance) {
@@ -239,7 +246,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
                 }
                 else -> {
                     builder.dismiss()
-                    addExpense(data.id, bagCount.toInt())
+                    addExpense(data.id, bagCount.toFloat())
                 }
             }
         }
@@ -247,7 +254,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun addExpense(bagTypeId: Int, bagCount: Int) {
+    private fun addExpense(bagTypeId: Int, bagCount: Float) {
         progressDialog.show()
         val map: HashMap<String, Any> = HashMap()
         map["un_id"] = bagTypeId
@@ -257,7 +264,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
                 if (it.success == true) {
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "O'zgartirildi", Toast.LENGTH_SHORT).show()
-                    adapter.notifyDataSetChanged()
+                    getBrandBalance()
                 } else {
                     Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     progressDialog.dismiss()

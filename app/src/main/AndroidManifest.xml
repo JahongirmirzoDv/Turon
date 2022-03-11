@@ -25,9 +25,6 @@
         android:theme="@style/Theme.Turon"
         tools:targetApi="n">
         <activity
-            android:name=".main_feed.FeedActivity2"
-            android:exported="false" />
-        <activity
             android:name=".production.ProductionActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
 

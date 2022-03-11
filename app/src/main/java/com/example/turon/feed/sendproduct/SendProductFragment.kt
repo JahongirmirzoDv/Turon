@@ -1,5 +1,6 @@
 package com.example.turon.feed.sendproduct
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
@@ -68,7 +69,6 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         initAction()
         orderList = ArrayList()
         setupUI()
-
     }
 
     private fun setupUI() {
@@ -88,6 +88,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
             toolbarDefault.search.setOnClickListener {
                 val toolbarD: View = toolbarDefault.root
                 val toolbarS: View = toolbarSearch.root
+
                 toolbarD.isVisible = false
                 toolbarS.isVisible = true
                 binding.toolbarSearch.etSearch.requestFocus()
@@ -134,13 +135,10 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         binding.recyclerOrder.adapter = orderAdapter
                     }
                 }
-
                 override fun afterTextChanged(s: Editable?) {
 
                 }
-
             })
-
         }
     }
 
@@ -176,13 +174,12 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private fun initAction() {
         binding.toolbarDefault.menu.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
@@ -230,12 +227,11 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     override fun onPause() {
         super.onPause()
-        SharedPref2.user = lastposition
+        SharedPref2.user = lastposition ?: 0
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        SharedPref2.user = lastposition
+        SharedPref2.user = lastposition ?: 0
     }
-
 }

@@ -20,10 +20,16 @@ import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.*
 import com.example.turon.data.model.factory.BagExpenseViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
+import com.example.turon.databinding.CreateTinBinding
 import com.example.turon.databinding.Expense2DialogBinding
 import com.example.turon.databinding.FragmentBagExpenseBinding
 import com.example.turon.databinding.FragmentQoldiqBinding
@@ -49,6 +55,16 @@ class QoldiqFragment : Fragment() {
     private val viewModel: BagExpenseViewModel by viewModels {
         BagExpenseViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
+        )
+    }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
         )
     }
 
@@ -158,6 +174,10 @@ class QoldiqFragment : Fragment() {
                         findNavController().navigate(R.id.qoldiqFragment)
                         true
                     }
+                    R.id.create_tin -> {
+                        createTin()
+                        true
+                    }
                     else -> false
                 }
             }
@@ -176,6 +196,65 @@ class QoldiqFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun createTin() {
+        val bind: CreateTinBinding = CreateTinBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+        dialog.setCancelable(true)
+        dialog.setView(bind.root)
+        val builder = dialog.create()
+        bind.dialogTitle.text = "Taminotchi yaratish"
+        bind.textView35.setOnClickListener {
+            var company = bind.company.text.toString()
+            var name = bind.name.text.toString()
+            var address = bind.address.text.toString()
+            var number = bind.number.text.toString()
+            var comment = bind.comment.text.toString()
+            var debt = bind.debt.text.toString()
+            when {
+                comment.isEmpty() && company.isEmpty() && name.isEmpty() && address.isEmpty() && number.isEmpty() && debt.isEmpty() -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Izoh yozing",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    builder.dismiss()
+                    createTinData(company, name, address, number, comment, debt)
+                }
+            }
+
+        }
+        builder.show()
+
+    }
+
+    private fun createTinData(
+        company: String,
+        name: String,
+        address: String,
+        number: String,
+        comment: String,
+        debt: String
+    ) {
+        progressDialog.show()
+        val map: java.util.HashMap<String, Any> = java.util.HashMap()
+        map["compony"] = company
+        map["name"] = name
+        map["address"] = address
+        map["comment"] = comment
+        map["phone"] = number
+        map["debt"] = debt
+        model.crrete_clinet_tin(map).observe(viewLifecycleOwner) {
+            if (it.success == true) {
+                progressDialog.dismiss()
+                Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Xato", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun showDialog() {
