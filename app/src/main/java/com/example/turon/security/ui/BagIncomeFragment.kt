@@ -175,7 +175,11 @@ class BagIncomeFragment : Fragment() {
                     is UIState.Success -> {
                         bagHistoryList.clear()
                         bagHistoryList.addAll(it.data)
-                        bagHistoryAdapter = BagExpenseAdapter(bagHistoryList)
+                        bagHistoryAdapter = BagExpenseAdapter(bagHistoryList,object :BagExpenseAdapter.onPress{
+                            override fun click(data: QopHistory, position: Int) {
+
+                            }
+                        })
                         binding.inComeHistoryRecycler.adapter = bagHistoryAdapter
                         getProviders()
                     }
@@ -186,7 +190,6 @@ class BagIncomeFragment : Fragment() {
                     else -> Unit
                 }
             }
-
         }
     }
 

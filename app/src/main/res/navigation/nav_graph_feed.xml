@@ -8,14 +8,17 @@
     <fragment
         android:id="@+id/commodityAcceptanceFragment2"
         android:name="com.example.turon.feed.commodityacceptance.CommodityAcceptanceFragment"
-        android:label="fragment_commodity_acceptance"
-        tools:layout="@layout/fragment_commodity_acceptance" />
+        android:label="fragment_commodity_acceptance">
+        <action
+            android:id="@+id/action_commodityAcceptanceFragment2_to_sendProductFragment"
+            app:destination="@id/sendProductFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/returnedGoodsFragment"
         android:name="com.example.turon.feed.returnedgoods.ReturnedGoodsFragment"
         android:label="fragment_returned_goods"
-        tools:layout="@layout/fragment_returned_goods" >
+        tools:layout="@layout/fragment_returned_goods">
         <action
             android:id="@+id/action_returnedGoodsFragment_to_returnGoodsDetailsFragment"
             app:destination="@id/returnGoodsDetailsFragment" />
@@ -23,8 +26,7 @@
     <fragment
         android:id="@+id/sendProductFragment"
         android:name="com.example.turon.feed.sendproduct.SendProductFragment"
-        android:label="send_product_fragment"
-        tools:layout="@layout/send_product_fragment" >
+        android:label="send_product_fragment">
         <action
             android:id="@+id/action_sendProductFragment_to_sendDetailsFragment"
             app:destination="@id/sendDetailsFragment" />
@@ -45,7 +47,7 @@
         android:id="@+id/sendDetailsFragment"
         android:name="com.example.turon.feed.sendproduct.SendDetailsFragment"
         android:label="fragment_send_details"
-        tools:layout="@layout/fragment_send_details" >
+        tools:layout="@layout/fragment_send_details">
 
         <action
             android:id="@+id/action_sendDetailsFragment_to_sendProductScanFragment"
@@ -75,7 +77,7 @@
         android:id="@+id/sendProductScanFragment"
         android:name="com.example.turon.feed.sendproduct.SendProductScanFragment"
         android:label="fragment_send_product_scan"
-        tools:layout="@layout/fragment_send_product_scan" >
+        tools:layout="@layout/fragment_send_product_scan">
         <action
             android:id="@+id/action_sendProductScanFragment_to_sendOrderFinalFragment"
             app:destination="@id/sendOrderFinalFragment" />
@@ -84,7 +86,7 @@
         android:id="@+id/returnedHistoryFragment"
         android:name="com.example.turon.feed.history.ReturnedHistoryFragment"
         android:label="fragment_returned_history"
-        tools:layout="@layout/fragment_returned_history" >
+        tools:layout="@layout/fragment_returned_history">
         <action
             android:id="@+id/action_returnedHistoryFragment_to_returnHistoryBaskedFragment"
             app:destination="@id/returnHistoryBaskedFragment" />
@@ -97,7 +99,7 @@
     <fragment
         android:id="@+id/returnHistoryBaskedFragment"
         android:name="com.example.turon.feed.history.ReturnHistoryBaskedFragment"
-        android:label="fragment_return_history_basked"
+        android:label="fragment_return_his tory_basked"
         tools:layout="@layout/fragment_return_history_basked" />
     <fragment
         android:id="@+id/returnedProHistoryFragment"

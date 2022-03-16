@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/sendProductFragment"
+        android:title="@string/yuborish"
+        android:icon="@drawable/ic_send_feed"/>
+
+    <item android:id="@+id/returnedGoodsFragment"
+        android:title="@string/tovar_qaytishi"
+        android:icon="@drawable/ic_returned_feed"/>
+
+</menu>

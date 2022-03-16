@@ -1,6 +1,8 @@
 package com.example.turon.data.api2
 
+import com.example.turon.data.model.ChiqmdanQaytaglar
 import com.example.turon.data.model.FeedQopChiqimHistory
+import com.example.turon.data.model.QopChiqimhistory2
 import com.example.turon.data.model.ResponseData
 import com.example.turon.data.model.response.QopHistoryResponse
 import retrofit2.http.Body
@@ -18,11 +20,36 @@ interface ApiService2 {
 
     @GET("get_history_of_tin/")
     suspend fun getBagHistory(
-        @Query("user_id") user_id: Int
+        @Query("user_id") user_id: Int,
+        @Query("from_date") from_date: String,
+        @Query("to_date") to_date: String
     ): QopHistoryResponse
 
-    @POST("return_qop/")
+    @GET("get_returned_income_qop/")
+    suspend fun getreturnedincome(
+        @Query("user_id") user_id: Int,
+        @Query("from_date") from_date: String,
+        @Query("to_date") to_date: String
+    ): QopChiqimhistory2
+
+    @POST("expance_qop/")
     suspend fun returnBag(
+        @Body body: HashMap<String, Any>?
+    ): ResponseData
+
+    @POST("return_expanse_qop/")
+    suspend fun returnExpanceQop(
+        @Body body: HashMap<String, Any>?
+    ): ResponseData
+
+    @GET("get_returned_expanse_qop/")
+    suspend fun chiqimdanQaytarilganlar(
+        @Query("user_id") user_id: Int
+    ): ChiqmdanQaytaglar
+
+
+    @POST("return_income_qop/")
+    suspend fun returnIncomeQop(
         @Body body: HashMap<String, Any>?
     ): ResponseData
 

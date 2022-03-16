@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".security.ui.KirimBagHistoryFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_back_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qop kirimidan qaytarilganlar"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/btnBack"
+                app:layout_constraintRight_toRightOf="@id/logout"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_menu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/sc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        >
+        <LinearLayout
+            android:id="@+id/filterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:scrollbars="horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+            <TextView
+                android:id="@+id/kun"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_margin="2dp"
+                android:textColor="@color/black"
+                android:background="@drawable/widget_bg"
+                android:gravity="center"
+                android:text="Kun" />
+
+            <TextView
+                android:id="@+id/hafta"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_margin="2dp"
+                android:textColor="@color/black"
+                android:background="@drawable/widget_bg"
+                android:gravity="center"
+                android:text="Hafta" />
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txtUntil"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:layout_margin="2dp"
+                android:textColor="@color/black"
+                android:background="@drawable/widget_bg"
+                android:gravity="center"
+                android:text="...dan" />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txtFrom"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:layout_margin="2dp"
+                android:textColor="@color/black"
+                android:background="@drawable/widget_bg"
+                android:gravity="center"
+                android:text="...gacha" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryBackgroundColor"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sc">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.08"
+            android:gravity="center"
+            android:text="№"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.15"
+            android:gravity="center"
+            android:text="Qop turi"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="0dp"
+            android:layout_height="40.0dip"
+            android:layout_gravity="center"
+            android:layout_weight="0.12"
+            android:gravity="center"
+            android:text="Soni"
+            android:textSize="11sp"
+
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_gravity="center"
+            android:layout_weight="0.16"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Taminotchi"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:text="Sana"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45.0dip"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/text7"
+            android:layout_width="0dp"
+            android:layout_height="45.0dip"
+            android:layout_weight="0.18"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Izoh"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inComeHistoryRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tabsLayout"
+        tools:listitem="@layout/item_bag_expense" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

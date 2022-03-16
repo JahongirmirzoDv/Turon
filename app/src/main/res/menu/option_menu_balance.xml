@@ -7,4 +7,8 @@
         android:id="@+id/brandBalance"
         android:title="Tovar qoldiq"
         />
+    <item
+        android:id="@+id/logout"
+        android:title="Tizimdan chiqish"
+        />
 </menu>

@@ -6,41 +6,31 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
-
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.turon.R
 import com.example.turon.adapter.CommodityAcceptAdapter
-import com.example.turon.adapter.ProductionHistoryAdapter
 import com.example.turon.auth.AuthActivity
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
 import com.example.turon.data.model.Acceptance
-import com.example.turon.data.model.HistoryProData
 import com.example.turon.data.model.factory.FeedAcceptanceViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
-
 import com.example.turon.databinding.FragmentCommodityAcceptanceBinding
 import com.example.turon.databinding.ItemAcceptDialogBinding
 import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
-import kotlinx.android.synthetic.main.fragment_commodity_acceptance.*
-import kotlinx.android.synthetic.main.fragment_product_history.*
-import kotlinx.android.synthetic.main.fragment_product_history.recyclerHistoryPro
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import java.lang.Exception
 
 
 class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAcceptanceClickListener {
@@ -68,10 +58,10 @@ class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAccepta
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         list = ArrayList()
-        setupUI()
-
+        if (sharedPref.getUserType() == "Main_Feed") {
+            setupUI()
+        }
     }
 
     private fun setupUI() {
@@ -84,33 +74,30 @@ class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAccepta
         binding.recyclerAcceptNew.setHasFixedSize(true)
         getNewAccept()
         initAction()
-
     }
 
 
     private fun getNewAccept() {
         val userId = SharedPref(requireContext()).getUserId()
-        progressDialog.show()
         lifecycleScope.launchWhenStarted {
+            progressDialog.show()
             viewModel.getNewAccept(userId)
             viewModel.newAcceptState.collect {
                 when (it) {
                     is UIState.Success -> {
+                        progressDialog.cancel()
                         list.clear()
                         list.addAll(it.data)
                         adapter = CommodityAcceptAdapter(list, this@CommodityAcceptanceFragment)
                         binding.recyclerAcceptNew.adapter = adapter
-                        progressDialog.dismiss()
                     }
                     is UIState.Error -> {
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
     }
 
@@ -135,7 +122,7 @@ class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAccepta
     }
 
     private fun postAcceptProduct(storeId: Int) {
-        //progressDialog.show()
+        progressDialog.show()
         lifecycleScope.launchWhenStarted {
             viewModel.postAcceptProduct(storeId)
             viewModel.addStoreState.collect {
@@ -143,24 +130,22 @@ class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAccepta
                     is UIState.Success -> {
                         Toast.makeText(requireContext(), it.data.data, Toast.LENGTH_SHORT).show()
                         getNewAccept()
-                        //progressDialog.dismiss()
+                        progressDialog.dismiss()
                     }
                     is UIState.Error -> {
-                        //progressDialog.dismiss()
+                        progressDialog.dismiss()
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
                 }
             }
-
         }
-
     }
 
     private fun initAction() {
         binding.menu.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
-            popupMenu.setOnMenuItemClickListener {item->
+            popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.newAccept -> {
                         findNavController().navigate(R.id.commodityAcceptanceFragment2)
@@ -187,15 +172,12 @@ class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAccepta
                 mPopup.javaClass
                     .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
                     .invoke(mPopup, true)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d("TAG", "Error show menu icon")
-            }
-            finally {
+            } finally {
                 popupMenu.show()
             }
         }
-
     }
 
     override fun onItemClickAcceptance(position: Acceptance) {

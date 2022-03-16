@@ -11,6 +11,7 @@ import com.example.turon.databinding.WithStatusBinding
 
 class OrderAdapter(
     private var list: ArrayList<OrderData>,
+    private var user: String,
     private var onOrderClickListener: OnOrderClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -67,17 +68,18 @@ class OrderAdapter(
             onOrderClickListener: OnOrderClickListener,
             position: Int
         ) {
-            when (data.status) {
-                "2" -> {
-                    status.setBackgroundResource(R.color.yellow)
+                when (data.status) {
+                    "2", "3" -> {
+                        status.setBackgroundResource(R.color.yellow)
+                    }
+                    "1" -> {
+                        status.setBackgroundResource(R.color.qizil)
+                    }
+//                "5", "4" -> {
+//                    status.setBackgroundResource(R.color.qizil)
+//                }
                 }
-                "1", "3" -> {
-                    status.setBackgroundResource(R.color.yashil)
-                }
-                "5", "4" -> {
-                    status.setBackgroundResource(R.color.qizil)
-                }
-            }
+
             numeric.text = (position + 1).toString()
             client.text = data.client
             date.text = data.date

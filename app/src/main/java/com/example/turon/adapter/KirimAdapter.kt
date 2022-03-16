@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.data.model.QopHistory
 import com.example.turon.data.model.QopKirimlaridanQaytarilgan
 import com.example.turon.databinding.ItemBagExpenseBinding
+import com.example.turon.security.ui.KirimBagHistoryFragment
 
-class BagExpenseAdapter(
-    private var list: ArrayList<QopHistory>,
-    var onpress: onPress
+class KirimAdapter(
+    private var list: List<QopKirimlaridanQaytarilgan>
 ) :
-    RecyclerView.Adapter<BagExpenseAdapter.VH>() {
+    RecyclerView.Adapter<KirimAdapter.VH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val binding = ItemBagExpenseBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -23,7 +23,7 @@ class BagExpenseAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-            holder.bind(list[position], position, onpress)
+        holder.bind(list[position], position)
 
 
     }
@@ -39,19 +39,15 @@ class BagExpenseAdapter(
         private var comment = binding.text7
         private var container = binding.container
         fun bind(
-            data: QopHistory,
-            position: Int,
-            onpress: onPress
+            data: QopKirimlaridanQaytarilgan,
+            position: Int
         ) {
             numeric.text = (position + 1).toString()
             bagType.text = data.type.name
             count.text = data.quantity.toString()
-            providers.text = data.client.compony
             date.text = data.date
             comment.text = data.izoh ?: ""
-            container.setOnClickListener {
-                onpress.click(data, position)
-            }
+
         }
 
     }

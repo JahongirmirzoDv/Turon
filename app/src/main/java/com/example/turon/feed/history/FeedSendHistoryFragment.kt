@@ -1,8 +1,8 @@
 package com.example.turon.feed.history
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -196,11 +196,8 @@ class FeedSendHistoryFragment : Fragment() {
                 .onEach {
                     getAcceptHistory(it.toString(), start_date, date1)
                 }.launchIn(this)
-
         }
-
     }
-
 
     private fun hideShowSearch() {
         with(binding) {
@@ -238,9 +235,7 @@ class FeedSendHistoryFragment : Fragment() {
                 override fun afterTextChanged(s: Editable?) {
 
                 }
-
             })
-
         }
     }
 
@@ -282,6 +277,7 @@ class FeedSendHistoryFragment : Fragment() {
 
         orderHistoryAdapter.setOnClickListener(object :
             SendOrderHistoryAdapter.OnParcelClickListener {
+            @SuppressLint("SetTextI18n")
             override fun clickListener(parcel: ResultN) {
                 val bind: com.example.turon.databinding.InfoBinding =
                     com.example.turon.databinding.InfoBinding.inflate(layoutInflater)
@@ -293,7 +289,7 @@ class FeedSendHistoryFragment : Fragment() {
                 parcel.baskets.forEach {
                     list.add(
                         "\n ${it.product.product.name} : ${
-                            it.hajmi.toString().substring(0, it.hajmi.toString().length - 2)
+                            it.hajmi.toString()
                         }"
                     )
                 }

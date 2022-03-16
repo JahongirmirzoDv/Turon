@@ -9,7 +9,7 @@ data class OrderBasked(
     @SerializedName("maxsulot kodi")
     val prCode: Int,
     @SerializedName("qop soni")
-    val bagsCount: Int,
+    val bagsCount: Float,
     @SerializedName("umumiy miqdori")
     val amount: Double
 )

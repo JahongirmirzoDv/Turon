@@ -64,4 +64,14 @@
         android:name="com.example.turon.security.ui.QoldiqFragment"
         android:label="fragment_qoldiq"
         tools:layout="@layout/fragment_qoldiq" />
+    <fragment
+        android:id="@+id/kirimBagHistoryFragment"
+        android:name="com.example.turon.security.ui.KirimBagHistoryFragment"
+        android:label="fragment_kirim_bag_history"
+        tools:layout="@layout/fragment_kirim_bag_history" />
+    <fragment
+        android:id="@+id/chqimdanQaytarilganlarFragment"
+        android:name="com.example.turon.security.ui.ChqimdanQaytarilganlarFragment"
+        android:label="fragment_chqimdan_qaytarilganlar"
+        tools:layout="@layout/fragment_chqimdan_qaytarilganlar" />
 </navigation>

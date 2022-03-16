@@ -45,7 +45,6 @@ import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BagExpenseFragment : Fragment() {
     private var _binding: FragmentBagExpenseBinding? = null
@@ -116,7 +115,6 @@ class BagExpenseFragment : Fragment() {
         typeOfTinList = ArrayList()
         setupUI()
         recyclerClick()
-
     }
 
     private fun recyclerClick() {
@@ -188,6 +186,7 @@ class BagExpenseFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getHistoryProductFilter(dateStart: String, dateEnd: String) {
         progressDialog.show()
+        typeOfTinList.clear()
         lifecycleScope.launchWhenStarted {
             model.getQop(sharedPref.getUserId(), dateStart, dateEnd)
                 .observe(viewLifecycleOwner) {
@@ -218,7 +217,6 @@ class BagExpenseFragment : Fragment() {
                     }
                 }
             }
-
         }
     }
 
@@ -233,7 +231,7 @@ class BagExpenseFragment : Fragment() {
                         progressDialog.dismiss()
                         if (typeOfTinList.isNotEmpty()) {
                             showDialog(typeOfTinList)
-                        }else{
+                        } else {
                             Toast.makeText(requireContext(), "Qop list bosh", Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -270,6 +268,14 @@ class BagExpenseFragment : Fragment() {
                     }
                     R.id.create_tin -> {
                         createTin()
+                        true
+                    }
+                    R.id.chiqim_tarixi -> {
+                        findNavController().navigate(R.id.kirimBagHistoryFragment)
+                        true
+                    }
+                    R.id.kirim_tarixi -> {
+                        findNavController().navigate(R.id.chqimdanQaytarilganlarFragment)
                         true
                     }
                     else -> false
@@ -359,7 +365,6 @@ class BagExpenseFragment : Fragment() {
 
         }
         builder.show()
-
     }
 
     private fun createTinData(
@@ -388,7 +393,7 @@ class BagExpenseFragment : Fragment() {
         }
     }
 
-    private fun showDialog(typeoftinlist:ArrayList<TegirmonData>) {
+    private fun showDialog(typeoftinlist: ArrayList<TegirmonData>) {
         val bind: Expense2DialogBinding = Expense2DialogBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
         dialog.setCancelable(true)
@@ -435,7 +440,6 @@ class BagExpenseFragment : Fragment() {
                     addExpense(bagTypeId, bagCount, comment)
                 }
             }
-
         }
         builder.show()
     }
@@ -471,7 +475,7 @@ class BagExpenseFragment : Fragment() {
                     if (bagCount.toInt() <= data.quantity) {
                         Log.e("quantity", "showDialog2: true")
                         builder.dismiss()
-                        addExpense(data.id, bagCount, comment)
+                        addExpense2(data.type.id, bagCount, comment)
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -484,18 +488,37 @@ class BagExpenseFragment : Fragment() {
 
         }
         builder.show()
-
     }
 
     private fun addExpense(bagTypeId: Int?, bagCount: String, comment: String) {
         val map: HashMap<String, Any> = HashMap()
         map["user_id"] = userId
-        map["expance_qop_id"] = bagTypeId!!
+        map["qop_id"] = bagTypeId!!
         map["soni"] = bagCount
         map["izoh"] = comment
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
             model.returnBag(map).observe(viewLifecycleOwner) {
+                if (it.success == true) {
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+                }
+            }
+        }
+    }
+
+    private fun addExpense2(bagTypeId: Int?, bagCount: String, comment: String) {
+        val map: HashMap<String, Any> = HashMap()
+        map["user_id"] = userId
+        map["expanse_qop_type_id"] = bagTypeId!!
+        map["soni"] = bagCount
+        map["izoh"] = comment
+        progressDialog.show()
+        lifecycleScope.launchWhenStarted {
+            model.returnExpanceQop(map).observe(viewLifecycleOwner) {
                 if (it.success == true) {
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
@@ -523,5 +546,4 @@ class BagExpenseFragment : Fragment() {
 //            }
         }
     }
-
 }

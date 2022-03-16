@@ -247,6 +247,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     private fun addExpense(bagTypeId: Int, bagCount: Float) {
         progressDialog.show()
         val map: HashMap<String, Any> = HashMap()
+        map["user_id"] = sharedPref.getUserId()
         map["un_id"] = bagTypeId
         map["soni"] = bagCount
         lifecycleScope.launchWhenStarted {

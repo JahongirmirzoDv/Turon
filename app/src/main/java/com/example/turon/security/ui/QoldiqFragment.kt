@@ -173,6 +173,14 @@ class QoldiqFragment : Fragment() {
                         createTin()
                         true
                     }
+                    R.id.chiqim_tarixi -> {
+                        findNavController().navigate(R.id.kirimBagHistoryFragment)
+                        true
+                    }
+                    R.id.kirim_tarixi->{
+                        findNavController().navigate(R.id.chqimdanQaytarilganlarFragment)
+                        true
+                    }
                     else -> false
                 }
             }

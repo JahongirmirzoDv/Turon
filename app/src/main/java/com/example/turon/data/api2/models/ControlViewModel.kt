@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.model.ChiqmdanQaytaglar
 import com.example.turon.data.model.QopChiqim
+import com.example.turon.data.model.QopChiqimhistory2
 import com.example.turon.data.model.ResponseData
 import com.example.turon.data.model.response.QopHistoryResponse
 import kotlinx.coroutines.launch
@@ -23,9 +25,9 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
     }
 
     var bagHistory = MutableLiveData<QopHistoryResponse>()
-    fun getBagHistory(user_id: Int): MutableLiveData<QopHistoryResponse> {
+    fun getBagHistory(user_id: Int,date_start: String,date_end: String): MutableLiveData<QopHistoryResponse> {
         viewModelScope.launch {
-            bagHistory.value = apiHelper2.getBagHistory(user_id)
+            bagHistory.value = apiHelper2.getBagHistory(user_id,date_start,date_end)
         }
         return bagHistory
     }
@@ -34,6 +36,22 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         var isTrue = MutableLiveData<ResponseData>()
         viewModelScope.launch {
             map?.let { isTrue.value = apiHelper2.returnBag(it) }
+        }
+        return isTrue
+    }
+
+    fun returnExpanceQop(map: HashMap<String, Any>?): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            map?.let { isTrue.value = apiHelper2.returnExpanceQop(it) }
+        }
+        return isTrue
+    }
+
+    fun returnIncomeQop(map: HashMap<String, Any>?): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            map?.let { isTrue.value = apiHelper2.returnIncomeQop(it) }
         }
         return isTrue
     }
@@ -50,6 +68,26 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         var isTrue = MutableLiveData<ResponseData>()
         viewModelScope.launch {
             isTrue.value = apiHelper2.reject(order_id)
+        }
+        return isTrue
+    }
+
+    fun chiqimdanQaytarilganlar(user_id: Int): MutableLiveData<ChiqmdanQaytaglar> {
+        var isTrue = MutableLiveData<ChiqmdanQaytaglar>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.chiqimdanQaytarilganlar(user_id)
+        }
+        return isTrue
+    }
+
+    fun getreturnedincome(
+        user_id: Int,
+        date_start: String,
+        date_end: String
+    ): MutableLiveData<QopChiqimhistory2> {
+        var isTrue = MutableLiveData<QopChiqimhistory2>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.getreturnedincome(user_id, date_start, date_end)
         }
         return isTrue
     }

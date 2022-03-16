@@ -4,22 +4,20 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
 import com.example.turon.adapter.OrderBaskedAdapter
-import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
@@ -32,12 +30,10 @@ import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
 import com.example.turon.databinding.FragmentSendDetailsBinding
 import com.example.turon.databinding.ItemAcceptDialogBinding
-import com.example.turon.databinding.ItemSendSuccessDialogBinding
 import com.example.turon.production.viewmodels.ProductionViewModel
 import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
-import java.lang.Exception
 
 
 class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickListener {
@@ -135,7 +131,8 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
                             "orderId" to orderId
                         )
                         findNavController().navigate(
-            R.id.action_sendDetailsFragment_to_sendOrderFinalFragment, bundle)
+                            R.id.action_sendDetailsFragment_to_sendOrderFinalFragment, bundle
+                        )
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
@@ -149,17 +146,17 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
 
     }
 
-    private fun setRecycler(){
-            with(binding) {
-                if (orderList.isEmpty()){
-                    recyclerSendDetails.isVisible = false
-                    infoTxt.isVisible = true
-                }else{
-                    recyclerSendDetails.isVisible = true
-                    infoTxt.isVisible = false
-                }
-
+    private fun setRecycler() {
+        with(binding) {
+            if (orderList.isEmpty()) {
+                recyclerSendDetails.isVisible = false
+                infoTxt.isVisible = true
+            } else {
+                recyclerSendDetails.isVisible = true
+                infoTxt.isVisible = false
             }
+
+        }
 
         adapter = OrderBaskedAdapter(orderList, this@SendDetailsFragment)
         binding.recyclerSendDetails.adapter = adapter
@@ -208,7 +205,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
         bind.text.text = "$count Qop"
         bind.textView35.setOnClickListener {
             builder.dismiss()
-            postLoadOrder(orderId,baskId)
+            postLoadOrder(orderId, baskId)
         }
         bind.btnClose.setOnClickListener {
             builder.dismiss()
@@ -217,7 +214,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
     }
 
     override fun onItemClickOrderBasked(data: OrderBasked) {
-        showDialogAccept(data.product,data.bagsCount.toString(),data.id,orderId!!)
+        showDialogAccept(data.product, data.bagsCount.toString(), data.id, orderId!!)
 
 //        val bundle = bundleOf(
 //            "orderId" to orderId

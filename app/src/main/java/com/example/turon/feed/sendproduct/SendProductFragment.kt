@@ -2,6 +2,7 @@ package com.example.turon.feed.sendproduct
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.R
 import com.example.turon.adapter.OrderAdapter
+import com.example.turon.auth.AuthActivity
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
@@ -70,7 +72,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         orderList = ArrayList()
         setupUI()
         //this is adapter ui type change
-//        binding.status.visibility = View.GONE
+        binding.status.visibility = View.GONE
 
     }
 
@@ -121,7 +123,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                     toolbarSearch.ivClear.isVisible = !s.isNullOrEmpty()
                     var queryList: ArrayList<OrderData> = ArrayList()
                     if (s == "") {
-                        orderAdapter = OrderAdapter(orderList, this@SendProductFragment)
+                        orderAdapter = OrderAdapter(orderList,sharedPref.getUserType(), this@SendProductFragment)
                         binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     } else {
@@ -133,7 +135,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                                 queryList.add(model)
                             }
                         }
-                        orderAdapter = OrderAdapter(queryList, this@SendProductFragment)
+                        orderAdapter = OrderAdapter(queryList, sharedPref.getUserType(),this@SendProductFragment)
                         binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     }
@@ -148,8 +150,8 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     private fun addProductObserves() {
         val userID = SharedPref(requireContext()).getUserId()
-        progressDialog.show()
         lifecycleScope.launchWhenStarted {
+            progressDialog.show()
             viewModel.getOrder(userID)
             viewModel.orderState.collect {
                 when (it) {
@@ -157,9 +159,9 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         progressDialog.dismiss()
                         orderList.clear()
                         orderList.addAll(it.data)
-                        orderAdapter = OrderAdapter(orderList, this@SendProductFragment)
+                        orderAdapter = OrderAdapter(orderList,sharedPref.getUserType(), this@SendProductFragment)
                         //this is adapter ui type change
-//                        orderAdapter.setT(true)
+                        orderAdapter.setT(true)
                         binding.recyclerOrder.layoutManager = layoutManager
                         val user = SharedPref2.user
                         binding.recyclerOrder.scrollToPosition(user!!)
@@ -200,6 +202,12 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                     R.id.brandBalance -> {
                         findNavController().navigate(R.id.brandBalanceFragment)
                         Toast.makeText(requireContext(), "Tovar qoldiq", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    R.id.logout -> {
+                        sharedPref.setFirstEnter(true)
+                        startActivity(Intent(requireContext(), AuthActivity::class.java))
+                        requireActivity().finishAffinity()
                         true
                     }
                     else -> false

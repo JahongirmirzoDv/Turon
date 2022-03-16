@@ -10,6 +10,12 @@
         android:id="@+id/expense"
         android:title="Qoplar chiqimi" />
     <item
+        android:id="@+id/chiqim_tarixi"
+        android:title="Kirimdan qaytarilganlar tarixi" />
+    <item
+        android:id="@+id/kirim_tarixi"
+        android:title="Chiqimdan qaytarilganlar tarixi" />
+    <item
         android:id="@+id/create_tin"
         android:title="Taminontchi yaratish" />
 <!--    <item-->
