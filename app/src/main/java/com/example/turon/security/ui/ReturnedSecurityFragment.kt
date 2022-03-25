@@ -2,11 +2,11 @@ package com.example.turon.security.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +23,6 @@ import com.example.turon.databinding.ItemReturnedSecBinding
 import com.example.turon.feed.history.FeedAcceptHistoryViewModel
 import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
-import kotlinx.android.synthetic.main.item_returned_sec.view.*
 import kotlinx.coroutines.flow.collect
 
 class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBaskedClickListener {
@@ -47,7 +46,7 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentReturnedSecurityBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
@@ -112,7 +111,7 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
         }
     }
 
-    private fun showDialogFixed(product: String, count: String, comment: String,id:Int) {
+    private fun showDialogFixed(product: String, count: String, comment: String, id: Int) {
         val bind: ItemReturnedSecBinding = ItemReturnedSecBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
         dialog.setCancelable(true)
@@ -130,7 +129,7 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
 
     private fun addReturned(product_id: Int) {
         val map: HashMap<String, Any> = HashMap()
-        map["id"]=product_id
+        map["id"] = product_id
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
             viewModel.postconfirmReturned(map)
@@ -172,13 +171,9 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
                 }
             }
         }
-
     }
 
     override fun onItemClickReturnBasked(position: ReturnedSec) {
-        showDialogFixed(position.product, position.qopsoni.toString(), position.izoh,position.id)
-
+        showDialogFixed(position.product, position.qopsoni.toString(), position.izoh, position.id)
     }
-
-
 }

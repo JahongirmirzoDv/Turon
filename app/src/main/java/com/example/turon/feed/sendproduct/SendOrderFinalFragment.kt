@@ -6,20 +6,18 @@ import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
-import com.example.turon.adapter.SpinnerCompanyAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
@@ -37,7 +35,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.lang.Exception
 
 class SendOrderFinalFragment : Fragment() {
     private var _binding: FragmentSendOrderFinalBinding? = null
@@ -45,7 +42,6 @@ class SendOrderFinalFragment : Fragment() {
     private var mCameraUri: Uri? = null
     private val listCargo by lazy { ArrayList<SpinnerForProduct>() }
     private var orderId: Int? = null
-//    private var cargoId: Int? = null
     private var filePath: String? = null
     private lateinit var sharedPref: SharedPref
     private val viewModel: SendProductViewModel by viewModels {
@@ -59,9 +55,9 @@ class SendOrderFinalFragment : Fragment() {
                 val uri = it.data?.data!!
                 mCameraUri = uri
                 filePath = FileUriUtils.getRealPath(requireActivity(), uri)
-                if (filePath!=null){
-                    binding.carImag2.visibility=View.GONE
-                    binding.carImage.visibility=View.VISIBLE
+                if (filePath != null) {
+                    binding.carImag2.visibility = View.GONE
+                    binding.carImage.visibility = View.VISIBLE
                     binding.carImage.setImageURI(Uri.fromFile(File(filePath!!)))
 
                 }
@@ -174,31 +170,32 @@ class SendOrderFinalFragment : Fragment() {
     private fun sendOrder() {
         progressDialog.show()
 //        val files=File("").compress2(requireContext())
-        val files=File(filePath!!).compress2(requireContext())
+        val files = File(filePath!!).compress2(requireContext())
 
         val builder: MultipartBody.Builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
         builder.addFormDataPart("id", orderId!!.toString())
-        builder.addFormDataPart("img", files.name, files.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
+        builder.addFormDataPart(
+            "img",
+            files.name,
+            files.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        )
         val body = builder.build()
         lifecycleScope.launchWhenStarted {
             viewModel.sendOrderFinal(body)
             viewModel.orderFinalState.collect {
-                when(it){
-                    is UIState.Success->{
+                when (it) {
+                    is UIState.Success -> {
                         progressDialog.dismiss()
                         Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Error -> {
-                     progressDialog.dismiss()
-                       Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                   }
+                        progressDialog.dismiss()
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                    }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
-
         }
     }
 }

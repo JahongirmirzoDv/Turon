@@ -32,7 +32,6 @@ class AuthActivity : AppCompatActivity() {
         )
     }
 
-
     @OptIn(InternalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -112,8 +112,6 @@ class BagInComeHistoryFragment : Fragment() {
         providersList = ArrayList()
         typeOfTinList = ArrayList()
         setupUI()
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -134,7 +132,6 @@ class BagInComeHistoryFragment : Fragment() {
         initAction()
         binding.inComeHistoryRecycler.setHasFixedSize(true)
         getHistoryProductFilter(start_date, date1)
-
     }
 
 
@@ -221,8 +218,6 @@ class BagInComeHistoryFragment : Fragment() {
                 }
             }
         }
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -324,12 +319,12 @@ class BagInComeHistoryFragment : Fragment() {
         val builder = dialog.create()
         bind.dialogTitle.text = "Taminotchi yaratish"
         bind.textView35.setOnClickListener {
-            var company = bind.company.text.toString()
-            var name = bind.name.text.toString()
-            var address = bind.address.text.toString()
-            var number = bind.number.text.toString()
-            var comment = bind.comment.text.toString()
-            var debt = bind.debt.text.toString()
+            val company = bind.company.text.toString()
+            val name = bind.name.text.toString()
+            val address = bind.address.text.toString()
+            val number = bind.number.text.toString()
+            val comment = bind.comment.text.toString()
+            val debt = bind.debt.text.toString()
             when {
                 comment.isEmpty() && company.isEmpty() && name.isEmpty() && address.isEmpty() && number.isEmpty() && debt.isEmpty() -> {
                     Toast.makeText(
@@ -343,10 +338,8 @@ class BagInComeHistoryFragment : Fragment() {
                     createTinData(company, name, address, number, comment, debt)
                 }
             }
-
         }
         builder.show()
-
     }
 
     private fun createTinData(
@@ -388,11 +381,9 @@ class BagInComeHistoryFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -411,11 +402,9 @@ class BagInComeHistoryFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -460,10 +449,8 @@ class BagInComeHistoryFragment : Fragment() {
                     }
                 }
             }
-
         }
         builder.show()
-
     }
 
     private fun addExpense(bagTypeId: Int?, bagCount: String, comment: String) {
@@ -491,6 +478,7 @@ class BagInComeHistoryFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             model.getBagHistory(userId,dateStart,dateEnd).observe(viewLifecycleOwner) {
                 if (it.success) {
+                    progressDialog.cancel()
                     bagHistoryList.clear()
                     bagHistoryList.addAll(it.qop_history)
                     bagHistoryAdapter =
@@ -504,13 +492,12 @@ class BagInComeHistoryFragment : Fragment() {
                     binding.inComeHistoryRecycler.adapter = bagHistoryAdapter
                     getProviders()
                 } else {
+                    progressDialog.cancel()
                     Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showDialog() {
@@ -564,7 +551,6 @@ class BagInComeHistoryFragment : Fragment() {
             builder.dismiss()
         }
         builder.show()
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -599,7 +585,6 @@ class BagInComeHistoryFragment : Fragment() {
                     else -> Unit
                 }
             }
-
         }
     }
 }

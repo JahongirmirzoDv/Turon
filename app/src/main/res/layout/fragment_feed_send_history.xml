@@ -100,7 +100,7 @@
             android:gravity="center"
             android:text="№"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <View
@@ -116,7 +116,7 @@
             android:gravity="center"
             android:text="Mijoz "
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <View
@@ -133,7 +133,7 @@
             android:gravity="center"
             android:text="Mashina nomeri"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <View
@@ -149,7 +149,7 @@
             android:gravity="center"
             android:text="Tel nomeri"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <View
@@ -165,7 +165,7 @@
             android:gravity="center"
             android:text="Sana"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <View
@@ -181,7 +181,7 @@
             android:gravity="center"
             android:text="Chiqish sana"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <View

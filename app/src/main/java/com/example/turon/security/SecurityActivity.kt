@@ -36,10 +36,8 @@ class SecurityActivity : AppCompatActivity() {
                 else -> {
                     binding.view1.setBackgroundColor(Color.parseColor("#FF000000"))
                     binding.view2.setBackgroundColor(Color.parseColor("#FFCC01"))
-
                 }
             }
-
         }
     }
 
@@ -50,7 +48,6 @@ class SecurityActivity : AppCompatActivity() {
             binding.bottomNavViewSecurity,
             navHostFragment.navController
         )
-
     }
 
     private var backPressedOnce = false

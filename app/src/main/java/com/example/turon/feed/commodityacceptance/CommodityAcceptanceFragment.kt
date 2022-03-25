@@ -142,6 +142,7 @@ class CommodityAcceptanceFragment : Fragment(), CommodityAcceptAdapter.OnAccepta
         }
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private fun initAction() {
         binding.menu.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
