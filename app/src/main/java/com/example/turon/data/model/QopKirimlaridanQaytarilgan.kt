@@ -6,5 +6,5 @@ data class QopKirimlaridanQaytarilgan(
     val izoh: String,
     val quantity: Double,
     val tegirmon: Int,
-    val type: TypeX
+    val type: Type
 )

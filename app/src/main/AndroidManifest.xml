@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.turon">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         tools:ignore="ManifestOrder" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".App"
@@ -24,14 +24,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Turon"
         tools:targetApi="n">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".auth.AuthActivity" />
+        <activity android:name=".security.SecurityActivity" />
+
         <activity
             android:name=".feed_security.FeedSecurity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".production.ProductionActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".feed.FeedActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".scales.ScalesActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -43,25 +62,9 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".security.SecurityActivity">
-
-        </activity>
-        <activity
-            android:name=".feed.FeedActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".scales.ScalesActivity" />
-        <activity android:name=".auth.AuthActivity" />
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity" />
-
         <service
             android:name=".data.model.FirebaseService"
+            android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND"
             tools:ignore="WrongManifestParent">
             <intent-filter>
@@ -70,5 +73,4 @@
             </intent-filter>
         </service>
     </application>
-
 </manifest>

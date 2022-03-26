@@ -57,8 +57,8 @@ class FeedSecurity : AppCompatActivity() {
                 super.onBackPressed()
                 return
             }
-
             backPressedOnce = true
+
             Toast.makeText(this, "Chiqish uchun yana BACK tugmasini bosing", Toast.LENGTH_SHORT)
                 .show()
 

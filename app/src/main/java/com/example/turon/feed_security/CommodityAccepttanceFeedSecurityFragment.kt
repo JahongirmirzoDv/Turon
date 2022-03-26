@@ -26,7 +26,6 @@ import com.example.turon.data.api.ApiService
 import com.example.turon.data.model.Acceptance
 import com.example.turon.data.model.factory.FeedAcceptanceViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
-import com.example.turon.databinding.FragmentCommodityAcceptanceBinding
 import com.example.turon.databinding.FragmentCommodityAccepttanceFeedSecurityBinding
 import com.example.turon.databinding.ItemAcceptDialogBinding
 import com.example.turon.feed.commodityacceptance.AcceptanceViewModel
@@ -52,7 +51,8 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCommodityAccepttanceFeedSecurityBinding.inflate(inflater, container, false)
+        _binding =
+            FragmentCommodityAccepttanceFeedSecurityBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -62,6 +62,7 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         list = ArrayList()
         if (sharedPref.getUserType() == "Main_Feed") {
+
         }
         setupUI()
     }
@@ -90,7 +91,10 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
                         progressDialog.cancel()
                         list.clear()
                         list.addAll(it.data)
-                        adapter = CommodityAcceptAdapter(list, this@CommodityAccepttanceFeedSecurityFragment)
+                        adapter = CommodityAcceptAdapter(
+                            list,
+                            this@CommodityAccepttanceFeedSecurityFragment
+                        )
                         binding.recyclerAcceptNew.adapter = adapter
                     }
                     is UIState.Error -> {

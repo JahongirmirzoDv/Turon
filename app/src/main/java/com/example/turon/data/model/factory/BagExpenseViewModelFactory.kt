@@ -15,5 +15,4 @@ class BagExpenseViewModelFactory(private val apiHelper: ApiHelper) : ViewModelPr
             }
             throw IllegalArgumentException("Unknown class name")
         }
-
     }

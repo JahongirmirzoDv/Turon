@@ -21,7 +21,6 @@ class ScalesActivity : AppCompatActivity() {
         setContentView(view)
 
         setupViews()
-
     }
 
     private fun setupViews()
@@ -29,8 +28,6 @@ class ScalesActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragNavHostScales) as NavHostFragment
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavViewScales, navHostFragment.navController)
-
-
     }
 
     private var backPressedOnce = false
@@ -54,5 +51,4 @@ class ScalesActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
 }

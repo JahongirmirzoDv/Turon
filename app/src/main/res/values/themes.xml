@@ -61,8 +61,7 @@
 
     <!--TEXT INPUT LAYOUT'S styles-->
 
-    <style name="basic_text_input_layout"
-        parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    <style name="basic_text_input_layout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColorHighlight">@color/white</item>
         <item name="hintTextColor">@color/white</item>
@@ -73,7 +72,7 @@
         <item name="background">@drawable/spinner_drop</item>
     </style>
 
-    <style name="basic_edit_text" >
+    <style name="basic_edit_text">
         <item name="android:textCursorDrawable">@color/white</item>
         <item name="android:drawablePadding">16dp</item>
         <item name="android:paddingStart">16dp</item>
@@ -88,5 +87,4 @@
     <style name="CheckBoxPrimary" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:button">@drawable/radio_button_bg</item>
     </style>
-
 </resources>
