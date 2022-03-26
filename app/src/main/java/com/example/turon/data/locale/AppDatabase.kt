@@ -9,8 +9,6 @@ import com.example.turon.data.model.CodeScan
 
 @Database(entities = [CodeScan::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-
-
     abstract fun codeDao(): CodeDao
 
     companion object {
@@ -19,13 +17,11 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         var LOCK = Any()
-        fun getRoomClient(context: Context) : AppDatabase {
+        fun getRoomClient(context: Context): AppDatabase {
 
             if (INSTANCE != null) return INSTANCE!!
 
             synchronized(LOCK) {
-
-
                 INSTANCE = Room
                     .databaseBuilder(
                         context, AppDatabase::class.java,
@@ -33,12 +29,8 @@ abstract class AppDatabase : RoomDatabase() {
                     )
                     .allowMainThreadQueries()
                     .build()
-
                 return INSTANCE!!
-
             }
         }
-
     }
-
 }

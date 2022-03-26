@@ -5,27 +5,23 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.turon.data.model.BrCode
-import com.example.turon.data.model.CodeScan
 
 
 @Database(entities = [BrCode::class], version = 1)
 abstract class CodeDatabase : RoomDatabase() {
 
-
     abstract fun codeDao(): OrderDao
+
     companion object {
 
         @Volatile
         private var INSTANCE: CodeDatabase? = null
 
         var LOCK = Any()
-        fun getRoomClient(context: Context) : CodeDatabase {
+        fun getRoomClient(context: Context): CodeDatabase {
 
             if (INSTANCE != null) return INSTANCE!!
-
             synchronized(LOCK) {
-
-
                 INSTANCE = Room
                     .databaseBuilder(
                         context, CodeDatabase::class.java,
@@ -33,12 +29,8 @@ abstract class CodeDatabase : RoomDatabase() {
                     )
                     .allowMainThreadQueries()
                     .build()
-
                 return INSTANCE!!
-
             }
         }
-
     }
-
 }

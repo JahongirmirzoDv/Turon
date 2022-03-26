@@ -28,7 +28,6 @@ interface ApiService {
         @Body() body: HashMap<String, Any>?
     ): Response<AddBagExpenseResponse>
 
-
     @POST("create_tin/")
     suspend fun addBagInCome(
         @Body() body: HashMap<String, Any>?
@@ -41,12 +40,10 @@ interface ApiService {
         @Field("status") status: Int
     ): Response<EditStoreResponse>
 
-
     @POST("edit_store/")
     suspend fun postEditStore(
         @Body() body: HashMap<String, Any>?
     ): Response<EditStoreResponse>
-
 
     @POST("add_store/")
     suspend fun postAddStoreFeed(
@@ -57,15 +54,12 @@ interface ApiService {
     @GET("get_qaytuv/")
     suspend fun getReturnedGoods(@Query("user_id") user_id: Int): Response<ActiveOrderResponse>
 
-
-    ////galib ishliman
-
+    //galib ishliman
     @GET("get_qaytuv_basket/")
     suspend fun getReturnedBasket(
         @Query("user_id") user_id: Int,
         @Query("qaytuv_id") qaytuv_id: Int
     ): Response<ReturnBasketResponse>
-
 
     @GET("get_basket_forsecurity/")
     suspend fun getTurnClient(
@@ -86,37 +80,29 @@ interface ApiService {
         @Query("item") item: String
     ): TurnHistoryResponse
 
-
     @GET("get_loading_turn/")
     suspend fun getActiveTurn(@Query("user_id") user_id: Int): Response<ActiveTurnResponse>
-
 
     ///active order
     @GET("get_order/")
     suspend fun getOrder(@Query("user_id") user_id: Int): Response<ActiveOrderResponse>
 
-    ///active order
     @GET("get_order_to_give_turn/")
     suspend fun getTurnAccept(
         @Query("user_id") user_id: Int
     ): Response<TurnResponse>
 
-
     @GET("get_active_turn/")
     suspend fun getTurnHistory(@Query("user_id") user_id: Int): Response<TurnHistoryActInAct>
 
-
-    ///return product
     @GET("get_qaytuv_basket/")
     suspend fun getReturnedGoodsClient(
         @Query("qaytuv_id") qaytuv_id: Int,
         @Query("user_id") user_id: Int
     ): Response<OrderDetailsResponse>
 
-    ///orderDetails
     @POST("load_qaytuv_basket/")
     suspend fun postReturnedGoods(@Body map: RequestBody): Response<EditStoreResponse>
-
 
     @GET("get_basket/")
     suspend fun getOrderDetails(
@@ -124,13 +110,11 @@ interface ApiService {
         @Query("order_id") order_id: Int
     ): Response<OrderDetailsResponse>
 
-
     @GET("get_basket_product/")
     suspend fun getLoadOrder(
         @Query("user_id") user_id: Int,
         @Query("order_id") order_id: Int
     ): Response<LoadOrderResponse>
-
 
     @GET("get_load_qaytuv_basket/")
     suspend fun getReturnedBasked(
@@ -143,12 +127,10 @@ interface ApiService {
         @Query("user_id") user_id: Int
     ): Response<ReturnedSecResponse>
 
-
     @GET("get_sended_order/")
     suspend fun getOrderFeedHistory(
         @Query("user_id") user_id: Int
     ): Response<ActiveOrderResponse>
-
 
     @GET("get_active_akt/")
     suspend fun getActiveAkt(): Response<ProductAcceptResponse>
@@ -156,12 +138,10 @@ interface ApiService {
     @GET("get_brigada/")
     suspend fun getCargoMan(): Response<CargoManResponse>
 
-
     @GET("get_clients_qop/")
     suspend fun getProvider(
         @Query("user_id") user_id: Int
     ): Response<ProvidersResponse>
-
 
     @GET("get_type_of_tin/")
     suspend fun getTypeTin(
@@ -179,7 +159,6 @@ interface ApiService {
         @Query("user_id") user_id: Int,
     ): Response<FilterOfTinResponse>
 
-
     @GET("get_history_of_tin/")
     suspend fun getBagHistory(
         @Query("user_id") user_id: Int
@@ -195,16 +174,13 @@ interface ApiService {
         @Query("user_id") user_id: Int
     ): Response<FeedQopChiqimHistory>
 
-
     @GET("get_history_of_tin/")
     suspend fun getBagExpHistory(
         @Query("user_id") user_id: Int
     ): Response<BagExpenseHistoryResponse>
 
-
     @GET("get_qop_ombor/")
     suspend fun getBagRoom(@Query("user_id") user_id: Int): Response<BagRoomResponse>
-
 
     @GET("store/storehistory/accepted/")
     suspend fun getFeedAcceptHistory(
@@ -233,29 +209,24 @@ interface ApiService {
         @Query("to_date") date_end: String
     ): OrderHistoryResponse
 
-
     @GET("get_store_product/")
     suspend fun getBrandBalanceFeed(
         @Query("user_id") user_id: Int
     ): Response<BalanceResponse>
 
-
     @GET("get_akt/")
     suspend fun getHistoryAkt(): Response<ProductAcceptResponse>
-
 
     @GET("get_store_history/")
     suspend fun getNewAccept(
         @Query("user_id") user_id: Int
     ): Response<AcceptanceResponse>
 
-
     @FormUrlEncoded
     @POST("changestatusofhistory/")
     suspend fun postAcceptProduct(
         @Field("store_id") store_id: Int
     ): Response<EditStoreResponse>
-
 
     @GET("store/productionhistory/")
     suspend fun getHistoryPro(
@@ -277,13 +248,10 @@ interface ApiService {
         @Query("date_end") date_end: String
     ): FeedQopChiqimHistory
 
-    ///
-
     @GET("get_product/")
     suspend fun getProductPro(
         @Query("user_id") user_id: Int
     ): Response<ProductResponse>
-
 
     @POST("add_store/")
     suspend fun postItemPro(
@@ -294,7 +262,6 @@ interface ApiService {
     suspend fun postReturnProduct(
         @Body() body: RequestReturnProduct
     ): Response<EditStoreResponse>
-
 
     @POST("load_order_basket/")
     suspend fun postLoadOrder(
@@ -308,12 +275,10 @@ interface ApiService {
         @Field("brigada") brigada: Int
     ): Response<EditStoreResponse>
 
-
     @POST("send_order/")
     suspend fun sendOrderFinal(
         @Body() body: RequestBody
     ): Response<EditStoreResponse>
-
 
     @GET("get_akt/")
     suspend fun getHistoryAktFilter(
@@ -321,17 +286,14 @@ interface ApiService {
         @Query("date_end") date_end: String
     ): Response<ProductAcceptResponse>
 
-
     @GET("get_akt_wagon_all/")
     suspend fun getAktWagonAll(@Query("akt_id") akt_id: String): Response<AcceptDetailsResponse>
-
 
     @POST("add_wagon/")
     suspend fun addWagon(@Body() body: HashMap<String, Any>?): Response<AcceptDetailsResponse>
 
     @POST("confirmreturned/")
     suspend fun confirmReturned(@Body() body: HashMap<String, Any>?): Response<AddBagExpenseResponse>
-
 
     @POST("edit-wagon/")
     suspend fun editAktHistory(@Body() body: RequestEditScales): Response<EditAktResponse>

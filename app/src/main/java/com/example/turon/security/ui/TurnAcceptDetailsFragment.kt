@@ -243,7 +243,6 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
                 phone.length < 12 -> {
                     Toast.makeText(
                         requireContext(),

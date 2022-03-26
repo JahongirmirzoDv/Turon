@@ -1,11 +1,11 @@
 package com.example.turon.feed_security
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -49,7 +49,6 @@ class FeedSecurity : AppCompatActivity() {
             navHostFragment.navController
         )
     }
-
 
     private var backPressedOnce = false
     override fun onBackPressed() {
