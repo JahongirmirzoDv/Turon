@@ -82,7 +82,6 @@ class TurnHistoryFragment : Fragment() {
         setRecyclerTo()
         setRecyclerVi()
         searchOrderHistory()
-
     }
 
     private fun searchOrderHistory() {
@@ -94,9 +93,7 @@ class TurnHistoryFragment : Fragment() {
                     if (status) getTurnPaginationTo(it.toString())
                     else getHistoryTurn(it.toString())
                 }.launchIn(this)
-
         }
-
     }
 
     private fun setRecyclerTo() {
@@ -127,7 +124,6 @@ class TurnHistoryFragment : Fragment() {
             override fun clickListener(parcel: TurnHistory) {
 
             }
-
         })
     }
 
@@ -141,7 +137,6 @@ class TurnHistoryFragment : Fragment() {
         }
 
         orderAdapter.addLoadStateListener { loadStates ->
-
             when (loadStates.refresh) {
                 is LoadState.NotLoading -> {
                     progressDialog.dismiss()
@@ -159,7 +154,6 @@ class TurnHistoryFragment : Fragment() {
             override fun clickListener(parcel: TurnHistory) {
 
             }
-
         })
     }
 
@@ -208,8 +202,5 @@ class TurnHistoryFragment : Fragment() {
             getHistoryTurn("")
 //            status = 0
         }
-
-
     }
-
 }

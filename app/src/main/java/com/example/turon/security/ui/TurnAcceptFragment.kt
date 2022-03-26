@@ -74,7 +74,6 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
         super.onViewCreated(view, savedInstanceState)
         orderList = ArrayList()
         setupUI()
-
     }
 
     private fun setupUI() {
@@ -86,8 +85,6 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
         binding.recyclerTurn.setHasFixedSize(true)
         addProductObserves()
         initAction()
-
-
     }
 
     private fun initAction() {
@@ -183,7 +180,6 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
         }

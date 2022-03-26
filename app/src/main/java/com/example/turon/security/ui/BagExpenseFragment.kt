@@ -363,7 +363,6 @@ class BagExpenseFragment : Fragment() {
                     createTinData(company, name, address, number, comment, debt)
                 }
             }
-
         }
         builder.show()
     }
@@ -416,7 +415,6 @@ class BagExpenseFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
         bind.textView35.setOnClickListener {
             bagCount = bind.text3.text.toString()
@@ -486,7 +484,6 @@ class BagExpenseFragment : Fragment() {
                     }
                 }
             }
-
         }
         builder.show()
     }
@@ -528,7 +525,6 @@ class BagExpenseFragment : Fragment() {
                     progressDialog.cancel()
                 }
             }
-
 
 //            viewModel.addBagExpense(map)
 //            viewModel.addExpenseState.collect {

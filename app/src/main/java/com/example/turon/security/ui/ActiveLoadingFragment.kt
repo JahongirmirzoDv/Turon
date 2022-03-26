@@ -70,7 +70,6 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -123,14 +122,10 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
                         orderAdapter = ActivTurnAdapter(activeListTo, this@ActiveLoadingFragment)
                         binding.recyclerTurn.adapter = orderAdapter
                     }
-                    is UIState.Error -> {
-
-                    }
+                    is UIState.Error -> { }
                     else -> Unit
                 }
             }
-
-
         }
     }
 
@@ -155,7 +150,6 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
                                 ActivTurnAdapter(activeListVi, this@ActiveLoadingFragment)
                             binding.recyclerTurn.adapter = orderAdapter
                         }
-
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
@@ -163,10 +157,7 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
                     else -> Unit
                 }
             }
-
-
         }
-
     }
 
 
@@ -197,7 +188,6 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
             }
             .show()
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun showDialogFixed(position: Activetashkent) {

@@ -111,8 +111,6 @@ class KirimBagHistoryFragment : Fragment() {
         providersList = ArrayList()
         typeOfTinList = ArrayList()
         setupUI()
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -242,6 +240,7 @@ class KirimBagHistoryFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
         binding.kun.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
@@ -252,6 +251,7 @@ class KirimBagHistoryFragment : Fragment() {
             var start_date = "${minusMonths.year}-$mont-$day"
             getHistoryProductFilter(start_date, date1)
         }
+
         binding.hafta.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
@@ -291,10 +291,8 @@ class KirimBagHistoryFragment : Fragment() {
                     createTinData(company, name, address, number, comment, debt)
                 }
             }
-
         }
         builder.show()
-
     }
 
     private fun createTinData(
@@ -336,11 +334,9 @@ class KirimBagHistoryFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -361,7 +357,6 @@ class KirimBagHistoryFragment : Fragment() {
                 }
             }
         }
-
     }
 
 

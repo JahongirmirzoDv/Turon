@@ -93,13 +93,11 @@ class SuccesHistoryFragment : Fragment() {
                         id = orderListTo[position!!].id
                         val status = orderListTo[position!!].status
                         deleteTurn(id!!, status)
-
                     } else {
                         id = orderListVi[position!!].id
                         val status = orderListVi[position!!].status
                         deleteTurn(id!!, status)
                     }
-
                 } catch (e: java.lang.Exception) {
                     Log.e("MainActivity", e.message!!)
                 }
@@ -134,7 +132,6 @@ class SuccesHistoryFragment : Fragment() {
                     .decorate()
                 super.onChildDraw(
                     c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
-
                 )
             }
         }
@@ -160,13 +157,9 @@ class SuccesHistoryFragment : Fragment() {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
-
-
     }
 
     private fun toast(text: String) {
@@ -198,10 +191,8 @@ class SuccesHistoryFragment : Fragment() {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
     }
 
@@ -242,7 +233,6 @@ class SuccesHistoryFragment : Fragment() {
                                 queryListTo.add(model)
                             }
                         }
-                        //adapter
                     }
                 }
             }

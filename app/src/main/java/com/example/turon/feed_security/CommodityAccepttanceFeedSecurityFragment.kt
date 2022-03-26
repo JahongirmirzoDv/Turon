@@ -79,7 +79,6 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
         initAction()
     }
 
-
     private fun getNewAccept() {
         val userId = SharedPref(requireContext()).getUserId()
         lifecycleScope.launchWhenStarted {
@@ -106,7 +105,6 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
             }
         }
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun showDialogAccept(productName: String, count: String?, storeId: Int) {

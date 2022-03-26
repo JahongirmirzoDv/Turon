@@ -21,18 +21,12 @@ class BagExpenseViewModel(private val repository: BagExpenseRepository) : ViewMo
         _typeTinState.value = repository.getTypeTin(userId)
     }
 
-
     private val _bagHistoryState =
         MutableStateFlow<UIState<List<BagExpenseHistory>>>(UIState.Loading)
     val bagHistoryState: StateFlow<UIState<List<BagExpenseHistory>>> = _bagHistoryState
     suspend fun getBagHistory(userId: Int) {
         _bagHistoryState.value = repository.getBagHistory(userId)
     }
-
-//    suspend fun getQoldiq(userId: Int) {
-//        _qopQoldiq.value = repository.getQoldiq(userId)
-//    }
-
 
     private val _addExpenseState = MutableStateFlow<UIState<AddBagExpenseResponse>>(UIState.Loading)
     val addExpenseState: StateFlow<UIState<AddBagExpenseResponse>> = _addExpenseState

@@ -154,7 +154,6 @@ class BagIncomeFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
@@ -182,7 +181,6 @@ class BagIncomeFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
@@ -225,7 +223,6 @@ class BagIncomeFragment : Fragment() {
                 id: Long
             ) {
                 providerId = providersList[position].id
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

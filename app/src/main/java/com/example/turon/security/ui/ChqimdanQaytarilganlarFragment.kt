@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -18,8 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
 import com.example.turon.adapter.ChiqimQaytganAdapter
-import com.example.turon.adapter.KirimAdapter
-import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
@@ -33,7 +30,8 @@ import com.example.turon.data.model.factory.BagInComeViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.ProductAcceptData
 import com.example.turon.data.model.response.TegirmonData
-import com.example.turon.databinding.*
+import com.example.turon.databinding.CreateTinBinding
+import com.example.turon.databinding.FragmentChqimdanQaytarilganlarBinding
 import com.example.turon.security.viewmodels.BagInComeViewModel
 import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
@@ -109,8 +107,6 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
         providersList = ArrayList()
         typeOfTinList = ArrayList()
         setupUI()
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -176,7 +172,6 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initAction() {
-
         binding.logout.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.setOnMenuItemClickListener {
@@ -201,7 +196,7 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                         findNavController().navigate(R.id.kirimBagHistoryFragment)
                         true
                     }
-                    R.id.kirim_tarixi->{
+                    R.id.kirim_tarixi -> {
                         findNavController().navigate(R.id.chqimdanQaytarilganlarFragment)
                         true
                     }
@@ -222,6 +217,7 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                 popupMenu.show()
             }
         }
+
         binding.txtUntil.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
@@ -231,6 +227,7 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
         binding.txtFrom.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
@@ -240,6 +237,7 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
         binding.kun.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
@@ -250,6 +248,7 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
             var start_date = "${minusMonths.year}-$mont-$day"
             getHistoryProductFilter(start_date, date1)
         }
+
         binding.hafta.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
@@ -289,10 +288,8 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                     createTinData(company, name, address, number, comment, debt)
                 }
             }
-
         }
         builder.show()
-
     }
 
     private fun createTinData(
@@ -334,14 +331,11 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
-
 
 
     private fun getHistoryProductFilter(dateStart: String, dateEnd: String) {
@@ -359,7 +353,6 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
                 }
             }
         }
-
     }
 
 
@@ -386,7 +379,6 @@ class ChqimdanQaytarilganlarFragment : Fragment() {
 //        }
 //    }
 //
-
 
 
 //    private fun showDialog2(data: QopHistory, position: Int) {

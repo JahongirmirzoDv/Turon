@@ -3,18 +3,17 @@ package com.example.turon.security.ui
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.turon.R
-import com.example.turon.adapter.BagInComeAdapter
 import com.example.turon.adapter.Qoldiq
 import com.example.turon.adapter.SpinnerCargoManAdapter
 import com.example.turon.data.api.ApiClient
@@ -25,13 +24,14 @@ import com.example.turon.data.api2.ApiHelper2
 import com.example.turon.data.api2.ApiService2
 import com.example.turon.data.api2.models.ControlViewModel
 import com.example.turon.data.api2.models.ViewModelFactory
-import com.example.turon.data.model.*
+import com.example.turon.data.model.BagRoom
+import com.example.turon.data.model.Providers
+import com.example.turon.data.model.Qoblar
 import com.example.turon.data.model.factory.BagExpenseViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
 import com.example.turon.databinding.CreateTinBinding
 import com.example.turon.databinding.Expense2DialogBinding
-import com.example.turon.databinding.FragmentBagExpenseBinding
 import com.example.turon.databinding.FragmentQoldiqBinding
 import com.example.turon.security.viewmodels.BagExpenseViewModel
 import com.example.turon.utils.SharedPref
@@ -83,7 +83,6 @@ class QoldiqFragment : Fragment() {
         bagHistoryList = ArrayList()
         typeOfTinList = ArrayList()
         setupUI()
-
     }
 
     private fun setupUI() {
@@ -95,15 +94,13 @@ class QoldiqFragment : Fragment() {
         binding.expenseHistoryRecycler.setHasFixedSize(true)
         getBagHistory()
         initAction()
-
-
     }
 
     private fun getBagHistory() {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
             val qoldiq = ApiClient.apiService.getQoldiq(userId)
-            if (qoldiq.isSuccessful){
+            if (qoldiq.isSuccessful) {
                 val qoblar = qoldiq.body()!!.qoblar
                 bagHistoryList.clear()
                 bagHistoryList.addAll(qoblar)
@@ -126,7 +123,6 @@ class QoldiqFragment : Fragment() {
                     }
                 }
             }
-
         }
     }
 
@@ -144,11 +140,9 @@ class QoldiqFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -161,11 +155,11 @@ class QoldiqFragment : Fragment() {
                         findNavController().navigate(R.id.bagIncomeFragment)
                         true
                     }
-                    R.id.expense->{
+                    R.id.expense -> {
                         findNavController().navigate(R.id.bagExpenseFragment)
                         true
                     }
-                    R.id.qoldiq->{
+                    R.id.qoldiq -> {
                         findNavController().navigate(R.id.qoldiqFragment)
                         true
                     }
@@ -177,7 +171,7 @@ class QoldiqFragment : Fragment() {
                         findNavController().navigate(R.id.kirimBagHistoryFragment)
                         true
                     }
-                    R.id.kirim_tarixi->{
+                    R.id.kirim_tarixi -> {
                         findNavController().navigate(R.id.chqimdanQaytarilganlarFragment)
                         true
                     }
@@ -198,7 +192,6 @@ class QoldiqFragment : Fragment() {
                 popupMenu.show()
             }
         }
-
     }
 
     private fun createTin() {
@@ -228,10 +221,8 @@ class QoldiqFragment : Fragment() {
                     createTinData(company, name, address, number, comment, debt)
                 }
             }
-
         }
         builder.show()
-
     }
 
     private fun createTinData(
@@ -283,7 +274,6 @@ class QoldiqFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
         bind.textView35.setOnClickListener {
             bagCount = bind.text3.text.toString()
@@ -308,10 +298,8 @@ class QoldiqFragment : Fragment() {
                     addExpense(bagTypeId, bagCount, comment)
                 }
             }
-
         }
         builder.show()
-
     }
 
     private fun addExpense(bagTypeId: Int?, bagCount: String, comment: String) {
@@ -334,7 +322,6 @@ class QoldiqFragment : Fragment() {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                         progressDialog.cancel()
                     }
-
                     else -> Unit
                 }
             }

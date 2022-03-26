@@ -72,6 +72,7 @@ class BagInComeHistoryFragment : Fragment() {
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
         )
     }
+
     private val model: ControlViewModel by viewModels {
         ViewModelFactory(
             ApiHelper2(
@@ -213,7 +214,6 @@ class BagInComeHistoryFragment : Fragment() {
                         progressDialog.dismiss()
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
@@ -250,7 +250,7 @@ class BagInComeHistoryFragment : Fragment() {
                         findNavController().navigate(R.id.kirimBagHistoryFragment)
                         true
                     }
-                    R.id.kirim_tarixi->{
+                    R.id.kirim_tarixi -> {
                         findNavController().navigate(R.id.chqimdanQaytarilganlarFragment)
                         true
                     }
@@ -271,6 +271,7 @@ class BagInComeHistoryFragment : Fragment() {
                 popupMenu.show()
             }
         }
+
         binding.txtUntil.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
@@ -280,6 +281,7 @@ class BagInComeHistoryFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
         binding.txtFrom.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
@@ -289,6 +291,7 @@ class BagInComeHistoryFragment : Fragment() {
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
         binding.kun.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
@@ -299,6 +302,7 @@ class BagInComeHistoryFragment : Fragment() {
             var start_date = "${minusMonths.year}-$mont-$day"
             getHistoryProductFilter(start_date, date1)
         }
+
         binding.hafta.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
@@ -476,7 +480,7 @@ class BagInComeHistoryFragment : Fragment() {
     private fun getHistoryProductFilter(dateStart: String, dateEnd: String) {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            model.getBagHistory(userId,dateStart,dateEnd).observe(viewLifecycleOwner) {
+            model.getBagHistory(userId, dateStart, dateEnd).observe(viewLifecycleOwner) {
                 if (it.success) {
                     progressDialog.cancel()
                     bagHistoryList.clear()
@@ -536,12 +540,9 @@ class BagInComeHistoryFragment : Fragment() {
                 id: Long
             ) {
                 providerId = providersList[position].id
-
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         bind.textView35.setOnClickListener {
@@ -581,7 +582,6 @@ class BagInComeHistoryFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }

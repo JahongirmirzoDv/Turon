@@ -164,13 +164,9 @@ class ActiveTurnFragment : Fragment(){
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
-
-
     }
 
     private fun toast(text: String) {
@@ -210,10 +206,8 @@ class ActiveTurnFragment : Fragment(){
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
     }
 
