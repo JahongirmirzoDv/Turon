@@ -107,4 +107,12 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         }
         return isTrue
     }
+
+    fun addTurn(map: HashMap<String, Any>): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.addTurn(map)
+        }
+        return isTrue
+    }
 }

@@ -85,7 +85,7 @@ class AuthActivity : AppCompatActivity() {
                                 )
                                 finishAffinity()
                             }
-                            20 ->{
+                            20 -> {
                                 sharedPref.setUserType("FeedSecurity")
                                 startActivity(
                                     Intent(

@@ -3,12 +3,12 @@ package com.example.turon.security.ui
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,12 +18,19 @@ import com.example.turon.adapter.TurnDetailsAdapter
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.ClientData
 import com.example.turon.data.model.SharedViewModel
 import com.example.turon.data.model.factory.TurnAcceptViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.TegirmonData
-import com.example.turon.databinding.*
+import com.example.turon.databinding.FragmentTurnAcceptDetailsBinding
+import com.example.turon.databinding.TurnDialogBinding
+import com.example.turon.databinding.TurnNumDialogBinding
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
 import com.example.turon.utils.SharedPref
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -41,12 +48,22 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
     private var orderId: Int? = null
     private var clientName: String? = null
     private var phone: String? = null
-
     private var userId: Int? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val viewModel: TurnAcceptViewModel by viewModels {
         TurnAcceptViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, requireContext()))
+        )
+    }
+
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    requireContext()
+                )
+            )
         )
     }
 
@@ -59,7 +76,7 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTurnAcceptDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -69,7 +86,6 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
         initAction()
         setupUI()
         progressDialog.show()
-
     }
 
     private fun setupUI() {
@@ -107,10 +123,8 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
     }
 
@@ -123,30 +137,48 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
         map["driver_phone"] = phone
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.addTurn(map)
-            viewModel.addTurnState.collect {
-                when (it) {
-                    is UIState.Success -> {
-                        progressDialog.dismiss()
-                        if (cityId==1){
-                            sharedPref.setTurnNumToshkent(sharedPref.getTurnNumToshkent() + 1)
-                        }else{
-                            sharedPref.setTurnNumViloyat(sharedPref.getTurnNumViloyat() + 1)
+            when (sharedPref.getUserType()) {
+                "FeedSecurity" -> {
+                    model.addTurn(map).observe(viewLifecycleOwner) {
+                        if (it.success == true) {
+                            progressDialog.dismiss()
+                            if (cityId == 1) {
+                                sharedPref.setTurnNumToshkent(sharedPref.getTurnNumToshkent() + 1)
+                            } else {
+                                sharedPref.setTurnNumViloyat(sharedPref.getTurnNumViloyat() + 1)
+                            }
+                            showDialogFixed(turnNum, clientName)
+                        } else {
+                            progressDialog.dismiss()
+                            Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                         }
-
-                        showDialogFixed(turnNum, clientName)
                     }
-                    is UIState.Error -> {
-                        progressDialog.dismiss()
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                }
+                "Security" -> {
+                    viewModel.addTurn(map)
+                    viewModel.addTurnState.collect {
+                        when (it) {
+                            is UIState.Success -> {
+                                progressDialog.dismiss()
+                                if (cityId == 1) {
+                                    sharedPref.setTurnNumToshkent(sharedPref.getTurnNumToshkent() + 1)
+                                } else {
+                                    sharedPref.setTurnNumViloyat(sharedPref.getTurnNumViloyat() + 1)
+                                }
+                                showDialogFixed(turnNum, clientName)
+                            }
+                            is UIState.Error -> {
+                                progressDialog.dismiss()
+                                Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            is UIState.Loading, UIState.Empty -> Unit
+                        }
                     }
-                    is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
         }
     }
-
 
     private fun initAction() {
         binding.backBtn.setOnClickListener {
@@ -155,8 +187,6 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
         binding.btnSend.setOnClickListener {
 //            postReturnedGoods()
         }
-
-
     }
 
     override fun onItemClickOrderDetails(data: ClientData) {
@@ -173,11 +203,11 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
         val listener = MaskedTextChangedListener("[00] [000]-[00]-[00]", bind.text4)
         bind.text4.addTextChangedListener(listener)
         bind.text4.onFocusChangeListener = listener
-        cityList.add(TegirmonData(1,"Toshkent shahri"))
-        cityList.add(TegirmonData(0,"Viloyatlar"))
-        val cityAdapter=SpinnerCargoManAdapter(requireContext(),cityList)
-        bind.text10.adapter=cityAdapter
-        var cityId=0
+        cityList.add(TegirmonData(1, "Toshkent shahri"))
+        cityList.add(TegirmonData(0, "Viloyatlar"))
+        val cityAdapter = SpinnerCargoManAdapter(requireContext(), cityList)
+        bind.text10.adapter = cityAdapter
+        var cityId = 0
 
         bind.text10.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -187,10 +217,10 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
                 id: Long
             ) {
 
-                cityId=cityList[position].id
-                if (cityId==1){
+                cityId = cityList[position].id
+                if (cityId == 1) {
                     bind.text3.text = sharedPref.getTurnNumToshkent().toString()
-                }else {
+                } else {
                     bind.text3.text = sharedPref.getTurnNumViloyat().toString()
                 }
             }
@@ -198,7 +228,6 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
 
         bind.textView35.setOnClickListener {
@@ -215,8 +244,6 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
                     ).show()
                 }
 
-
-
                 phone.length < 12 -> {
                     Toast.makeText(
                         requireContext(),
@@ -229,10 +256,8 @@ class TurnAcceptDetailsFragment : Fragment(), TurnDetailsAdapter.OnOrderClickLis
                     addTurn(turnId, carNum.uppercase(), cityId, phone)
                 }
             }
-
         }
         builder.show()
-
     }
 
     @SuppressLint("SetTextI18n")

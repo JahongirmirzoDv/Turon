@@ -24,11 +24,12 @@
     <item
         android:id="@+id/returned"
         android:title="Qaytgan mahsulotlar" />
+
+    <item
+        android:id="@+id/security_turnAccept"
+        android:title="Qorovul tovar qabuli" />
+
     <item
         android:id="@+id/logout"
         android:title="Tizimdan chiqish" />
-    <item
-        android:id="@+id/security_turnAccept"
-        android:title="Qorovul tovar qabuli"/>
-
 </menu>

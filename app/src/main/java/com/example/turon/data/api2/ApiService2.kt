@@ -4,7 +4,9 @@ import com.example.turon.data.model.ChiqmdanQaytaglar
 import com.example.turon.data.model.FeedQopChiqimHistory
 import com.example.turon.data.model.QopChiqimhistory2
 import com.example.turon.data.model.ResponseData
+import com.example.turon.data.model.response.EditStoreResponse
 import com.example.turon.data.model.response.QopHistoryResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -71,5 +73,10 @@ interface ApiService2 {
     @POST("create_client_tin/")
     suspend fun crrete_clinet_tin(
         @Body body: HashMap<String, Any>?
+    ): ResponseData
+
+    @POST("add_turn_and_enter_car/")
+    suspend fun addTurn(
+        @Body() body: HashMap<String, Any>?
     ): ResponseData
 }
