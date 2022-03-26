@@ -27,6 +27,7 @@ import com.example.turon.data.model.response.Activetashkent
 import com.example.turon.databinding.FragmentActiveLoadingBinding
 import com.example.turon.databinding.ItemTurnDialog2Binding
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
+import com.example.turon.utils.SharedPref
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
@@ -38,6 +39,7 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
     private lateinit var orderAdapter: ActivTurnAdapter
     private lateinit var activeListVi: ArrayList<Activetashkent>
     private lateinit var activeListTo: ArrayList<Activetashkent>
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private lateinit var loadingListTo: ArrayList<Activetashkent>
     private lateinit var loadingListVi: ArrayList<Activetashkent>
 
@@ -110,7 +112,7 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
 
     private fun getHistory() {
         lifecycleScope.launchWhenStarted {
-            viewModel.getTurnHistory()
+            viewModel.getTurnHistory(sharedPref.getUserId())
             viewModel.turnHistoryState.collect {
                 when (it) {
                     is UIState.Success -> {
@@ -135,7 +137,7 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
     private fun getHistoryClick(click: String) {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.getTurnHistory()
+            viewModel.getTurnHistory(sharedPref.getUserId())
             viewModel.turnHistoryState.collect {
                 when (it) {
                     is UIState.Success -> {

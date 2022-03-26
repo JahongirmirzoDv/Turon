@@ -1,7 +1,6 @@
 package com.example.turon.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turon.data.model.Qoblar
@@ -34,9 +33,13 @@ class Qoldiq(
             data: Qoblar,
             position: Int
         ) {
-            bagType.text = data.type.name
-            count.text = data.quantity.toString()
-            comment.text = data.tegirmon.toString()
+            try {
+                bagType.text = data.type.name
+                count.text = data.quantity.toString()
+                comment.text = data.tegirmon.name
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

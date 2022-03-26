@@ -45,9 +45,9 @@ class FeedAcceptHistoryRepository(private val apiHelper: ApiHelper) {
         return UIState.Empty
     }
 
-    suspend fun getReturnedSec(): UIState<List<ReturnedSec>> {
+    suspend fun getReturnedSec(user_id: Int): UIState<List<ReturnedSec>> {
         try {
-            val response = apiHelper.getReturnedSec()
+            val response = apiHelper.getReturnedSec(user_id)
             if (response.isSuccessful) {
                 val response = response.body()!!
                 return if (response.success) {

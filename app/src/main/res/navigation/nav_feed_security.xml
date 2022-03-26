@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_feed_security"
+    app:startDestination="@id/commodityAccepttanceFeedSecurityFragment">
+
+    <fragment
+        android:id="@+id/commodityAcceptanceFragment2"
+        android:name="com.example.turon.feed.commodityacceptance.CommodityAcceptanceFragment"
+        android:label="fragment_commodity_acceptance">
+        <action
+            android:id="@+id/action_commodityAcceptanceFragment2_to_sendProductFragment"
+            app:destination="@id/sendProductFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/returnedGoodsFragment"
+        android:name="com.example.turon.feed.returnedgoods.ReturnedGoodsFragment"
+        android:label="fragment_returned_goods"
+        tools:layout="@layout/fragment_returned_goods">
+        <action
+            android:id="@+id/action_returnedGoodsFragment_to_returnGoodsDetailsFragment"
+            app:destination="@id/returnGoodsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendProductFragment"
+        android:name="com.example.turon.feed.sendproduct.SendProductFragment"
+        android:label="send_product_fragment">
+        <action
+            android:id="@+id/action_sendProductFragment_to_sendDetailsFragment"
+            app:destination="@id/sendDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedAcceptHistoryFragment"
+        android:name="com.example.turon.feed.history.FeedAcceptHistoryFragment"
+        android:label="fragment_feed_accept_history"
+        tools:layout="@layout/fragment_feed_accept_history" />
+
+
+    <fragment
+        android:id="@+id/returnGoodsDetailsFragment"
+        android:name="com.example.turon.feed.returnedgoods.ReturnGoodsDetailsFragment"
+        android:label="fragment_return_goods_details"
+        tools:layout="@layout/fragment_return_goods_details" />
+    <fragment
+        android:id="@+id/sendDetailsFragment"
+        android:name="com.example.turon.feed.sendproduct.SendDetailsFragment"
+        android:label="fragment_send_details"
+        tools:layout="@layout/fragment_send_details">
+
+        <action
+            android:id="@+id/action_sendDetailsFragment_to_sendProductScanFragment"
+            app:destination="@id/sendProductScanFragment" />
+        <action
+            android:id="@+id/action_sendDetailsFragment_to_sendOrderFinalFragment"
+            app:destination="@id/sendOrderFinalFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/sendOrderFinalFragment"
+        android:name="com.example.turon.feed.sendproduct.SendOrderFinalFragment"
+        android:label="fragment_send_order_final"
+        tools:layout="@layout/fragment_send_order_final" />
+    <fragment
+        android:id="@+id/feedSendHistoryFragment"
+        android:name="com.example.turon.feed.history.FeedSendHistoryFragment"
+        android:label="fragment_feed_send_history"
+        tools:layout="@layout/fragment_feed_send_history" />
+    <fragment
+        android:id="@+id/brandBalanceFragment"
+        android:name="com.example.turon.feed.history.BrandBalanceFragment"
+        android:label="fragment_product_history"
+        tools:layout="@layout/fragment_product_history" />
+
+    <fragment
+        android:id="@+id/sendProductScanFragment"
+        android:name="com.example.turon.feed.sendproduct.SendProductScanFragment"
+        android:label="fragment_send_product_scan"
+        tools:layout="@layout/fragment_send_product_scan">
+        <action
+            android:id="@+id/action_sendProductScanFragment_to_sendOrderFinalFragment"
+            app:destination="@id/sendOrderFinalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/returnedHistoryFragment"
+        android:name="com.example.turon.feed.history.ReturnedHistoryFragment"
+        android:label="fragment_returned_history"
+        tools:layout="@layout/fragment_returned_history">
+        <action
+            android:id="@+id/action_returnedHistoryFragment_to_returnHistoryBaskedFragment"
+            app:destination="@id/returnHistoryBaskedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/returnedProductionFragment"
+        android:name="com.example.turon.feed.returnedgoods.ReturnedProductionFragment"
+        android:label="fragment_returned_production"
+        tools:layout="@layout/fragment_returned_production" />
+    <fragment
+        android:id="@+id/returnHistoryBaskedFragment"
+        android:name="com.example.turon.feed.history.ReturnHistoryBaskedFragment"
+        android:label="fragment_return_his tory_basked"
+        tools:layout="@layout/fragment_return_history_basked" />
+    <fragment
+        android:id="@+id/returnedProHistoryFragment"
+        android:name="com.example.turon.feed.history.ReturnedProHistoryFragment"
+        android:label="fragment_returned_pro_history"
+        tools:layout="@layout/fragment_returned_pro_history" />
+
+
+
+    <fragment
+        android:id="@+id/turnAcceptFragment2"
+        android:name="com.example.turon.security.ui.TurnAcceptFragment"
+        android:label="turn_accept_fragment"
+        tools:layout="@layout/turn_accept_fragment" >
+        <action
+            android:id="@+id/action_turnAcceptFragment_to_turnAcceptDetailsFragment"
+            app:destination="@id/turnAcceptDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/turnHistoryFragment"
+        android:name="com.example.turon.security.ui.TurnHistoryFragment"
+        android:label="turn_history_fragment"
+        tools:layout="@layout/turn_history_fragment" />
+    <fragment
+        android:id="@+id/turnAcceptDetailsFragment"
+        android:name="com.example.turon.security.ui.TurnAcceptDetailsFragment"
+        android:label="fragment_turn_accept_details"
+        tools:layout="@layout/fragment_turn_accept_details" />
+    <fragment
+        android:id="@+id/activeTurnFragment"
+        android:name="com.example.turon.security.ui.ActiveTurnFragment"
+        android:label="fragment_active_turn"
+        tools:layout="@layout/fragment_active_turn" />
+    <fragment
+        android:id="@+id/bagExpenseFragment"
+        android:name="com.example.turon.security.ui.BagExpenseFragment"
+        android:label="fragment_bag_expense"
+        tools:layout="@layout/fragment_bag_expense" />
+    <fragment
+        android:id="@+id/bagIncomeFragment"
+        android:name="com.example.turon.security.ui.BagInComeHistoryFragment"
+        android:label="fragment_bag_income"
+        tools:layout="@layout/fragment_bag_income" />
+    <fragment
+        android:id="@+id/activeLoadingFragment"
+        android:name="com.example.turon.security.ui.ActiveLoadingFragment"
+        android:label="fragment_active_loading"
+        tools:layout="@layout/fragment_active_loading" />
+    <fragment
+        android:id="@+id/bagInComeHistoryFragment"
+        android:name="com.example.turon.security.ui.BagInComeHistoryFragment"
+        android:label="fragment_bag_in_come_history"
+        tools:layout="@layout/fragment_bag_in_come_history" />
+    <fragment
+        android:id="@+id/returnedSecurityFragment"
+        android:name="com.example.turon.security.ui.ReturnedSecurityFragment"
+        android:label="fragment_returned_security"
+        tools:layout="@layout/fragment_returned_security" />
+    <fragment
+        android:id="@+id/succesHistoryFragment"
+        android:name="com.example.turon.security.ui.SuccesHistoryFragment"
+        android:label="fragment_succes_history"
+        tools:layout="@layout/fragment_succes_history" />
+    <fragment
+        android:id="@+id/qoldiqFragment"
+        android:name="com.example.turon.security.ui.QoldiqFragment"
+        android:label="fragment_qoldiq"
+        tools:layout="@layout/fragment_qoldiq" />
+    <fragment
+        android:id="@+id/kirimBagHistoryFragment"
+        android:name="com.example.turon.security.ui.KirimBagHistoryFragment"
+        android:label="fragment_kirim_bag_history"
+        tools:layout="@layout/fragment_kirim_bag_history" />
+    <fragment
+        android:id="@+id/chqimdanQaytarilganlarFragment"
+        android:name="com.example.turon.security.ui.ChqimdanQaytarilganlarFragment"
+        android:label="fragment_chqimdan_qaytarilganlar"
+        tools:layout="@layout/fragment_chqimdan_qaytarilganlar" />
+    <fragment
+        android:id="@+id/commodityAccepttanceFeedSecurityFragment"
+        android:name="com.example.turon.feed_security.CommodityAccepttanceFeedSecurityFragment"
+        android:label="fragment_commodity_accepttance_feed_security"
+        tools:layout="@layout/fragment_commodity_accepttance_feed_security" />
+
+</navigation>

@@ -42,6 +42,7 @@ class ActiveTurnFragment : Fragment(){
     private lateinit var orderListTo: ArrayList<Activetashkent>
     private var id: Int?= null
     private var state:Boolean=true
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private var position: Int? = null
     private val viewModel: TurnAcceptViewModel by viewModels {
         TurnAcceptViewModelFactory(
@@ -179,7 +180,7 @@ class ActiveTurnFragment : Fragment(){
     private fun getActiveTurn(st:Boolean) {
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.getActiveTurn()
+            viewModel.getActiveTurn(sharedPref.getUserId())
             viewModel.turnActiveState.collect {
                 when (it) {
                     is UIState.Success -> {

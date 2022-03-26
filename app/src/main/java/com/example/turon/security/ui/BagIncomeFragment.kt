@@ -76,8 +76,6 @@ class BagIncomeFragment : Fragment() {
         binding.inComeHistoryRecycler.setHasFixedSize(true)
         getBagHistory()
         initAction()
-
-
     }
 
     private fun initAction() {
@@ -136,11 +134,9 @@ class BagIncomeFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -162,7 +158,6 @@ class BagIncomeFragment : Fragment() {
                     else -> Unit
                 }
             }
-
         }
     }
 
@@ -175,11 +170,12 @@ class BagIncomeFragment : Fragment() {
                     is UIState.Success -> {
                         bagHistoryList.clear()
                         bagHistoryList.addAll(it.data)
-                        bagHistoryAdapter = BagExpenseAdapter(bagHistoryList,object :BagExpenseAdapter.onPress{
-                            override fun click(data: QopHistory, position: Int) {
+                        bagHistoryAdapter =
+                            BagExpenseAdapter(bagHistoryList, object : BagExpenseAdapter.onPress {
+                                override fun click(data: QopHistory, position: Int) {
 
-                            }
-                        })
+                                }
+                            })
                         binding.inComeHistoryRecycler.adapter = bagHistoryAdapter
                         getProviders()
                     }
@@ -214,13 +210,11 @@ class BagIncomeFragment : Fragment() {
                 id: Long
             ) {
                 bagTypeId = typeOfTinList[position].id
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
 
         bind.text1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -237,7 +231,6 @@ class BagIncomeFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
         }
 
         bind.textView35.setOnClickListener {
@@ -247,7 +240,6 @@ class BagIncomeFragment : Fragment() {
             builder.dismiss()
         }
         builder.show()
-
     }
 
     private fun addOfTin(bagTypeId: Int?, providerId: Int?, count: String, comment: String) {
@@ -270,13 +262,10 @@ class BagIncomeFragment : Fragment() {
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                     }
-
                     else -> Unit
                 }
             }
-
         }
     }
-
 }
 

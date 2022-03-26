@@ -2,11 +2,11 @@ package com.example.turon.production
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.turon.R
@@ -28,7 +28,7 @@ class ProductionActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.acceptanceProFragment ->{
+                R.id.acceptanceProFragment -> {
                     binding.view1.setBackgroundColor(Color.parseColor("#FFCC01"))
                     binding.view2.setBackgroundColor(Color.parseColor("#FF000000"))
                 }
@@ -38,7 +38,6 @@ class ProductionActivity : AppCompatActivity() {
 
                 }
             }
-
         }
     }
 
@@ -49,8 +48,6 @@ class ProductionActivity : AppCompatActivity() {
             binding.bottomNavViewPro,
             navHostFragment.navController
         )
-
-
     }
 
     private var backPressedOnce = false

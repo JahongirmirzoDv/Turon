@@ -15,6 +15,7 @@ import com.example.turon.data.model.factory.AuthViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.databinding.ActivityAuthBinding
 import com.example.turon.feed.FeedActivity
+import com.example.turon.feed_security.FeedSecurity
 import com.example.turon.production.ProductionActivity
 import com.example.turon.security.SecurityActivity
 import com.example.turon.utils.SharedPref
@@ -80,6 +81,16 @@ class AuthActivity : AppCompatActivity() {
                                     Intent(
                                         this@AuthActivity,
                                         SecurityActivity::class.java
+                                    )
+                                )
+                                finishAffinity()
+                            }
+                            20 ->{
+                                sharedPref.setUserType("FeedSecurity")
+                                startActivity(
+                                    Intent(
+                                        this@AuthActivity,
+                                        FeedSecurity::class.java
                                     )
                                 )
                                 finishAffinity()

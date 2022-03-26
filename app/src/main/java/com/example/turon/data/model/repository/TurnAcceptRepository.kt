@@ -28,9 +28,9 @@ class TurnAcceptRepository(private val apiHelper: ApiHelper) {
     }
 
 
-    suspend fun getTurnHistory(): UIState<TurnHistoryActInAct> {
+    suspend fun getTurnHistory(user_id: Int): UIState<TurnHistoryActInAct> {
         try {
-            val response = apiHelper.getTurnHistory()
+            val response = apiHelper.getTurnHistory(user_id)
             if (response.isSuccessful) {
                 val response = response.body()!!
                 return if (response.success) {
@@ -47,9 +47,9 @@ class TurnAcceptRepository(private val apiHelper: ApiHelper) {
 
 
 
-    suspend fun getActiveTurn(): UIState<ActiveTurnResponse> {
+    suspend fun getActiveTurn(user_id: Int): UIState<ActiveTurnResponse> {
         try {
-            val response = apiHelper.getActiveTurn()
+            val response = apiHelper.getActiveTurn(user_id)
             if (response.isSuccessful) {
                 val response = response.body()!!
                 return if (response.success) {

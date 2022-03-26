@@ -1,17 +1,22 @@
 package com.example.turon.security.ui
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.turon.R
 import com.example.turon.adapter.ReturnedSecurityAdapter
+import com.example.turon.auth.AuthActivity
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
@@ -31,6 +36,7 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
     private lateinit var progressDialog: AlertDialog
     private val historyList by lazy { ArrayList<ReturnedSec>() }
     private var returnedId: Int? = null
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private val adapter by lazy {
         ReturnedSecurityAdapter(
             historyList,
@@ -72,42 +78,63 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
     }
 
     private fun initAction() {
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.menu.setOnClickListener {
-//            val popupMenu = PopupMenu(requireContext(), it)
-//            popupMenu.setOnMenuItemClickListener {
-//                when (it.itemId) {
-//                    R.id.history -> {
-//                        findNavController().navigate(R.id.returnedHistoryFragment)
-//
-//                        true
-//                    }
-//                    R.id.returned -> {
-//                        findNavController().navigate(R.id.returnedGoodsFragment)
-//
-//                        true
-//                    }
-//                    R.id.returnedPro -> {
-//                        //val bundle= bundleOf("orderId" to orderId)
-//                        findNavController().navigate(R.id.returnedProductionFragment)
-//
-//                        true
-//                    }
-//                    else -> false
-//                }
-//            }
-//            popupMenu.inflate(R.menu.option_menu_returned)
-//            try {
-//                val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
-//                fieldMPopup.isAccessible = true
-//                val mPopup = fieldMPopup.get(popupMenu)
-//                mPopup.javaClass
-//                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-//                    .invoke(mPopup, true)
-//            } catch (e: Exception) {
-//                Log.d("TAG", "Error show menu icon")
-//            } finally {
-//                popupMenu.show()
-//            }
+            val popupMenu = PopupMenu(requireContext(), it)
+            popupMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.newAccept -> {
+                        findNavController().navigate(R.id.commodityAccepttanceFeedSecurityFragment)
+                        true
+                    }
+                    R.id.history -> {
+                        findNavController().navigate(R.id.feedAcceptHistoryFragment)
+                        true
+                    }
+                    R.id.onlyTurns -> {
+                        findNavController().navigate(R.id.activeLoadingFragment)
+                        true
+                    }
+                    R.id.inTurns -> {
+                        findNavController().navigate(R.id.activeTurnFragment)
+                        true
+                    }
+                    R.id.historyTurns -> {
+                        findNavController().navigate(R.id.turnHistoryFragment)
+                        true
+                    }
+                    R.id.returned -> {
+                        findNavController().navigate(R.id.returnedSecurityFragment)
+                        true
+                    }
+                    R.id.succesHistory -> {
+                        findNavController().navigate(R.id.succesHistoryFragment)
+                        true
+                    }
+                    R.id.logout -> {
+                        sharedPref.setFirstEnter(true)
+                        startActivity(Intent(requireContext(), AuthActivity::class.java))
+                        requireActivity().finishAffinity()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.inflate(R.menu.feed_security_accept)
+            try {
+                val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+                fieldMPopup.isAccessible = true
+                val mPopup = fieldMPopup.get(popupMenu)
+                mPopup.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mPopup, true)
+            } catch (e: Exception) {
+                Log.d("TAG", "Error show menu icon")
+            } finally {
+                popupMenu.show()
+            }
         }
     }
 
@@ -153,7 +180,7 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
         val userId = SharedPref(requireContext()).getUserId()
         progressDialog.show()
         lifecycleScope.launchWhenStarted {
-            viewModel.getReturnedSec()
+            viewModel.getReturnedSec(sharedPref.getUserId())
             viewModel.returnSec.collect {
                 when (it) {
                     is UIState.Success -> {

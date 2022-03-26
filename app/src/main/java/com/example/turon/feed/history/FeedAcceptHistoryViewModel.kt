@@ -39,8 +39,8 @@ class FeedAcceptHistoryViewModel(private val repository: FeedAcceptHistoryReposi
 
  private val _returnSec = MutableStateFlow<UIState<List<ReturnedSec>>>(UIState.Loading)
     val returnSec: StateFlow<UIState<List<ReturnedSec>>> = _returnSec
-    suspend fun getReturnedSec() {
-        _returnSec.value = repository.getReturnedSec()
+    suspend fun getReturnedSec(user_id: Int) {
+        _returnSec.value = repository.getReturnedSec(user_id)
     }
 
 

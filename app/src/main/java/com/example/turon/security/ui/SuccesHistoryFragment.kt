@@ -26,6 +26,7 @@ import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.Activetashkent
 import com.example.turon.databinding.FragmentSuccesHistoryBinding
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
+import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.flow.collect
@@ -39,6 +40,7 @@ class SuccesHistoryFragment : Fragment() {
     private lateinit var orderListTo: ArrayList<Activetashkent>
     private var id: Int? = null
     private var state: Boolean = true
+    private val sharedPref by lazy { SharedPref(requireContext()) }
     private var position: Int? = null
     private val viewModel: TurnAcceptViewModel by viewModels {
         TurnAcceptViewModelFactory(
@@ -177,7 +179,8 @@ class SuccesHistoryFragment : Fragment() {
         orderListTo.clear()
         val addAll = ArrayList<Activetashkent>()
         lifecycleScope.launchWhenStarted {
-            viewModel.getActiveTurn()
+            addAll.clear()
+            viewModel.getActiveTurn(sharedPref.getUserId())
             viewModel.turnActiveState.collect {
                 when (it) {
                     is UIState.Success -> {

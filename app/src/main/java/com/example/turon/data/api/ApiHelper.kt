@@ -4,6 +4,7 @@ import com.example.turon.data.model.*
 import com.example.turon.data.model.response.HistoryProResponse
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Query
 
 class ApiHelper(private val apiService: ApiService) {
     suspend fun login(body: HashMap<String, Any>?) = apiService.login(body)
@@ -23,9 +24,9 @@ class ApiHelper(private val apiService: ApiService) {
     suspend fun getOrder(user_id: Int) = apiService.getOrder(user_id)
 
     suspend fun getTurnAccept(user_id: Int) = apiService.getTurnAccept(user_id)
-    suspend fun getTurnHistory() = apiService.getTurnHistory()
+    suspend fun getTurnHistory(user_id: Int) = apiService.getTurnHistory(user_id)
 
-    suspend fun getActiveTurn() = apiService.getActiveTurn()
+    suspend fun getActiveTurn(user_id: Int) = apiService.getActiveTurn(user_id)
     suspend fun getReturnedGoodsClient(orderId: Int, userId: Int) =
         apiService.getReturnedGoodsClient(orderId, userId)
 
@@ -82,8 +83,8 @@ class ApiHelper(private val apiService: ApiService) {
     suspend fun getReturnedBasked(qaytuv_id: Int, order_id: Int) =
         apiService.getReturnedBasked(qaytuv_id, order_id)
 
-    suspend fun getReturnedSec() =
-        apiService.getReturnedSec()
+    suspend fun getReturnedSec(user_id: Int) =
+        apiService.getReturnedSec(user_id)
 
     suspend fun getBrandBalanceFeed(user_id: Int) = apiService.getBrandBalanceFeed(user_id)
 

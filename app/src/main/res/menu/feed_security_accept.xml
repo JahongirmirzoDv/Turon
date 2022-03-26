@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/newAccept"
+        android:title="Yangi qabul" />
+    <item
+        android:id="@+id/history"
+        android:title="Qabul tarixi" />
+
+    <item
+        android:id="@+id/onlyTurns"
+        android:title="Navbat kutayotganlar" />
+    <item
+        android:id="@+id/succesHistory"
+        android:title="Muvaffaqiyatli buyurtmalar" />
+    <item
+        android:id="@+id/inTurns"
+        android:title="Ichkaridagilar" />
+    <item
+        android:id="@+id/historyTurns"
+        android:title="Navbat tarixi" />
+
+    <item
+        android:id="@+id/returned"
+        android:title="Qaytgan mahsulotlar" />
+    <item
+        android:id="@+id/logout"
+        android:title="Tizimdan chiqish" />
+    <item
+        android:id="@+id/security_turnAccept"
+        android:title="Qorovul tovar qabuli"/>
+
+</menu>

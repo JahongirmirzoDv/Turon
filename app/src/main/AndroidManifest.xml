@@ -25,8 +25,13 @@
         android:theme="@style/Theme.Turon"
         tools:targetApi="n">
         <activity
+            android:name=".feed_security.FeedSecurity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".production.ProductionActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -38,11 +43,13 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".security.SecurityActivity"></activity>
+        <activity android:name=".security.SecurityActivity">
+
+        </activity>
         <activity
             android:name=".feed.FeedActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
-        <activity android:name=".scales.ScalesActivity"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".scales.ScalesActivity" />
         <activity android:name=".auth.AuthActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -51,7 +58,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <service
             android:name=".data.model.FirebaseService"

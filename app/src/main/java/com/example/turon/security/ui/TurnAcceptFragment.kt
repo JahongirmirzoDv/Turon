@@ -186,7 +186,6 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
 
                 }
             }
-
         }
     }
 
@@ -199,7 +198,6 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
             R.id.action_turnAcceptFragment_to_turnAcceptDetailsFragment,
             bundle
         )
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -223,5 +221,4 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
             }
             .show()
     }
-
 }

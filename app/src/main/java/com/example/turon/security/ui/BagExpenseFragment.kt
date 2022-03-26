@@ -196,10 +196,11 @@ class BagExpenseFragment : Fragment() {
                         dd.list = bagHistoryList
                         binding.expenseHistoryRecycler.adapter = dd
                         getBagRoom()
+                        progressDialog.cancel()
                     } else {
                         dd.list = emptyList()
                         dd.notifyDataSetChanged()
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                     }
                 }
         }
@@ -211,7 +212,7 @@ class BagExpenseFragment : Fragment() {
             viewModel.bagRoomState.collect {
                 when (it) {
                     is UIState.Success -> {
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                         bagTypeList.clear()
                         bagTypeList.addAll(it.data)
                     }
@@ -228,7 +229,7 @@ class BagExpenseFragment : Fragment() {
                     is UIState.Success -> {
                         typeOfTinList.clear()
                         typeOfTinList.addAll(it.data)
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                         if (typeOfTinList.isNotEmpty()) {
                             showDialog(typeOfTinList)
                         } else {
@@ -385,7 +386,7 @@ class BagExpenseFragment : Fragment() {
         map["debt"] = debt
         model.crrete_clinet_tin(map).observe(viewLifecycleOwner) {
             if (it.success == true) {
-                progressDialog.dismiss()
+                progressDialog.cancel()
                 Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Xato", Toast.LENGTH_SHORT).show()
@@ -500,11 +501,11 @@ class BagExpenseFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             model.returnBag(map).observe(viewLifecycleOwner) {
                 if (it.success == true) {
-                    progressDialog.dismiss()
+                    progressDialog.cancel()
                     Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    progressDialog.dismiss()
+                    progressDialog.cancel()
                 }
             }
         }
@@ -520,11 +521,11 @@ class BagExpenseFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             model.returnExpanceQop(map).observe(viewLifecycleOwner) {
                 if (it.success == true) {
-                    progressDialog.dismiss()
+                    progressDialog.cancel()
                     Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    progressDialog.dismiss()
+                    progressDialog.cancel()
                 }
             }
 
@@ -534,11 +535,11 @@ class BagExpenseFragment : Fragment() {
 //                when (it) {
 //                    is UIState.Success -> {
 //                        Toast.makeText(requireContext(), "Qaytarildi", Toast.LENGTH_SHORT).show()
-//                        progressDialog.dismiss()
+//                        progressDialog.cancel()
 //                    }
 //                    is UIState.Error -> {
 //                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-//                        progressDialog.dismiss()
+//                        progressDialog.cancel()
 //                    }
 //
 //                    else -> Unit

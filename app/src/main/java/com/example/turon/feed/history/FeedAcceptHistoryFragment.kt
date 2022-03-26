@@ -2,6 +2,7 @@ package com.example.turon.feed.history
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.example.turon.R
 import com.example.turon.adapter.AcceptanceHistoryAdapter
 import com.example.turon.adapter.AdvertLoadStateAdapter
 import com.example.turon.adapter.ProductionHistoryAdapter
+import com.example.turon.auth.AuthActivity
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
@@ -41,6 +43,7 @@ class FeedAcceptHistoryFragment : Fragment(){
     private val historyAdapter by lazy { AcceptanceHistoryAdapter() }
     private val historyList by lazy { ArrayList<HistoryProData>() }
     private lateinit var progressDialog: AlertDialog
+    private val sharedPref by lazy { SharedPref(requireContext()) }
 
     private val viewModel: AllHistoryViewModel by viewModels{
         AllHistoryViewModelFactory(
@@ -70,6 +73,7 @@ class FeedAcceptHistoryFragment : Fragment(){
             .build()
         setRecycler()
         getOrderHistory()
+        initAction()
     }
 
 
@@ -115,17 +119,43 @@ class FeedAcceptHistoryFragment : Fragment(){
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.newAccept -> {
-                        findNavController().navigate(R.id.commodityAcceptanceFragment2)
+                        findNavController().navigate(R.id.commodityAccepttanceFeedSecurityFragment)
                         true
                     }
                     R.id.history -> {
                         findNavController().navigate(R.id.feedAcceptHistoryFragment)
                         true
                     }
+                    R.id.onlyTurns -> {
+                        findNavController().navigate(R.id.activeLoadingFragment)
+                        true
+                    }
+                    R.id.inTurns -> {
+                        findNavController().navigate(R.id.activeTurnFragment)
+                        true
+                    }
+                    R.id.historyTurns -> {
+                        findNavController().navigate(R.id.turnHistoryFragment)
+                        true
+                    }
+                    R.id.returned -> {
+                        findNavController().navigate(R.id.returnedSecurityFragment)
+                        true
+                    }
+                    R.id.succesHistory -> {
+                        findNavController().navigate(R.id.succesHistoryFragment)
+                        true
+                    }
+                    R.id.logout -> {
+                        sharedPref.setFirstEnter(true)
+                        startActivity(Intent(requireContext(), AuthActivity::class.java))
+                        requireActivity().finishAffinity()
+                        true
+                    }
                     else -> false
                 }
             }
-            popupMenu.inflate(R.menu.option_menu_feed_accept)
+            popupMenu.inflate(R.menu.feed_security_accept)
             try {
                 val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
                 fieldMPopup.isAccessible = true

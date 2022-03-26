@@ -68,7 +68,6 @@ class SendOrderHistoryAdapter :
     interface OnParcelClickListener {
         fun clickListener(parcel: ResultN)
     }
-
 }
 
 class CDiffUtilCallback : DiffUtil.ItemCallback<ResultN>() {

@@ -110,6 +110,7 @@ class QoldiqFragment : Fragment() {
                 bagHistoryAdapter = Qoldiq(bagHistoryList)
                 expenseHistoryRecycler.adapter = bagHistoryAdapter
                 getBagRoom()
+                progressDialog.cancel()
             }
         }
     }
@@ -120,7 +121,6 @@ class QoldiqFragment : Fragment() {
             viewModel.bagRoomState.collect {
                 when (it) {
                     is UIState.Success -> {
-                        progressDialog.dismiss()
                         bagTypeList.clear()
                         bagTypeList.addAll(it.data)
                     }
@@ -138,7 +138,7 @@ class QoldiqFragment : Fragment() {
                     is UIState.Success -> {
                         typeOfTinList.clear()
                         typeOfTinList.addAll(it.data)
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                         showDialog()
                     }
                     is UIState.Error -> {
@@ -224,7 +224,7 @@ class QoldiqFragment : Fragment() {
                     ).show()
                 }
                 else -> {
-                    builder.dismiss()
+                    builder.cancel()
                     createTinData(company, name, address, number, comment, debt)
                 }
             }
@@ -252,7 +252,7 @@ class QoldiqFragment : Fragment() {
         map["debt"] = debt
         model.crrete_clinet_tin(map).observe(viewLifecycleOwner) {
             if (it.success == true) {
-                progressDialog.dismiss()
+                progressDialog.cancel()
                 Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Xato", Toast.LENGTH_SHORT).show()
@@ -304,7 +304,7 @@ class QoldiqFragment : Fragment() {
                     ).show()
                 }
                 else -> {
-                    builder.dismiss()
+                    builder.cancel()
                     addExpense(bagTypeId, bagCount, comment)
                 }
             }
@@ -327,12 +327,12 @@ class QoldiqFragment : Fragment() {
                 when (it) {
                     is UIState.Success -> {
                         Toast.makeText(requireContext(), "Yaratildi", Toast.LENGTH_SHORT).show()
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                         getBagHistory()
                     }
                     is UIState.Error -> {
                         Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                        progressDialog.dismiss()
+                        progressDialog.cancel()
                     }
 
                     else -> Unit

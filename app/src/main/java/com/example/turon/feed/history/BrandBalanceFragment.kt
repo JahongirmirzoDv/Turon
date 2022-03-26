@@ -207,7 +207,7 @@ class BrandBalanceFragment : Fragment(), OrderDetailsAdapter.OnOrderClickListene
     }
 
     override fun onItemClickOrderDetails(data: Balance) {
-        if (sharedPref.getUserType() == "Main_Feed") {
+        if (sharedPref.getUserType() == "Main_Feed" || sharedPref.getUserType() == "FeedSecurity") {
             showDialog(data)
         } else {
             Toast.makeText(requireContext(), "xato", Toast.LENGTH_SHORT).show()

@@ -41,6 +41,7 @@
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_auth.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_feed.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_feed2.xml" value="0.30811965811965814" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_feed_security.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_main.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_production.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/activity_scales.xml" value="0.3175213675213675" />
@@ -67,6 +68,7 @@
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_bag_income.xml" value="0.14358974358974358" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_chqimdan_qaytarilganlar.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_commodity_acceptance.xml" value="0.3175213675213675" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_commodity_accepttance_feed_security.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_feed_accept_history.xml" value="0.29615384615384616" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_feed_send_history.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_flour_brand_balance.xml" value="0.5" />
@@ -131,8 +133,14 @@
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/bnv_feed.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/bnv_security.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/btn1.xml" value="0.3175213675213675" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/feed_security.xml" value="0.1841880341880342" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/feed_security_accept.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_balance.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_expense.xml" value="0.3175213675213675" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_feed_accept.xml" value="0.1841880341880342" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_pro.xml" value="0.1841880341880342" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_return_pro.xml" value="0.1841880341880342" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_returned.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_turn.xml" value="0.3175213675213675" />
         <entry key="..\:/turon android/Turon/Turon/app/src/main/res/drawable/ic_turon1.xml" value="0.19322916666666667" />
         <entry key="..\:/turon android/Turon/Turon/app/src/main/res/drawable/ic_turon3.xml" value="0.19322916666666667" />
@@ -145,6 +153,9 @@
         <entry key="..\:/turon android/Turon/Turon/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.19322916666666667" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/turon/feed_security/FeedSecurity.kt" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
