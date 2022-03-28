@@ -14,6 +14,9 @@ class SendOrderHistoryAdapter :
     private lateinit var onParcelClickListener: OnParcelClickListener
     var state: Boolean = true
 
+//    qoplar kirim
+//    ichkaridagilar
+//    navbat kutayotganlar
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
         val listBinding = YuborishTarixItemBinding.inflate(v, parent, false)
@@ -23,7 +26,6 @@ class SendOrderHistoryAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, position)
     }
-
 
     inner class ViewHolder(val binding: YuborishTarixItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,6 +48,9 @@ class SendOrderHistoryAdapter :
                         when (it.product.product.type.id) {
                             1 -> string = "U"
                             2 -> string = if (string.isNotEmpty()) "U+Y" else "Y"
+                            else -> {
+                                ""
+                            }
                         }
                     }
                     state.text = string.ifEmpty { "" }

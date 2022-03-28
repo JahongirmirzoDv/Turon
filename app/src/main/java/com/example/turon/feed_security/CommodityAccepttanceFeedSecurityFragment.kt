@@ -62,7 +62,6 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         list = ArrayList()
         if (sharedPref.getUserType() == "Main_Feed") {
-
         }
         setupUI()
     }

@@ -119,7 +119,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
         }
     }
 
-    private fun postLoadOrder(orderId: Int, baskId: Int) {
+    private fun postLoadOrder(orderId: Int, baskId: Int, isLast: Boolean) {
         lifecycleScope.launchWhenStarted {
             viewModelSend.postLoadOrder(RequestPro(baskId, orderId))
             viewModelSend.loadOrderState.collect {
@@ -128,7 +128,8 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
                         progressDialog.dismiss()
                         Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
                         val bundle = bundleOf(
-                            "orderId" to orderId
+                            "orderId" to orderId,
+                            "isLast" to isLast
                         )
                         findNavController().navigate(
                             R.id.action_sendDetailsFragment_to_sendOrderFinalFragment, bundle
@@ -195,7 +196,13 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDialogAccept(productName: String, count: String?, baskId: Int, orderId: Int) {
+    private fun showDialogAccept(
+        productName: String,
+        count: String?,
+        baskId: Int,
+        orderId: Int,
+        isLast: Boolean
+    ) {
         val bind: ItemAcceptDialogBinding = ItemAcceptDialogBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
         dialog.setCancelable(true)
@@ -205,7 +212,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
         bind.text.text = "$count Qop"
         bind.textView35.setOnClickListener {
             builder.dismiss()
-            postLoadOrder(orderId, baskId)
+            postLoadOrder(orderId, baskId, isLast)
         }
         bind.btnClose.setOnClickListener {
             builder.dismiss()
@@ -213,8 +220,8 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
         builder.show()
     }
 
-    override fun onItemClickOrderBasked(data: OrderBasked) {
-        showDialogAccept(data.product, data.bagsCount.toString(), data.id, orderId!!)
+    override fun onItemClickOrderBasked(data: OrderBasked, isLast: Boolean) {
+        showDialogAccept(data.product, data.bagsCount.toString(), data.id, orderId!!, isLast)
 
 //        val bundle = bundleOf(
 //            "orderId" to orderId

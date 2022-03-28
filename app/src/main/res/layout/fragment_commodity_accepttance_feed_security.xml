@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feed_security.CommodityAccepttanceFeedSecurityFragment">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -68,80 +69,80 @@
             android:id="@+id/text1"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.10"
             android:gravity="center"
-            android:layout_gravity="center"
             android:text="№"
-            android:textSize="11sp"
             android:textColor="@color/black"
+            android:textSize="11sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text3"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
-            android:layout_gravity="center"
             android:text="Mahsulot "
-            android:textSize="11sp"
             android:textColor="@color/black"
+            android:textSize="11sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text4"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="0.22"
             android:layout_gravity="center"
+            android:layout_weight="0.22"
             android:gravity="center"
             android:text="Tegirmon"
-            android:textSize="11sp"
             android:textColor="@color/black"
+            android:textSize="11sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text6"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
-            android:layout_gravity="center"
             android:text="Qop soni"
-            android:textSize="11sp"
             android:textColor="@color/black"
+            android:textSize="11sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text5"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
+            android:layout_gravity="center"
             android:layout_weight="0.22"
             android:gravity="center"
-            android:layout_gravity="center"
             android:text="Sana"
-            android:textSize="11sp"
             android:textColor="@color/black"
+            android:textSize="11sp"
             android:textStyle="bold" />
 
 

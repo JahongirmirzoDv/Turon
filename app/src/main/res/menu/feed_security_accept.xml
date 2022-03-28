@@ -8,9 +8,10 @@
         android:id="@+id/history"
         android:title="Qabul tarixi" />
 
-    <item
-        android:id="@+id/onlyTurns"
-        android:title="Navbat kutayotganlar" />
+    <!--    <item-->
+    <!--        android:id="@+id/onlyTurns"-->
+    <!--        android:title="Navbat kutayotganlar" />-->
+
     <item
         android:id="@+id/succesHistory"
         android:title="Muvaffaqiyatli buyurtmalar" />

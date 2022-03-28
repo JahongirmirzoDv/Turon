@@ -12,6 +12,5 @@ data class Acceptance(
     @SerializedName("tegirmon")
     val company: String,
     @SerializedName("qopsoni")
-    val bagsCount:Int
-
+    val bagsCount: Int
 )

@@ -42,6 +42,7 @@ class SendOrderFinalFragment : Fragment() {
     private var mCameraUri: Uri? = null
     private val listCargo by lazy { ArrayList<SpinnerForProduct>() }
     private var orderId: Int? = null
+    private var isLast: Boolean = false
     private var filePath: String? = null
     private lateinit var sharedPref: SharedPref
     private val viewModel: SendProductViewModel by viewModels {
@@ -69,7 +70,7 @@ class SendOrderFinalFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         orderId = requireArguments().getInt("orderId")
-
+        isLast = requireArguments().getBoolean("isLast")
 
     }
 
@@ -175,11 +176,14 @@ class SendOrderFinalFragment : Fragment() {
         val builder: MultipartBody.Builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
         builder.addFormDataPart("id", orderId!!.toString())
-        builder.addFormDataPart(
-            "img",
-            files.name,
-            files.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        )
+        if (isLast) {
+            builder.addFormDataPart(
+                "img",
+                files.name,
+                files.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            )
+        }
+
         val body = builder.build()
         lifecycleScope.launchWhenStarted {
             viewModel.sendOrderFinal(body)
