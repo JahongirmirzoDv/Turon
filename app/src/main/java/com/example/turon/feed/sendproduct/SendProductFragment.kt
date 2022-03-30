@@ -72,7 +72,9 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         orderList = ArrayList()
         setupUI()
         //this is adapter ui type change
-        binding.status.visibility = View.GONE
+        if (sharedPref.getUserType() != "Main_Feed") {
+            binding.status.visibility = View.GONE
+        }
 
     }
 
@@ -123,7 +125,11 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                     toolbarSearch.ivClear.isVisible = !s.isNullOrEmpty()
                     var queryList: ArrayList<OrderData> = ArrayList()
                     if (s == "") {
-                        orderAdapter = OrderAdapter(orderList,sharedPref.getUserType(), this@SendProductFragment)
+                        orderAdapter = OrderAdapter(
+                            orderList,
+                            sharedPref.getUserType(),
+                            this@SendProductFragment
+                        )
                         binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     } else {
@@ -135,7 +141,11 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                                 queryList.add(model)
                             }
                         }
-                        orderAdapter = OrderAdapter(queryList, sharedPref.getUserType(),this@SendProductFragment)
+                        orderAdapter = OrderAdapter(
+                            queryList,
+                            sharedPref.getUserType(),
+                            this@SendProductFragment
+                        )
                         binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     }
@@ -159,9 +169,15 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                         progressDialog.dismiss()
                         orderList.clear()
                         orderList.addAll(it.data)
-                        orderAdapter = OrderAdapter(orderList,sharedPref.getUserType(), this@SendProductFragment)
+                        orderAdapter = OrderAdapter(
+                            orderList,
+                            sharedPref.getUserType(),
+                            this@SendProductFragment
+                        )
                         //this is adapter ui type change
-                        orderAdapter.setT(true)
+                        if (sharedPref.getUserType() != "Main_Feed") {
+                            orderAdapter.setT(true)
+                        }
                         binding.recyclerOrder.layoutManager = layoutManager
                         val user = SharedPref2.user
                         binding.recyclerOrder.scrollToPosition(user!!)

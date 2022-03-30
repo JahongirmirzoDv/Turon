@@ -83,6 +83,9 @@ interface ApiService {
     @GET("get_loading_turn/")
     suspend fun getActiveTurn(@Query("user_id") user_id: Int): Response<ActiveTurnResponse>
 
+    @GET("get_passive_turn/")
+    suspend fun getActiveTurn2(@Query("user_id") user_id: Int): Response<ActiveTurnResponse>
+
     ///active order
     @GET("get_order/")
     suspend fun getOrder(@Query("user_id") user_id: Int): Response<ActiveOrderResponse>

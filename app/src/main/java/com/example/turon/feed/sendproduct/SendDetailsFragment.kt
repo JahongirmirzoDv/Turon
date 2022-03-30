@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -69,7 +68,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSendDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -92,7 +91,6 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
         binding.recyclerSendDetails.setHasFixedSize(true)
 
         getOrderDetails()
-
     }
 
     private fun getOrderDetails() {
@@ -125,15 +123,18 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
             viewModelSend.loadOrderState.collect {
                 when (it) {
                     is UIState.Success -> {
+                        Log.e("ssss", "postLoadOrder: 1")
                         progressDialog.dismiss()
                         Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
-                        val bundle = bundleOf(
-                            "orderId" to orderId,
-                            "isLast" to isLast
-                        )
-                        findNavController().navigate(
-                            R.id.action_sendDetailsFragment_to_sendOrderFinalFragment, bundle
-                        )
+                        val bundle = Bundle()
+                        bundle.putInt("orderId", orderId)
+                        bundle.putBoolean("isLast", isLast)
+                        if (isLast) {
+                            findNavController().navigate(
+                                R.id.sendOrderFinalFragment, bundle
+                            )
+                        }
+                        getOrderDetails()
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
@@ -156,7 +157,6 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
                 recyclerSendDetails.isVisible = true
                 infoTxt.isVisible = false
             }
-
         }
 
         adapter = OrderBaskedAdapter(orderList, this@SendDetailsFragment)
@@ -222,51 +222,5 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
 
     override fun onItemClickOrderBasked(data: OrderBasked, isLast: Boolean) {
         showDialogAccept(data.product, data.bagsCount.toString(), data.id, orderId!!, isLast)
-
-//        val bundle = bundleOf(
-//            "orderId" to orderId
-//        )
-//        findNavController().navigate(
-//            R.id.action_sendDetailsFragment_to_sendOrderFinalFragment,
-//            bundle
-//        )
     }
-
-//    private fun showDialogSendSuccess(count: Int) {
-//        val cargoAdapter= SpinnerCargoManAdapter(requireContext(), cargoList)
-//        val bind: ItemSendSuccessDialogBinding =
-//            ItemSendSuccessDialogBinding.inflate(layoutInflater)
-//        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
-//        dialog.setCancelable(false)
-//        dialog.setView(bind.root)
-//        val builder = dialog.create()
-//        bind.dialogTitle.text = productName
-//        bind.text.text = "$count"
-//        bind.desc.text = "Buyurtma yakunlandi"
-//        bind.spinnerCargo.adapter=cargoAdapter
-//        bind.spinnerCargo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                cargoId = cargoList[position].id
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//
-//            }
-//        }
-//        bind.textView35.setOnClickListener {
-//            builder.dismiss()
-//            //postLoadOrder()
-//
-//        }
-//        bind.btnClose.setOnClickListener {
-//            builder.dismiss()
-//        }
-//        builder.show()
-//    }
-
 }

@@ -35,6 +35,12 @@ class TurnAcceptViewModel(private val repository: TurnAcceptRepository) : ViewMo
         _turnActiveState.value = repository.getActiveTurn(user_id)
     }
 
+    private val _turnActiveState2 = MutableStateFlow<UIState<ActiveTurnResponse>>(UIState.Loading)
+    val turnActiveState2: StateFlow<UIState<ActiveTurnResponse>> = _turnActiveState2
+    suspend fun getActiveTurn2(user_id: Int) {
+        _turnActiveState2.value = repository.getActiveTurn2(user_id)
+    }
+
     private val _addTurnState = MutableStateFlow<UIState<EditStoreResponse>>(UIState.Loading)
     val addTurnState: StateFlow<UIState<EditStoreResponse>> = _addTurnState
     suspend fun addTurn(body: HashMap<String, Any>?) {

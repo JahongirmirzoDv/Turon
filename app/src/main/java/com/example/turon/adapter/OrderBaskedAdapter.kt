@@ -47,13 +47,8 @@ class OrderBaskedAdapter(
             amount.text = data.amount.toString()
 
             rootLayout.setOnClickListener {
-                if (position == list.size - 1) {
-                    onOrderClickListener.onItemClickOrderBasked(data, true)
-                } else {
-                    onOrderClickListener.onItemClickOrderBasked(data, false)
-                }
+                onOrderClickListener.onItemClickOrderBasked(data, list.size == 1)
             }
-
         }
     }
 

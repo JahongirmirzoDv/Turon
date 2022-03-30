@@ -27,6 +27,8 @@ class ApiHelper(private val apiService: ApiService) {
     suspend fun getTurnHistory(user_id: Int) = apiService.getTurnHistory(user_id)
 
     suspend fun getActiveTurn(user_id: Int) = apiService.getActiveTurn(user_id)
+    suspend fun getActiveTurn2(user_id: Int) = apiService.getActiveTurn2(user_id)
+
     suspend fun getReturnedGoodsClient(orderId: Int, userId: Int) =
         apiService.getReturnedGoodsClient(orderId, userId)
 

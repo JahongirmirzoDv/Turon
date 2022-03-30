@@ -71,6 +71,7 @@ class SendOrderFinalFragment : Fragment() {
         super.onCreate(savedInstanceState)
         orderId = requireArguments().getInt("orderId")
         isLast = requireArguments().getBoolean("isLast")
+        Log.d("isLast", "onCreate: $isLast")
 
     }
 
@@ -169,35 +170,46 @@ class SendOrderFinalFragment : Fragment() {
     }
 
     private fun sendOrder() {
-        progressDialog.show()
-//        val files=File("").compress2(requireContext())
-        val files = File(filePath!!).compress2(requireContext())
+        when (filePath) {
+            null -> {
+                Toast.makeText(requireContext(), "Avval rasm tanlang", Toast.LENGTH_SHORT).show()
+            }
+            "" -> {
+                Toast.makeText(requireContext(), "Avval rasm tanlang", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                progressDialog.show()
+                val files = File(filePath!!).compress2(requireContext())
 
-        val builder: MultipartBody.Builder = MultipartBody.Builder()
-        builder.setType(MultipartBody.FORM)
-        builder.addFormDataPart("id", orderId!!.toString())
-        if (isLast) {
-            builder.addFormDataPart(
-                "img",
-                files.name,
-                files.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-            )
-        }
-
-        val body = builder.build()
-        lifecycleScope.launchWhenStarted {
-            viewModel.sendOrderFinal(body)
-            viewModel.orderFinalState.collect {
-                when (it) {
-                    is UIState.Success -> {
-                        progressDialog.dismiss()
-                        Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
+                val builder: MultipartBody.Builder = MultipartBody.Builder()
+                builder.setType(MultipartBody.FORM)
+                builder.addFormDataPart("id", orderId!!.toString())
+                builder.addFormDataPart(
+                    "img",
+                    files.name,
+                    files.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                )
+                val body = builder.build()
+                lifecycleScope.launchWhenStarted {
+                    viewModel.sendOrderFinal(body)
+                    viewModel.orderFinalState.collect {
+                        when (it) {
+                            is UIState.Success -> {
+                                progressDialog.dismiss()
+                                Toast.makeText(
+                                    requireContext(),
+                                    it.data.message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is UIState.Error -> {
+                                progressDialog.dismiss()
+                                Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            is UIState.Loading, UIState.Empty -> Unit
+                        }
                     }
-                    is UIState.Error -> {
-                        progressDialog.dismiss()
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    }
-                    is UIState.Loading, UIState.Empty -> Unit
                 }
             }
         }

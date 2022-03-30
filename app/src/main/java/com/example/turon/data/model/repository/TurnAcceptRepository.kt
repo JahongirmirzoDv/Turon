@@ -64,6 +64,23 @@ class TurnAcceptRepository(private val apiHelper: ApiHelper) {
         return UIState.Empty
     }
 
+    suspend fun getActiveTurn2(user_id: Int): UIState<ActiveTurnResponse> {
+        try {
+            val response = apiHelper.getActiveTurn2(user_id)
+            if (response.isSuccessful) {
+                val response = response.body()!!
+                return if (response.success) {
+                    UIState.Success(response)
+                } else {
+                    UIState.Error("Error")
+                }
+            }
+        } catch (e: Exception) {
+            return UIState.Error(e.localizedMessage ?: "Unknown error")
+        }
+        return UIState.Empty
+    }
+
     suspend fun addTurn(body: HashMap<String, Any>?): UIState<EditStoreResponse> {
         try {
             val response = apiHelper.addTurn(body)

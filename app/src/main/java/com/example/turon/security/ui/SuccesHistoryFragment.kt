@@ -2,6 +2,7 @@ package com.example.turon.security.ui
 
 import android.app.AlertDialog
 import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -168,23 +169,31 @@ class SuccesHistoryFragment : Fragment() {
 
     private fun getActiveTurn(st: Boolean) {
         progressDialog.show()
-        orderListVi.clear()
-        orderListTo.clear()
-        val addAll = ArrayList<Activetashkent>()
         lifecycleScope.launchWhenStarted {
-            addAll.clear()
-            viewModel.getActiveTurn(sharedPref.getUserId())
-            viewModel.turnActiveState.collect {
+            viewModel.getActiveTurn2(sharedPref.getUserId())
+            viewModel.turnActiveState2.collect {
                 when (it) {
                     is UIState.Success -> {
                         progressDialog.dismiss()
+                        orderListVi.clear()
+                        orderListTo.clear()
+                        if (it.data.data.loadingviloyat.isEmpty() && st) {
+                            toast("Viloyatdan navbatga olinganlar tugadi!.")
+                            SharedPref(requireContext()).setTurnNumViloyat(1)
+                        } else if (it.data.data.loadingtashkent.isEmpty()) {
+                            toast("Toshkentdan navbatga olinganlar tugadi!.")
+                            SharedPref(requireContext()).setTurnNumViloyat(1)
+                        }
                         orderListVi.addAll(it.data.data.loadingviloyat)
                         orderListTo.addAll(it.data.data.loadingtashkent)
-                        addAll.addAll(orderListTo)
-                        addAll.addAll(orderListVi)
-                        orderAdapter = TurnHistoryAdapter(addAll)
-                        binding.recyclerTurn.adapter = orderAdapter
-                        progressDialog.dismiss()
+
+                        if (st) {
+                            orderAdapter = TurnHistoryAdapter(orderListTo)
+                            binding.recyclerTurn.adapter = orderAdapter
+                        } else {
+                            orderAdapter = TurnHistoryAdapter(orderListVi)
+                            binding.recyclerTurn.adapter = orderAdapter
+                        }
                     }
                     is UIState.Error -> {
                         progressDialog.dismiss()
@@ -198,6 +207,18 @@ class SuccesHistoryFragment : Fragment() {
 
 
     private fun initAction() {
+        binding.btnShahar.setOnClickListener {
+            binding.btnShahar.setBackgroundColor(Color.parseColor("#FFCC66"))
+            binding.btnViloyat.setBackgroundColor(Color.parseColor("#E4D2B6"))
+            state = true
+            getActiveTurn(true)
+        }
+        binding.btnViloyat.setOnClickListener {
+            binding.btnShahar.setBackgroundColor(Color.parseColor("#E4D2B6"))
+            binding.btnViloyat.setBackgroundColor(Color.parseColor("#FFCC66"))
+            state = false
+            getActiveTurn(false)
+        }
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
