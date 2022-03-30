@@ -41,7 +41,7 @@ class SendOrderHistoryAdapter :
                     text3.text = d.customer.name.ifEmpty { "" }
                     text4.text = d.car_number.ifEmpty { "" }
                     text6.text = d.driver_phone.ifEmpty { "" }
-                    text5.text = d.date.ifEmpty { "" }
+                    text5.text = d.date_time.ifEmpty { "" }
                     chiqish.text = if (d.left_date != "") d.left_date
                         .substring(0, 19) else "malumot yo'q"
                     d.baskets.forEach {
