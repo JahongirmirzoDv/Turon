@@ -1,4 +1,4 @@
-package com.example.turon.data.model
+package com.example.turon.data.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

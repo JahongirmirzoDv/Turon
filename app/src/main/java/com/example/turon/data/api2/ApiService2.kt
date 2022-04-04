@@ -4,15 +4,21 @@ import com.example.turon.data.model.ChiqmdanQaytaglar
 import com.example.turon.data.model.FeedQopChiqimHistory
 import com.example.turon.data.model.QopChiqimhistory2
 import com.example.turon.data.model.ResponseData
-import com.example.turon.data.model.response.EditStoreResponse
 import com.example.turon.data.model.response.QopHistoryResponse
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService2 {
+
+//    @Headers(
+//        "Content-type:application/json",
+//        "Authorization:key=AAAAo_VpcG8:APA91bEaS70LujMQMp_ERy276XRwVxbogUN6L3_cvNclWpBaknVcZQWQ99v13T6Xtyr14BsdS0n8yrkclNnM4DHSFLxBRmarZ_OvPzqBtcNGmjXeg7XcYycXkC2xIEZ_sh1yksFc4GFJ"
+//    )
+//    @POST("fcm/send")
+//    suspend fun sendNotification(@Body sender: Sender): Responce
+
     @GET("qop_chiqim_tarixi/")
     suspend fun getQop(
         @Query("user_id") user_id: Int,
@@ -79,4 +85,9 @@ interface ApiService2 {
     suspend fun addTurn(
         @Body() body: HashMap<String, Any>?
     ): ResponseData
+
+    @POST("user-firebase-token/")
+    suspend fun sendToken(
+        @Body() body: HashMap<String, Any>?
+    ):ResponseData
 }

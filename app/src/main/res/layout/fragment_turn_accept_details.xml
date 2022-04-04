@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secondaryTableColor"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".security.ui.TurnAcceptDetailsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -31,15 +31,16 @@
                 app:layout_constraintEnd_toStartOf="@+id/menu"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/backBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/ic_back_icon"
-                android:visibility="visible"
                 android:clickable="true"
                 android:focusable="true"
+                android:src="@drawable/ic_back_icon"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -75,11 +76,11 @@
             android:text="№"
             android:textColor="@color/black"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text3"
@@ -89,12 +90,13 @@
             android:gravity="center"
             android:text="Mahsulot "
             android:textColor="@color/black"
+            android:textSize="10sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text4"
@@ -104,22 +106,24 @@
             android:gravity="center"
             android:text="Qop soni"
             android:textColor="@color/black"
+            android:textSize="10sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="45.0dip"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/text6"
             android:layout_width="0dp"
             android:layout_height="45.0dip"
-            android:layout_weight="0.17"
             android:layout_gravity="center"
+            android:layout_weight="0.17"
             android:gravity="center"
             android:text="Umumiy massa"
             android:textColor="@color/black"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
 
@@ -141,14 +145,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="80dp"
-        android:text="Navbatga olish"
-        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@color/black"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="Mashina qabuli"
         android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="15dp"
-        android:backgroundTint="@color/black"
-        android:paddingBottom="15dp"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

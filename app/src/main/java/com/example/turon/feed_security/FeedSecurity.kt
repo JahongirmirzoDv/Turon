@@ -26,6 +26,7 @@ class FeedSecurity : AppCompatActivity() {
 
         if (sharedPref.getUserType() != "Main_Feed") {
             binding.bottomNavViewFeed.menu.removeItem(R.id.commodityAcceptanceFragment2)
+            binding.bottomNavViewFeed.menu.removeItem(R.id.bagIncomeFragment)
         }
         setupViews()
     }
@@ -40,7 +41,7 @@ class FeedSecurity : AppCompatActivity() {
         if (sharedPref.getUserType() != "Main_Feed") {
             navGraph.startDestination = R.id.sendProductFragment
         } else {
-            navGraph.startDestination = R.id.commodityAccepttanceFeedSecurityFragment
+            navGraph.startDestination = R.id.turnAcceptFragment2
         }
         navController.graph = navGraph
 

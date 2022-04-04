@@ -44,36 +44,36 @@ object ApiClient {
             .build()
     }
 
-    private fun buildClient(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor()
-        val chucker= ChuckerInterceptor.Builder(App.instance).build()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val builder = OkHttpClient.Builder()
-            .callTimeout(40, TimeUnit.MINUTES)
-            .addNetworkInterceptor(Interceptor { chain ->
+        private fun buildClient(): OkHttpClient {
+            val interceptor = HttpLoggingInterceptor()
+            val chucker= ChuckerInterceptor.Builder(App.instance).build()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            val builder = OkHttpClient.Builder()
+                .callTimeout(40, TimeUnit.MINUTES)
+                .addNetworkInterceptor(Interceptor { chain ->
+                    var request = chain.request()
+                    val builder = request.newBuilder()
+                    builder.addHeader("Accept", "application/json")
+                    request = builder.build()
+                    chain.proceed(request)
+                })
+            if (BuildConfig.DEBUG) {
+                builder.addInterceptor(interceptor)
+                builder.addInterceptor(chucker)
+            }
+            return builder.build()
+        }
+
+        @JvmStatic
+        fun <T> createService(service: Class<T>?, context: Context): T {
+            val newClient = client.newBuilder().addInterceptor(Interceptor { chain ->
                 var request = chain.request()
                 val builder = request.newBuilder()
-                builder.addHeader("Accept", "application/json")
                 request = builder.build()
                 chain.proceed(request)
-            })
-        if (BuildConfig.DEBUG) {
-            builder.addInterceptor(interceptor)
-            builder.addInterceptor(chucker)
+            }).build()
+            val newRetrofit = retrofit.newBuilder().client(newClient).build()
+            return newRetrofit.create(service)
         }
-        return builder.build()
-    }
-
-    @JvmStatic
-    fun <T> createService(service: Class<T>?, context: Context): T {
-        val newClient = client.newBuilder().addInterceptor(Interceptor { chain ->
-            var request = chain.request()
-            val builder = request.newBuilder()
-            request = builder.build()
-            chain.proceed(request)
-        }).build()
-        val newRetrofit = retrofit.newBuilder().client(newClient).build()
-        return newRetrofit.create(service)
-    }
 
 }

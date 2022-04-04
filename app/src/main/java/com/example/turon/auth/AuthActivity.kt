@@ -3,6 +3,7 @@ package com.example.turon.auth
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,11 @@ import com.example.turon.MainActivity
 import com.example.turon.data.api.ApiClient
 import com.example.turon.data.api.ApiHelper
 import com.example.turon.data.api.ApiService
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.factory.AuthViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.databinding.ActivityAuthBinding
@@ -30,6 +36,16 @@ class AuthActivity : AppCompatActivity() {
     private val viewModel: AuthViewModel by viewModels {
         AuthViewModelFactory(
             ApiHelper(ApiClient.createService(ApiService::class.java, this))
+        )
+    }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    this
+                )
+            )
         )
     }
 

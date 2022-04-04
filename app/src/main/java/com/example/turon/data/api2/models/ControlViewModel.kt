@@ -115,4 +115,12 @@ class ControlViewModel(var apiHelper2: ApiHelper2) : ViewModel() {
         }
         return isTrue
     }
+
+    fun sendToken(map: HashMap<String, Any>): MutableLiveData<ResponseData> {
+        var isTrue = MutableLiveData<ResponseData>()
+        viewModelScope.launch {
+            isTrue.value = apiHelper2.sendToken(map)
+        }
+        return isTrue
+    }
 }

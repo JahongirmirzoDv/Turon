@@ -131,12 +131,13 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerOrder"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabsLayout"
-        tools:listitem="@layout/with_status" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerOrder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabsLayout"
+            tools:listitem="@layout/with_status" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.turon.R
 import com.example.turon.adapter.TurnAdapter
 import com.example.turon.auth.AuthActivity
@@ -39,7 +42,8 @@ import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
 
 
-class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
+class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener,
+    SwipeRefreshLayout.OnRefreshListener {
     private var _binding: TurnAcceptFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
@@ -67,6 +71,7 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = TurnAcceptFragmentBinding.inflate(inflater, container, false)
+        binding.swipeRefresh.setOnRefreshListener(this)
         return binding.root
     }
 
@@ -216,5 +221,12 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener {
                 }
             }
             .show()
+    }
+
+    override fun onRefresh() {
+        addProductObserves()
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.swipeRefresh.isRefreshing = false
+        }, 500)
     }
 }

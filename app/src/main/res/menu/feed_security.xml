@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/commodityAccepttanceFeedSecurityFragment"
+        android:id="@+id/turnAcceptFragment2"
         android:icon="@drawable/ic__tavarq"
-        android:title="@string/tovar_qabuli" />
+        android:title="Qorovul tovar qabuli" />
 
     <item
         android:id="@+id/sendProductFragment"

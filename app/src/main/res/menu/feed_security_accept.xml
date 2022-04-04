@@ -27,8 +27,8 @@
         android:title="Qaytgan mahsulotlar" />
 
     <item
-        android:id="@+id/security_turnAccept"
-        android:title="Qorovul tovar qabuli" />
+        android:id="@+id/commodityAcceptanceFragment2"
+        android:title="Tovar qabuli" />
 
     <item
         android:id="@+id/logout"

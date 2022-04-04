@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -21,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.turon.R
 import com.example.turon.adapter.OrderAdapter
 import com.example.turon.auth.AuthActivity
@@ -264,4 +267,6 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         super.onDestroy()
         SharedPref2.user = lastposition ?: 0
     }
+
+
 }

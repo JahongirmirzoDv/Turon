@@ -179,8 +179,8 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
                         findNavController().navigate(R.id.succesHistoryFragment)
                         true
                     }
-                    R.id.security_turnAccept -> {
-                        findNavController().navigate(R.id.turnAcceptFragment2)
+                    R.id.commodityAcceptanceFragment2 -> {
+                        findNavController().navigate(R.id.commodityAccepttanceFeedSecurityFragment)
                         true
                     }
                     R.id.logout -> {

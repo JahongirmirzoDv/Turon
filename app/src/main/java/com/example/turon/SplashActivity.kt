@@ -4,11 +4,17 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.example.turon.auth.AuthActivity
+import com.example.turon.data.api2.ApiClient2
+import com.example.turon.data.api2.ApiHelper2
+import com.example.turon.data.api2.ApiService2
+import com.example.turon.data.api2.models.ControlViewModel
+import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.databinding.ActivitySplashBinding
 import com.example.turon.feed.FeedActivity
 import com.example.turon.feed_security.FeedSecurity
@@ -25,6 +31,16 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     private var job: Job? = null
     private val sharedPref by lazy { SharedPref(applicationContext) }
+    private val model: ControlViewModel by viewModels {
+        ViewModelFactory(
+            ApiHelper2(
+                ApiClient2.createService(
+                    ApiService2::class.java,
+                    this
+                )
+            )
+        )
+    }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -65,6 +81,20 @@ class SplashActivity : AppCompatActivity() {
                         sharedPref.device_token = fm.result.toString()
                     }
                     Log.d("tokenssss", fm.result.toString())
+                }
+
+                launch {
+                    val map = HashMap<String, Any>()
+                    map["user_id"] = sharedPref.getUserId()
+                    map["token"] = sharedPref.device_token
+                    if (sharedPref.device_token.isNotEmpty()) {
+                        model.sendToken(map)
+                            .observe(this@SplashActivity) {
+                                if (it.success == true) {
+                                    Log.d("notify", "loadSplashScreen: succes")
+                                }
+                            }
+                    }
                 }
                 when (sharedPref.getUserType()) {
                     "WareHouse" -> {

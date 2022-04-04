@@ -201,6 +201,7 @@ class SendOrderFinalFragment : Fragment() {
                                     it.data.message,
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                findNavController().popBackStack()
                             }
                             is UIState.Error -> {
                                 progressDialog.dismiss()

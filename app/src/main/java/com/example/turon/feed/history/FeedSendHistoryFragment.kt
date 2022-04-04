@@ -45,7 +45,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
-
 class FeedSendHistoryFragment : Fragment() {
     private var dateStart: String = ""
     private var dateEnd: String = ""
@@ -90,7 +89,6 @@ class FeedSendHistoryFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupUI()
         initAction()
     }
@@ -160,21 +158,21 @@ class FeedSendHistoryFragment : Fragment() {
         binding.kun.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
-            var c = LocalDate.now()
+            val c = LocalDate.now()
             val minusMonths = c
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
-            var start_date = "${minusMonths.year}-$mont-$day"
+            val start_date = "${minusMonths.year}-$mont-$day"
             getAcceptHistory("", start_date, date1)
         }
         binding.hafta.setOnClickListener {
             val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val date1 = df.format(Calendar.getInstance().time)
-            var c = LocalDate.now()
+            val c = LocalDate.now()
             val minusMonths = c.minusWeeks(1)
             val mont = String.format("%02d", minusMonths.monthValue)
             val day = String.format("%02d", minusMonths.dayOfMonth)
-            var start_date = "${minusMonths.year}-$mont-$day"
+            val start_date = "${minusMonths.year}-$mont-$day"
             getAcceptHistory("", start_date, date1)
         }
     }
@@ -183,11 +181,11 @@ class FeedSendHistoryFragment : Fragment() {
     private fun searchOrderHistory() {
         val df = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         val date1 = df.format(Calendar.getInstance().time)
-        var c = LocalDate.now()
+        val c = LocalDate.now()
         val minusMonths = c.minusMonths(1)
         val mont = String.format("%02d", minusMonths.monthValue)
         val day = String.format("%02d", minusMonths.dayOfMonth)
-        var start_date = "${minusMonths.year}-$mont-$day"
+        val start_date = "${minusMonths.year}-$mont-$day"
         binding.toolbarSearch.etSearch.requestFocus()
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             val editTextFlow = binding.toolbarSearch.etSearch.textChanges()
@@ -285,7 +283,7 @@ class FeedSendHistoryFragment : Fragment() {
                 dialog.setCancelable(true)
                 dialog.setView(bind.root)
                 val builder = dialog.create()
-                var list = ArrayList<String>()
+                val list = ArrayList<String>()
                 parcel.baskets.forEach {
                     list.add(
                         "\n ${it.product.product.name} : ${

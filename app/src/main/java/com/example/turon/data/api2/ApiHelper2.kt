@@ -4,6 +4,8 @@ import com.example.turon.data.model.ChiqmdanQaytaglar
 import com.example.turon.data.model.QopChiqimhistory2
 import com.example.turon.data.model.ResponseData
 import com.example.turon.data.model.response.QopHistoryResponse
+import java.util.*
+import kotlin.collections.HashMap
 
 class ApiHelper2(var apiService2: ApiService2) {
     suspend fun getQop(user_id: Int, from_date: String, to_date: String) =
@@ -41,4 +43,6 @@ class ApiHelper2(var apiService2: ApiService2) {
         apiService2.crrete_clinet_tin(map)
 
     suspend fun addTurn(map: HashMap<String, Any>):ResponseData = apiService2.addTurn(map)
+
+    suspend fun sendToken(map: HashMap<String, Any>):ResponseData = apiService2.sendToken(map)
 }
