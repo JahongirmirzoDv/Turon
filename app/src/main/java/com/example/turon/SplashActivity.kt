@@ -83,19 +83,17 @@ class SplashActivity : AppCompatActivity() {
                     Log.d("tokenssss", fm.result.toString())
                 }
 
-                launch {
-                    val map = HashMap<String, Any>()
-                    map["user_id"] = sharedPref.getUserId()
-                    map["token"] = sharedPref.device_token
-                    if (sharedPref.device_token.isNotEmpty()) {
-                        model.sendToken(map)
-                            .observe(this@SplashActivity) {
-                                if (it.success == true) {
-                                    Log.d("notify", "loadSplashScreen: succes")
-                                }
-                            }
-                    }
-                }
+//                launch {
+//                    val map = HashMap<String, Any>()
+//                    map["user_id"] = sharedPref.getUserId()
+//                    map["token"] = sharedPref.device_token
+//                    model.sendToken(map)
+//                        .observe(this@SplashActivity) {
+//                            if (it.success == true) {
+//                                Log.d("notify", "loadSplashScreen: succes")
+//                            }
+//                        }
+//                }
                 when (sharedPref.getUserType()) {
                     "WareHouse" -> {
                         startActivity(Intent(this@SplashActivity, FeedActivity::class.java))

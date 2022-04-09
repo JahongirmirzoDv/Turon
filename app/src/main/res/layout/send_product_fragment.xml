@@ -123,6 +123,7 @@
             android:layout_width="0dp"
             android:layout_height="45.0dip"
             android:layout_weight="0.11"
+            android:visibility="gone"
             android:gravity="center"
             android:text="Status"
             android:textColor="@color/black"

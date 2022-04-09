@@ -22,7 +22,7 @@ class OrderAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == 2) {
+        if (viewType == 1) {
             return VH(
                 WithStatusBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -42,7 +42,7 @@ class OrderAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == 2) {
+        if (getItemViewType(position) == 1) {
             val fromVh = holder as VH
             fromVh.bind(list[position], onOrderClickListener, position)
         } else {
@@ -68,17 +68,17 @@ class OrderAdapter(
             onOrderClickListener: OnOrderClickListener,
             position: Int
         ) {
-                when (data.status) {
-                    "2", "3" -> {
-                        status.setBackgroundResource(R.color.yellow)
-                    }
-                    "1" -> {
-                        status.setBackgroundResource(R.color.qizil)
-                    }
-//                "5", "4" -> {
-//                    status.setBackgroundResource(R.color.qizil)
-//                }
+            when (data.status) {
+                "2" -> {
+                    status.setBackgroundResource(R.color.yellow)
                 }
+                "1" -> {
+                    status.setBackgroundResource(R.color.qizil)
+                }
+                "3" -> {
+                    status.setBackgroundResource(R.color.yashil)
+                }
+            }
 
             numeric.text = (position + 1).toString()
             client.text = data.client

@@ -11,6 +11,15 @@ class SharedPref(context: Context) {
         set(value) = mySharedPref.edit().putString("device_token", value).apply()
         get() = mySharedPref.getString("device_token", "")!!
 
+    var brutto: String
+        set(value) = mySharedPref.edit().putString("brutto", value).apply()
+        get() = mySharedPref.getString("brutto", "")!!
+
+    var tara: String
+        set(value) = mySharedPref.edit().putString("tara", value).apply()
+        get() = mySharedPref.getString("tara", "")!!
+
+
     var firebase_token: String
         set(value) = mySharedPref.edit().putString("firebase_token", value).apply()
         get() = mySharedPref.getString("firebase_token", "")!!

@@ -92,6 +92,7 @@
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_sned_product_cargo_man.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_succes_history.xml" value="0.18" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_turn_accept_details.xml" value="0.2871376811594203" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/fragment_un_receive.xml" value="0.1" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/info.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/item_bag_expense.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/item_bag_income.xml" value="0.3175213675213675" />
@@ -116,6 +117,7 @@
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/order_layout.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/qoldiq_item.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/qop_chiqim.xml" value="0.3175213675213675" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/receive_item.xml" value="0.25" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/search_suggation.xml" value="0.3175213675213675" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/send_product_fragment.xml" value="0.2" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/layout/spinner_item.xml" value="0.3175213675213675" />
@@ -142,6 +144,7 @@
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_return_pro.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_returned.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/option_menu_turn.xml" value="0.3175213675213675" />
+        <entry key="..\:/Users/jahon/Ishchi stol/Turon/app/src/main/res/menu/receive_menu.xml" value="0.1841880341880342" />
         <entry key="..\:/turon android/Turon/Turon/app/src/main/res/drawable/ic_turon1.xml" value="0.19322916666666667" />
         <entry key="..\:/turon android/Turon/Turon/app/src/main/res/drawable/ic_turon3.xml" value="0.19322916666666667" />
         <entry key="..\:/turon android/Turon/Turon/app/src/main/res/drawable/spinner_enable_bg.xml" value="0.19322916666666667" />

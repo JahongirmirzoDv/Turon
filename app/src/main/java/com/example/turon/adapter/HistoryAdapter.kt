@@ -1,5 +1,6 @@
 package com.example.turon.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -46,12 +47,14 @@ class HistoryAdapter(
         private var numericTxt = binding.numericTxt
         private var date = binding.textView32
 
+        @SuppressLint("SetTextI18n")
         fun bind(
             onProductAcceptListener: OnHistoryListener,
             context: Context,
             productAcceptData: ProductAcceptData,
             position: Int
         ) {
+//            productAcceptData.isEdited = false
             if (productAcceptData.isEdited) editIcon.visibility = View.VISIBLE
             else editIcon.visibility = View.GONE
 

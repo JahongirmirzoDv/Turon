@@ -28,6 +28,7 @@ import com.example.turon.utils.SharedPref
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding

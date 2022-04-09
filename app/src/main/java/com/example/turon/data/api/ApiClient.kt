@@ -49,7 +49,8 @@ object ApiClient {
             val chucker= ChuckerInterceptor.Builder(App.instance).build()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val builder = OkHttpClient.Builder()
-                .callTimeout(40, TimeUnit.MINUTES)
+                .callTimeout(40, TimeUnit.SECONDS)
+                .readTimeout(40, TimeUnit.SECONDS)
                 .addNetworkInterceptor(Interceptor { chain ->
                     var request = chain.request()
                     val builder = request.newBuilder()

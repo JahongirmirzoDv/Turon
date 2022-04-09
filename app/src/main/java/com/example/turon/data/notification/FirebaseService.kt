@@ -26,7 +26,6 @@ private const val CHANNEL_NAME = "channelName"
 class FirebaseService : FirebaseMessagingService() {
     private lateinit var pref: SharedPref
 
-
     override fun onNewToken(newToken: String) {
         super.onNewToken(newToken)
         pref = SharedPref(App.instance)
@@ -42,7 +41,7 @@ class FirebaseService : FirebaseMessagingService() {
         type = message.data["type"].toString()
         body = message.data["body"].toString()
         title = message.data["title"].toString()
-        pref.deviceDate=title
+        pref.deviceDate = title
 
         Log.e("AAA", "data is: $message")
         val intent = Intent(this, SplashActivity::class.java)
@@ -90,4 +89,3 @@ class FirebaseService : FirebaseMessagingService() {
         manager.createNotificationChannel(channel)
     }
 }
-

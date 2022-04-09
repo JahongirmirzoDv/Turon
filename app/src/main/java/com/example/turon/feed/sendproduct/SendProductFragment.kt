@@ -48,6 +48,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
     private lateinit var orderAdapter: OrderAdapter
     lateinit var layoutManager: LinearLayoutManager
     var lastposition: Int? = null
+    var a = false
     private lateinit var orderList: ArrayList<OrderData>
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val sharedPref by lazy { SharedPref(requireContext()) }
@@ -75,8 +76,9 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         orderList = ArrayList()
         setupUI()
         //this is adapter ui type change
-        if (sharedPref.getUserType() != "Main_Feed") {
-            binding.status.visibility = View.GONE
+        if (sharedPref.getUserType() == "Main_Feed" || sharedPref.getUserType() == "FeedSecurity") {
+            binding.status.visibility = View.VISIBLE
+            a = true
         }
 
     }
@@ -178,9 +180,8 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                             this@SendProductFragment
                         )
                         //this is adapter ui type change
-                        if (sharedPref.getUserType() != "Main_Feed") {
-                            orderAdapter.setT(true)
-                        }
+                        orderAdapter.setT(a)
+
                         binding.recyclerOrder.layoutManager = layoutManager
                         val user = SharedPref2.user
                         binding.recyclerOrder.scrollToPosition(user!!)
