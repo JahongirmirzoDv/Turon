@@ -54,8 +54,8 @@ class BagExpenseFragment : Fragment() {
     private var bagCount: String = ""
     private val sharedPref by lazy { SharedPref(requireContext()) }
     private var comment: String = ""
-    private var dateStart: String = ""
     private var providerId: Int? = null
+    private var dateStart: String = ""
     private var dateEnd: String = ""
     var cal: Calendar = Calendar.getInstance()
     private lateinit var dateSetListenerFrom: DatePickerDialog.OnDateSetListener

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +26,7 @@ import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.data.model.factory.TurnAcceptViewModelFactory
 import com.example.turon.data.model.repository.state.UIState
 import com.example.turon.data.model.response.Activetashkent
+import com.example.turon.data.model.response.OrderData
 import com.example.turon.databinding.FragmentActiveLoadingBinding
 import com.example.turon.databinding.ItemTurnDialog2Binding
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
@@ -64,7 +67,7 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentActiveLoadingBinding.inflate(inflater, container, false)
         return binding.root
@@ -107,6 +110,42 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        binding.searchView.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int,
+            ) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var queryList: ArrayList<Activetashkent> = ArrayList()
+                if (s == "") {
+                    orderAdapter = ActivTurnAdapter(
+                        activeListTo, this@ActiveLoadingFragment)
+                    binding.recyclerTurn.adapter = orderAdapter
+                } else {
+                    queryList = ArrayList()
+                    for (model in activeListTo) {
+                        if (model.mijoz.lowercase()
+                                .contains(s.toString().lowercase())
+                        ) {
+                            queryList.add(model)
+                        }
+                    }
+                    orderAdapter = ActivTurnAdapter(
+                        queryList, this@ActiveLoadingFragment)
+                    binding.recyclerTurn.adapter = orderAdapter
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
     }
 
     private fun getHistory() {
@@ -122,7 +161,7 @@ class ActiveLoadingFragment : Fragment(), ActivTurnAdapter.OnHistoryClickListene
                         orderAdapter = ActivTurnAdapter(activeListTo, this@ActiveLoadingFragment)
                         binding.recyclerTurn.adapter = orderAdapter
                     }
-                    is UIState.Error -> { }
+                    is UIState.Error -> {}
                     else -> Unit
                 }
             }

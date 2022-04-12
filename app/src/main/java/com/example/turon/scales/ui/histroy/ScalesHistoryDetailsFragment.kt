@@ -74,7 +74,7 @@ class ScalesHistoryDetailsFragment : Fragment(), OnEditListenerT {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentScalesHistoryDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -110,10 +110,8 @@ class ScalesHistoryDetailsFragment : Fragment(), OnEditListenerT {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
                     }
                     is UIState.Loading, UIState.Empty -> Unit
-
                 }
             }
-
         }
     }
 

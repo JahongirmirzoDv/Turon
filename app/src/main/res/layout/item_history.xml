@@ -58,8 +58,8 @@
                 android:layout_margin="15dp"
                 android:text="Kilent nomi"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -74,14 +74,12 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="20dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                app:layout_constraintHorizontal_bias="0.93"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
                 app:srcCompat="@drawable/ic__edit_pen" />
         </androidx.constraintlayout.widget.ConstraintLayout>

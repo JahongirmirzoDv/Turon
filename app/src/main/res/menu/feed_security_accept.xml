@@ -12,9 +12,9 @@
     <!--        android:id="@+id/onlyTurns"-->
     <!--        android:title="Navbat kutayotganlar" />-->
 
-    <item
-        android:id="@+id/succesHistory"
-        android:title="Muvaffaqiyatli buyurtmalar" />
+<!--    <item-->
+<!--        android:id="@+id/succesHistory"-->
+<!--        android:title="Muvaffaqiyatli buyurtmalar" />-->
     <item
         android:id="@+id/inTurns"
         android:title="Ichkaridagilar" />

@@ -107,10 +107,10 @@ class ReturnedSecurityFragment : Fragment(), ReturnedSecurityAdapter.OnReturnBas
                         findNavController().navigate(R.id.returnedSecurityFragment)
                         true
                     }
-                    R.id.succesHistory -> {
-                        findNavController().navigate(R.id.succesHistoryFragment)
-                        true
-                    }
+//                    R.id.succesHistory -> {
+//                        findNavController().navigate(R.id.succesHistoryFragment)
+//                        true
+//                    }
                     R.id.logout -> {
                         sharedPref.setFirstEnter(true)
                         startActivity(Intent(requireContext(), AuthActivity::class.java))

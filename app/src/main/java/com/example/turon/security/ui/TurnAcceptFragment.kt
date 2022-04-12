@@ -144,10 +144,10 @@ class TurnAcceptFragment : Fragment(), TurnAdapter.OnOrderClickListener,
                         findNavController().navigate(R.id.returnedSecurityFragment)
                         true
                     }
-                    R.id.succesHistory -> {
-                        findNavController().navigate(R.id.succesHistoryFragment)
-                        true
-                    }
+//                    R.id.succesHistory -> {
+//                        findNavController().navigate(R.id.succesHistoryFragment)
+//                        true
+//                    }
                     else -> false
                 }
             }

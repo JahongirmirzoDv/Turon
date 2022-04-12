@@ -61,7 +61,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = SendProductFragmentBinding.inflate(inflater, container, false)
         layoutManager = LinearLayoutManager(requireContext())
@@ -80,7 +80,6 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
             binding.status.visibility = View.VISIBLE
             a = true
         }
-
     }
 
     private fun setupUI() {
@@ -121,7 +120,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                     s: CharSequence?,
                     start: Int,
                     count: Int,
-                    after: Int
+                    after: Int,
                 ) {
 
                 }
@@ -135,6 +134,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                             sharedPref.getUserType(),
                             this@SendProductFragment
                         )
+                        orderAdapter.setT(a)
                         binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     } else {
@@ -151,6 +151,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                             sharedPref.getUserType(),
                             this@SendProductFragment
                         )
+                        orderAdapter.setT(a)
                         binding.recyclerOrder.layoutManager = layoutManager
                         binding.recyclerOrder.adapter = orderAdapter
                     }
@@ -189,7 +190,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                             RecyclerView.OnScrollListener() {
                             override fun onScrollStateChanged(
                                 recyclerView: RecyclerView,
-                                newState: Int
+                                newState: Int,
                             ) {
                                 super.onScrollStateChanged(recyclerView, newState)
                                 lastposition = layoutManager.findFirstVisibleItemPosition()
@@ -261,13 +262,19 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     override fun onPause() {
         super.onPause()
-        SharedPref2.user = lastposition ?: 0
+        try {
+            SharedPref2.user = lastposition ?: 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        SharedPref2.user = lastposition ?: 0
+        try {
+            SharedPref2.user = lastposition ?: 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
-
-
 }
