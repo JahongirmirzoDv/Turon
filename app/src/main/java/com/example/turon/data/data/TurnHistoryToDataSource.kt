@@ -8,7 +8,7 @@ import com.example.turon.data.model.TurnHistory
 import com.example.turon.utils.SharedPref
 import retrofit2.HttpException
 
-class TurnHistoryToDataSource(private var apiService: ApiService, private var text:String) : PagingSource<Int, TurnHistory>() {
+class TurnHistoryToDataSource(private var apiService: ApiService, private var text:String,val from_date:String,val to_date:String) : PagingSource<Int, TurnHistory>() {
 
 
     override fun getRefreshKey(state: PagingState<Int, TurnHistory>): Int? {
@@ -19,7 +19,7 @@ class TurnHistoryToDataSource(private var apiService: ApiService, private var te
         val page = params.key ?: START_PAGE_INDEX
         try {
             val userId=SharedPref(App.instance).getUserId()
-            val response = apiService.getTurnHistoryTo(page,userId,text)
+            val response = apiService.getTurnHistoryTo(page,userId,text,from_date,to_date)
             val nextKey=if(response.next.isNullOrEmpty()){
                 null
             }else{

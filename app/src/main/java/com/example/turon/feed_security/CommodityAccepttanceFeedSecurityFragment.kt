@@ -175,10 +175,10 @@ class CommodityAccepttanceFeedSecurityFragment : Fragment(),
                         findNavController().navigate(R.id.returnedSecurityFragment)
                         true
                     }
-                    R.id.succesHistory -> {
-                        findNavController().navigate(R.id.succesHistoryFragment)
-                        true
-                    }
+//                    R.id.succesHistory -> {
+//                        findNavController().navigate(R.id.succesHistoryFragment)
+//                        true
+//                    }
                     R.id.commodityAcceptanceFragment2 -> {
                         findNavController().navigate(R.id.commodityAccepttanceFeedSecurityFragment)
                         true

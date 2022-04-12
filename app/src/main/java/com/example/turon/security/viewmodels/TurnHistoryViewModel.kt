@@ -29,13 +29,13 @@ class TurnHistoryViewModel (private val apiService: ApiService) : ViewModel() {
         ).flow
     }
 
-    fun getTurnPaginationTo(text:String): Flow<PagingData<TurnHistory>> {
+    fun getTurnPaginationTo(text:String,from_date:String,to_date:String): Flow<PagingData<TurnHistory>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 15,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { TurnHistoryToDataSource(apiService,text) }
+            pagingSourceFactory = { TurnHistoryToDataSource(apiService,text,from_date,to_date) }
         ).flow
     }
 }
