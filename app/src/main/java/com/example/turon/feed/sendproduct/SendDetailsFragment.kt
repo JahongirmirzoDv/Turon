@@ -43,6 +43,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
     private lateinit var adapter: OrderBaskedAdapter
     private var orderId: Int? = null
     private var clientNames: String? = null
+    private var status: String? = null
     private var userId: Int? = null
     private val cargoList by lazy { ArrayList<TegirmonData>() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -62,6 +63,7 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
         super.onCreate(savedInstanceState)
         orderId = requireArguments().getInt("orderId")
         clientNames = requireArguments().getString("clientName")
+        status = requireArguments().getString("status")
         userId = SharedPref(requireContext()).getUserId()
     }
 
@@ -221,6 +223,8 @@ class SendDetailsFragment : Fragment(), OrderBaskedAdapter.OnOrderBaskedClickLis
     }
 
     override fun onItemClickOrderBasked(data: OrderBasked, isLast: Boolean) {
-        showDialogAccept(data.product, data.bagsCount.toString(), data.id, orderId!!, isLast)
+        if (status != "1"){
+            showDialogAccept(data.product, data.bagsCount.toString(), data.id, orderId!!, isLast)
+        }
     }
 }

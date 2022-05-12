@@ -66,7 +66,7 @@ class FeedSecurity : AppCompatActivity() {
         val navGraph = navController.graph
 
         if (sharedPref.getUserType() != "Main_Feed") {
-            navGraph.startDestination = R.id.sendProductFragment
+            navGraph.startDestination = R.id.turnAcceptFragment2
         } else {
             navGraph.startDestination = R.id.turnAcceptFragment2
         }

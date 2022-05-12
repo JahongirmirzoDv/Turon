@@ -41,7 +41,7 @@ import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.flow.collect
 
 
-class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
+class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener{
     private var _binding: SendProductFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var progressDialog: AlertDialog
@@ -95,9 +95,9 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     private fun hideShowSearch() {
         with(binding) {
-            toolbarDefault.appBarTitle.text = "Buyurtmalar"
-            toolbarDefault.search.setOnClickListener {
-                val toolbarD: View = toolbarDefault.root
+            appBarTitle.text = "Buyurtmalar"
+            search.setOnClickListener {
+                val toolbarD: View = root
                 val toolbarS: View = toolbarSearch.root
 
                 toolbarD.isVisible = false
@@ -105,7 +105,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                 binding.toolbarSearch.etSearch.requestFocus()
             }
             toolbarSearch.ivBack.setOnClickListener {
-                val toolbarD: View = toolbarDefault.root
+                val toolbarD: View = root
                 val toolbarS: View = toolbarSearch.root
 
                 toolbarD.isVisible = true
@@ -210,7 +210,7 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     @SuppressLint("DiscouragedPrivateApi")
     private fun initAction() {
-        binding.toolbarDefault.menu.setOnClickListener {
+        binding.menu.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -248,13 +248,17 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
                 popupMenu.show()
             }
         }
+        binding.refresh.setOnClickListener {
+            addProductObserves()
+        }
     }
 
     override fun onItemClickOrder(position: OrderData) {
         sharedPref.setClientData(position)
         val bundle = bundleOf(
             "orderId" to position.id,
-            "clientName" to position.client
+            "clientName" to position.client,
+            "status" to position.status
         )
         //Toast.makeText(requireContext(), sharedPref.getClientData().carNum, Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_sendProductFragment_to_sendDetailsFragment, bundle)
@@ -277,4 +281,6 @@ class SendProductFragment : Fragment(), OrderAdapter.OnOrderClickListener {
             e.printStackTrace()
         }
     }
+
+
 }
