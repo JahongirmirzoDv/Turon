@@ -3,25 +3,15 @@ package com.example.turon
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.example.turon.data.api2.ApiClient2
-import com.example.turon.data.api2.ApiHelper2
-import com.example.turon.data.api2.ApiService2
-import com.example.turon.data.api2.models.ControlViewModel
-import com.example.turon.data.api2.models.ViewModelFactory
 import com.example.turon.databinding.ActivityMainBinding
 import com.example.turon.utils.SharedPref
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
@@ -53,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private var backPressedOnce = false
     override fun onBackPressed() {
-        if (navController.graph.startDestination == navController.currentDestination?.id) {
+        if (navController.graph.startDestinationId == navController.currentDestination?.id) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return

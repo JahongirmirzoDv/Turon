@@ -9,7 +9,7 @@ import com.example.turon.feed.commodityacceptance.AcceptanceViewModel
 import com.example.turon.scales.ui.product_acceptance.ProductAcceptViewModel
 
 class FeedAcceptanceViewModelFactory (private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AcceptanceViewModel::class.java)) {
             return AcceptanceViewModel(FeedAcceptanceRepository(apiHelper)) as T
         }

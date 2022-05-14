@@ -66,9 +66,9 @@ class FeedActivity : AppCompatActivity() {
         val navGraph = navController.graph
 
         if (sharedPref.getUserType() != "Main_Feed") {
-            navGraph.startDestination = R.id.sendProductFragment
+            navGraph.setStartDestination(R.id.sendProductFragment)
         } else {
-            navGraph.startDestination = R.id.commodityAcceptanceFragment2
+            navGraph.setStartDestination(R.id.commodityAcceptanceFragment2)
         }
         navController.graph = navGraph
 
@@ -81,7 +81,7 @@ class FeedActivity : AppCompatActivity() {
 
     private var backPressedOnce = false
     override fun onBackPressed() {
-        if (navController.graph.startDestination == navController.currentDestination?.id) {
+        if (navController.graph.startDestinationId == navController.currentDestination?.id) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return

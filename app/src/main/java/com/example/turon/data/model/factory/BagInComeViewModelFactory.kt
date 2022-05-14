@@ -9,7 +9,7 @@ import com.example.turon.security.viewmodels.BagExpenseViewModel
 import com.example.turon.security.viewmodels.BagInComeViewModel
 
 class BagInComeViewModelFactory (private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BagInComeViewModel::class.java)) {
             return BagInComeViewModel(BagInComeRepository(apiHelper)) as T
         }

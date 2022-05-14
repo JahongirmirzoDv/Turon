@@ -66,9 +66,9 @@ class FeedSecurity : AppCompatActivity() {
         val navGraph = navController.graph
 
         if (sharedPref.getUserType() != "Main_Feed") {
-            navGraph.startDestination = R.id.turnAcceptFragment2
+            navGraph.setStartDestination(R.id.turnAcceptFragment2)
         } else {
-            navGraph.startDestination = R.id.turnAcceptFragment2
+            navGraph.setStartDestination(R.id.turnAcceptFragment2)
         }
         navController.graph = navGraph
 
@@ -80,7 +80,7 @@ class FeedSecurity : AppCompatActivity() {
 
     private var backPressedOnce = false
     override fun onBackPressed() {
-        if (navController.graph.startDestination == navController.currentDestination?.id) {
+        if (navController.graph.startDestinationId == navController.currentDestination?.id) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return

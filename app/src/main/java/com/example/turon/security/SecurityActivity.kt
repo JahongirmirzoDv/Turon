@@ -82,7 +82,7 @@ class SecurityActivity : AppCompatActivity() {
 
     private var backPressedOnce = false
     override fun onBackPressed() {
-        if (navController.graph.startDestination == navController.currentDestination?.id) {
+        if (navController.graph.startDestinationId == navController.currentDestination?.id) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return

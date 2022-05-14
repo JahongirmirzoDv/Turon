@@ -9,11 +9,12 @@ import com.example.turon.feed.commodityacceptance.AcceptanceViewModel
 import com.example.turon.feed.sendproduct.SendProductViewModel
 
 class FeedSendViewModelFactory (private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SendProductViewModel::class.java)) {
             return SendProductViewModel(FeedSendProductRepository(apiHelper)) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }
+
 
 }

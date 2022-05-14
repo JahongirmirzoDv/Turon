@@ -36,7 +36,7 @@ fun EditText.textChanges(): Flow<CharSequence?> {
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
 //                trySend(s)
-                offer(text)
+                trySend(text).isSuccess
             }
         }
         addTextChangedListener(listener)

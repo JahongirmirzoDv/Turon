@@ -9,11 +9,12 @@ import com.example.turon.feed.sendproduct.SendProductViewModel
 import com.example.turon.security.viewmodels.TurnAcceptViewModel
 
 class TurnAcceptViewModelFactory (private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TurnAcceptViewModel::class.java)) {
             return TurnAcceptViewModel(TurnAcceptRepository(apiHelper)) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }
+
 
 }
