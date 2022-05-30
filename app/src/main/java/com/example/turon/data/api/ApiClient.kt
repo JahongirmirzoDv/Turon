@@ -18,41 +18,42 @@ import kotlin.jvm.Throws
 
 object ApiClient {
 
-    private const val BASE_URL = "https://turon.backoffice.uz/api/"
+        private const val BASE_URL = "https://turon.backoffice.uz/api/"
+//    private const val BASE_URL = "http://192.168.1.88:8000/"
 
-    private val client = buildClient()
+        private val client = buildClient()
 
-    val apiService: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
-    }
+        val apiService: ApiService by lazy {
+            Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiService::class.java)
+        }
 
-    private val retrofit = buildRetrofit(OkHttpClient())
-    private fun buildRetrofit(client: OkHttpClient): Retrofit {
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
+        private val retrofit = buildRetrofit(OkHttpClient())
+        private fun buildRetrofit(client: OkHttpClient): Retrofit {
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
 
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .client(client)
-            .build()
-    }
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .client(client)
+                .build()
+        }
 
-        private fun buildClient(): OkHttpClient {
-            val interceptor = HttpLoggingInterceptor()
-            val chucker= ChuckerInterceptor.Builder(App.instance).build()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val builder = OkHttpClient.Builder()
-                .callTimeout(40, TimeUnit.SECONDS)
-                .readTimeout(40, TimeUnit.SECONDS)
-                .addNetworkInterceptor(Interceptor { chain ->
-                    var request = chain.request()
+            private fun buildClient(): OkHttpClient {
+                val interceptor = HttpLoggingInterceptor()
+                val chucker= ChuckerInterceptor.Builder(App.instance).build()
+                interceptor.level = HttpLoggingInterceptor.Level.BODY
+                val builder = OkHttpClient.Builder()
+                    .callTimeout(40, TimeUnit.SECONDS)
+                    .readTimeout(40, TimeUnit.SECONDS)
+                    .addNetworkInterceptor(Interceptor { chain ->
+                        var request = chain.request()
                     val builder = request.newBuilder()
                     builder.addHeader("Accept", "application/json")
                     request = builder.build()

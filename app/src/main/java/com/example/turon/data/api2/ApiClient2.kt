@@ -19,7 +19,8 @@ import kotlin.jvm.Throws
 
 object ApiClient2 {
 
-    private const val BASE_URL = "https://turon.backoffice.uz/api/"
+    //    private const val BASE_URL = "https://turon.backoffice.uz/api/"
+    private const val BASE_URL = "http://192.168.1.88:8000/"
 
     private val client = buildClient()
 
@@ -47,7 +48,7 @@ object ApiClient2 {
 
     private fun buildClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
-        val chucker= ChuckerInterceptor.Builder(App.instance).build()
+        val chucker = ChuckerInterceptor.Builder(App.instance).build()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val builder = OkHttpClient.Builder()
             .callTimeout(40, TimeUnit.MINUTES)

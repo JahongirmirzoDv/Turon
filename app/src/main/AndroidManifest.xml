@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -24,6 +24,7 @@
         android:roundIcon="@drawable/ic_turon_new_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Turon"
+        android:usesCleartextTraffic="true"
         tools:targetApi="n">
         <activity android:name=".MainActivity" />
         <activity android:name=".auth.AuthActivity" />
@@ -63,16 +64,16 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-<!--        <service-->
-<!--            android:name=".data.notification.FirebaseService"-->
-<!--            android:exported="true"-->
-<!--            android:permission="com.google.android.c2dm.permission.SEND"-->
-<!--            tools:ignore="WrongManifestParent">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-<!--                <action android:name="com.google.android.c2dm.permission.RECEIVE" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
+        <!--        <service-->
+        <!--            android:name=".data.notification.FirebaseService"-->
+        <!--            android:exported="true"-->
+        <!--            android:permission="com.google.android.c2dm.permission.SEND"-->
+        <!--            tools:ignore="WrongManifestParent">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+        <!--                <action android:name="com.google.android.c2dm.permission.RECEIVE" />-->
+        <!--            </intent-filter>-->
+        <!--        </service>-->
         <service
             android:name=".data.notification.MessagingService"
             android:exported="true">
